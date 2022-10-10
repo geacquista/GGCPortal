@@ -19,10 +19,12 @@ const UserStatus = {
 	GGC: 1,
 	FARM: 2,
 	LOGGED_OUT: 3,
+	ADMIN: 4,
 }
 
 const App = ({}) => {
 	//For local demo
+	// this is where SQL comes in
 	const [orders, setOrders] = useState([
 		{
 			id: '1234',
