@@ -1,15 +1,15 @@
 @font-face {
     font-family: Roboto;
-    src: url('../../src/shared/fonts/Roboto-Regular.ttf');
+    src: url('../fonts/Roboto-Regular.ttf');
 }
 
 .NavBarButton {
 	height: 58px;
 	width: 100%;
 	padding: 25px;
-    margin-top: 4px;
     font-family: Roboto;
 	display: flex;
+	size: 24px;
 	flex-direction: row;
 	justify-content: flex-start;
 	align-items: center;
@@ -22,7 +22,6 @@
 	background-color: #D5D5D5;
     font-size: large;
     cursor: pointer;
-    box-shadow: 0 2px 4px darkslategray;
 }
 
 .NavBarButtonActive {
@@ -32,7 +31,6 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;
-    box-shadow: 0 2px 4px darkslategray;
 	align-items: center;
 	border: none;
 	color: White;
@@ -47,7 +45,6 @@
 #NavBar {
 	height: 100vh;
 	width: 275px;
-    padding: 8px;
 	display: flex;
 	flex-direction: column;
 	align-content: flex-start;

@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
-import { Counter } from './extra/counter/Counter';
-import NavBar from './shared/Navbar';
+import React, { useState, useContext } from 'react';
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
+
+import NavBar from './shared/nav/Navbar';
 import Dashboard from './views/dashboard/Dashboard';
-import Orders from './views/orders/Orders';
-import orderSlice from './store/orderSlice';
+import Orders from './views/orders/OrdersList';
+import Search from './views/search/Search'
+import orderSlice from './store/order_slice';
 import Invoices from './views/invoices/Invoices';
 import './App.css';
+import LoginPage from './views/aa_login/LoginPage';
+import NavRouter from './shared/nav/NavRouter'
+// import { Counter } from './extra/counter/Counter';
 
+
+// For Navigation
 export const ViewIndex = {
 	DASHBOARD: 1,
 	ORDERS: 2,
@@ -17,6 +24,7 @@ export const ViewIndex = {
   TEST: 7
 }
 
+// Will this be controlled by the state?
 const UserStatus = {
 	GGC: 1,
 	FARM: 2,
@@ -27,49 +35,50 @@ const UserStatus = {
 
 function App() {
 
-  // const this is where we get the state of the orders
+	/*
+	function App
+	// get quick stats data
+	*/
+
   // get the initial state of the orders 
 
-  // const [orders, setOrders] = orderSlice
-
+  // const [orders, setOrders] = orderSlice.orders
 
 	const [displayContent, setDisplayContent] = useState(ViewIndex.DASHBOARD)
 	
   // get status of user
-  const [userStatus, setUserStatus] = useState(ViewIndex.GGC)
-
-
-  //THIS IS WHERE YOU CALL ORDER ACTIONS 
+	const [userStatus, setUserStatus] = useState(UserStatus.GGC)
 
   // depending on user status, will depend which class to run (App will be login?)
 
-  // make it so you dont have to send setDisplayContent getQuickStatsData etc. (get it from the state)
+  //	{/* if userStatus is ggc show this */}
+
+  // keep viewIndex so NavBar is set with a flag that specifies the specific views allowed to be show
   return (
       <div className="App">
           <header className='App-header'>
             <NavBar activeButton={displayContent} buttonOnClick={setDisplayContent}/>
-            {displayContent == ViewIndex.DASHBOARD && <Dashboard 
-            // setDisplayContent={setDisplayContent} getQuickStatsData={getQuickStatsData}
-            />}
-
-            {displayContent == ViewIndex.ORDERS && <Orders />}
-            {displayContent == ViewIndex.INVOICES && <Orders 
-            // updateOrder={updateOrder} deleteOrder={deleteOrder} getOrders={getOrders}
-            />}
-            {/* {displayContent == ViewIndex.INVOICES && <Invoices 
-            // updateOrder={updateOrder} deleteOrder={deleteOrder} getOrders={getOrders}
-            />} */}
-            {displayContent == ViewIndex.SEARCH && <Orders/>}
-            {displayContent == ViewIndex.TEST}
-            {displayContent == ViewIndex.HELP && <Dashboard setDisplayContent={setDisplayContent} 
-            // getQuickStatsData={getQuickStatsData}
-            />}
-            {displayContent == ViewIndex.LOGOUT && <Dashboard setDisplayContent={setDisplayContent} 
-            // getQuickStatsData={getQuickStatsData}
-            />}
+            <NavRouter/>
+            {displayContent === ViewIndex.DASHBOARD }
+            {displayContent === ViewIndex.ORDERS }
+            {displayContent === ViewIndex.INVOICES }
+            {displayContent === ViewIndex.SEARCH }
+            {displayContent === ViewIndex.TEST}
+            {displayContent === ViewIndex.HELP }
+            {displayContent === ViewIndex.LOGOUT }
+            
+            {/* {displayContent === ViewIndex.DASHBOARD && <Dashboard/>}
+            {displayContent === ViewIndex.ORDERS && <Orders/>}
+            {displayContent === ViewIndex.INVOICES && <Invoices/>}
+            {displayContent === ViewIndex.SEARCH && <Search/>}
+            {displayContent === ViewIndex.TEST}
+            {displayContent === ViewIndex.HELP && <Dashboard/>}
+            {displayContent === ViewIndex.LOGOUT && <LoginPage/>} */}
           </header>
         </div>    
   );
+
+
 }
 
 export default App;

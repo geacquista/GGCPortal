@@ -1,11 +1,6 @@
-import cross_red from '../../shared/img/close_red.svg'
-import cross_white from '../../shared/img/close_white.svg'
-import React, { useState } from 'react'
-import orderSlice, {
-	addOrder, deleteOrder, getOrders
-} from '../../store/orderSlice'
-import ReactDOM from 'react-dom'
-
+import cross_red from './img/close_red.svg'
+import cross_white from './img/close_white.svg'
+import { useState } from 'react'
 
 export const TabType = {
 	ACTIVE: 1,
@@ -99,8 +94,7 @@ const useOrderForm = (order, orderFunction) => {
 	};
 }
 
-const OrderViewEdit = ({order}) => {
-	const orderFunction = () => {}
+const OrderViewEdit = ({order, orderFunction}) => {
 	const {inputs, handleInputChange, handleSubmit} = useOrderForm(order, orderFunction)
 	let recipient
 	if(order.isGift){
@@ -356,69 +350,7 @@ const ViewType = {
 	ORDER_VIEW: 3,
 }
 
-const Orders = () => {
-
-	// const updateOrder = (order) => {
-	// 	//where API code could go
-	// 	var newList = orders.filter(o => o.id !== order.id) 
-	// 	setOrders([...newList, order])
-	// }
-
-	// const deleteOrder = (order) => {
-	// 	//where API code could go
-	// 	setOrders(orders.filter(o => o.id !== order.id))
-	// }
-
-	// const addOrder = (order) => {
-	// 	//where API code could go
-	// 	setOrders([...orders, order])
-	// }
-
-	const getQuickStatsData = () => {
-		//where API code could go
-		var data = {
-			activeOrders: 0,
-			activeInvoices: 0,
-			ordersPlaced: 0,
-			ordersProcessed: 0,
-			ordersShipped: 0,
-			missingInvoices: 0,
-			unpaidInvoices: 0,
-		}
-
-		for(var i = 0; i < orders.length; i++){
-			var currentOrder = orders[i];
-			if(currentOrder.status === 'PLACED'){
-				data.ordersPlaced++
-				data.activeOrders++
-
-			} else if(currentOrder.status === 'PROCESSED'){
-				data.ordersProcessed++
-				data.activeOrders++
-
-			} else if(currentOrder.status === 'SHIPPED'){
-				data.ordersShipped++
-				data.activeOrders++
-			} 
-
-			if(currentOrder.invoice === null){
-				data.missingInvoices++
-
-			} else if(!currentOrder.invoice.isPaid){
-				data.unpaidInvoices++
-					
-			}
-		}
-
-		return data
-	}
-
-	const getOrders = () => {
-		//where API code could go
-    	// call the orders.js
-		return orderSlice.initialState;
-	}
-
+const Orders = ({updateOrder, deleteOrder, addOrder, getOrders}) => {
 	var orders = getOrders()
 	const [displayText, setDisplayText] = useState("Orders")
 	const [nextId, setNextId] = useState(3)
@@ -492,22 +424,17 @@ const Orders = () => {
 	let displayContent
 	const activeContent = tabs.find(tab => tab.id === activeTabId)
 
-	// switch(activeContent.viewType){
-	// 	case ViewType.ACTIVE_ORDERS:
-	// 		displayContent = <ActiveOrders orders={orders.filter(order => (order.status === 'PLACED' || order.status === 'PROCESSED' || order.status === 'SHIPPED'))} orderCardOnClick={addAndOpenOrderView} />
-	// 		break
-	// 	case ViewType.COMPLETED_ORDERS:
-	// 		displayContent = <CompletedOrders orders={orders.filter(order => order.status === 'COMPLETED')} orderCardOnClick={addAndOpenOrderView} />
-	// 		break
-	// 	case ViewType.ORDER_VIEW:
-	// 		displayContent = <OrderViewEdit order={activeContent.order} 
-	// 		// orderFunction={updateOrder} 
-	// 		/>
-	// 		break
-	// }
-
-	// const count = useSelector(selectCount);
-  	// const dispatch = useDispatch();
+	switch(activeContent.viewType){
+		case ViewType.ACTIVE_ORDERS:
+			displayContent = <ActiveOrders orders={orders.filter(order => (order.status === 'PLACED' || order.status === 'PROCESSED' || order.status === 'SHIPPED'))} orderCardOnClick={addAndOpenOrderView} />
+			break
+		case ViewType.COMPLETED_ORDERS:
+			displayContent = <CompletedOrders orders={orders.filter(order => order.status === 'COMPLETED')} orderCardOnClick={addAndOpenOrderView} />
+			break
+		case ViewType.ORDER_VIEW:
+			displayContent = <OrderViewEdit order={activeContent.order} orderFunction={updateOrder} />
+			break
+	}
 
 
 	return(

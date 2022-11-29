@@ -2,11 +2,11 @@ import AllQuickStats from './QuickStats'
 import React from 'react';
 
 
-const Dashboard = ({setDisplayContent}) => {
+const Dashboard = () => {
 	return (
 		<div id='Dashboard'>
 			<h1>Dashboard</h1>
-			{/* <AllQuickStats getQuickStatsData={getQuickStatsData}/> */}
+			<AllQuickStats/>
 		</div>
 	)
 }

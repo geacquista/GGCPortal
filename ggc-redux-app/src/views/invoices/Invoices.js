@@ -1,6 +1,12 @@
 import cross_red from '../../shared/img/close_red.svg'
 import cross_white from '../../shared/img/close_white.svg'
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux';
+
+import {
+	selectOrders
+} from '../../store/order_slice'
+import { render } from 'react-dom';
 
 export const TabType = {
 	ACTIVE: 1,
@@ -46,15 +52,16 @@ const InvoiceCard = ({order, color, onClick}) => {
 const InvoiceDisplayColumn = ({title, orders, cardOnClick}) => {
 	return(
 		<ul className='OrderDisplayColumn'>
-			<li style={{position: 'sticky', top: '0px'}}><div className='OrderDisplayColumnTitle'><h3 style={{padding: '0px', margin: '0px'}}>{title}</h3></div></li>
+			<li key={title} style={{position: 'sticky', top: '0px'}}><div className='OrderDisplayColumnTitle'><h3 style={{padding: '0px', margin: '0px'}}>{title}</h3></div></li>
 
 			{orders.map((order) => (
 				<li><InvoiceCard key={order.referenceNumber} order={order} color='#90E0C9' onClick={cardOnClick} /></li>
 			))}
 		</ul>
-	)
+	);	
 }
 
+// the only difference bt orders and invoices
 const ActiveInvoices = ({orders, cardOnClick}) => {
 	return (
 		<div id='OrderDisplayColumns'>
@@ -96,9 +103,8 @@ const ViewType = {
 	ORDER_VIEW: 3,
 }
 
-const Invoices = ({updateOrder, getOrders}) => {
-
-	var orders = getOrders()
+const Invoices = () => {
+	var orders = useSelector(selectOrders)
 	const [displayText, setDisplayText] = useState("Invoices")
 	const [nextId, setNextId] = useState(3)
 	const [activeTabId, setActiveTabId] = useState(1)

@@ -1,9 +1,24 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
+// to do actions add useDispatch
+
+// do i need to sync something here so it updates? or do a fetch?
+
+import {
+	selectActiveInvoices,
+	selectActiveOrders,
+	selectMissingInvoices,
+	selectOrdersPlaced,
+	selectOrdersProcessed,
+	selectOrdersShipped,
+	selectUnpaidInvoices
+} from '../../store/stats_slice';
 
 const QuickStatsTallRegular = ({amount, label, amountColor}) => {
 	return(
 		<button className = 'QuickStatsTallRegular'>
-			<text style = {{color: amountColor, fontSize: '96px', letterSpacing: '0%', textAlign: 'center'}}>{amount}</text>
+			<h1 style = {{color: amountColor, fontSize: '96px', letterSpacing: '0%', textAlign: 'center'}}>{amount}</h1>
 			<br></br>
 			<h3 style = {{color: '#252525', letterSpacing: '0%', textAlign: 'center'}}>{label}</h3>
 		</button>
@@ -30,22 +45,20 @@ const QuickStatsShortWide = ({amount, label, amountColor}) => {
 	)
 }
 
-const AllQuickStats = ({getQuickStatsData}) =>{
-	var data = getQuickStatsData()
-
+const AllQuickStats = () =>{
 	return(
 		<div id='AllQuickStats' className='Row'>
-			<QuickStatsTallRegular amount = {data.activeOrders} label = 'Active Orders' amountColor = '#911D34' />
-			<QuickStatsTallRegular amount = {data.activeInvoices} label = 'Active Invoices' amountColor = '#911D34' />
+			<QuickStatsTallRegular amount = {useSelector(selectActiveOrders)} label = 'Active Orders' amountColor = '#911D34' />
+			<QuickStatsTallRegular amount = {useSelector(selectActiveInvoices)} label = 'Active Invoices' amountColor = '#911D34' />
 			<div id='IndividualStats' className='Column'>
 				<div id='OrderStats' className='Row'>
-					<QuickStatsShortRegular amount = {data.ordersPlaced} label = 'Orders Placed' amountColor = '#C62032' />
-					<QuickStatsShortRegular amount = {data.ordersProcessed} label = 'Orders Processed' amountColor = '#C62032' />
-					<QuickStatsShortRegular amount = {data.ordersShipped} label = 'Orders Shipped' amountColor = '#C62032' />
+					<QuickStatsShortRegular amount = {useSelector(selectOrdersPlaced)} label = 'Orders Placed' amountColor = '#C62032' />
+					<QuickStatsShortRegular amount = {useSelector(selectOrdersProcessed)} label = 'Orders Processed' amountColor = '#C62032' />
+					<QuickStatsShortRegular amount = {useSelector(selectOrdersShipped)} label = 'Orders Shipped' amountColor = '#C62032' />
 				</div>
 				<div id='InvoiceStats' className='Row'>
-					<QuickStatsShortWide amount = {data.missingInvoices} label = 'Missing Invoices' amountColor = '#C62032' />
-					<QuickStatsShortWide amount = {data.unpaidInvoices} label = 'Unpaid Invoices' amountColor = '#C62032' />
+					<QuickStatsShortWide amount = {useSelector(selectMissingInvoices)} label = 'Missing Invoices' amountColor = '#C62032' />
+					<QuickStatsShortWide amount = {useSelector(selectUnpaidInvoices)} label = 'Unpaid Invoices' amountColor = '#C62032' />
 				</div>
 			</div>
 		</div>
