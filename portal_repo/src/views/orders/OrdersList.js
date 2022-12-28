@@ -4,16 +4,12 @@ import add_icon from '../../shared/img/plus_white.svg'
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import orderSlice, {
-	addOrder, deleteOrder, getOrders, selectOrders
+	addOrder, deleteOrder, editOrder, getOrders, selectOrders
 } from '../../store/order_slice'
-import ReactDOM from 'react-dom'
-import {OrderView, OrderViewEdit} from './OrderViewOnly';
-// import { ViewType } from '../tabs/Tab';
+import Order from './Order';
+import OrderAddNew, { AddOrder } from './OrderAddNew';
 
-
-// ORDERS LIST -- Layout of the ACTIVE/COMPLETE ORDERS
-
-export const TabType = {
+export const TabTypeOrder = {
 	ACTIVE: 1,
 	INACTIVE: 2,
 }
@@ -21,22 +17,20 @@ export const TabType = {
 const ViewType = {
 	ACTIVE_ORDERS: 1,
 	COMPLETED_ORDERS: 2,
-	ORDER_VIEW: 3,
-    ACTIVE_INVOICES: 4,
-	COMPLETED_INVOICES: 5,
-    INVOICE_VIEW:6,
+	ORDER: 3,
+	ADD_ORDER: 4
 }
 
 
 export const TabButton = ({id, text, tabType, viewType, onClick, onDelete}) => {
-	if(tabType === TabType.ACTIVE){
+	if(tabType === TabTypeOrder.ACTIVE){
 		return(
 			<div className='tabRowButtonActive' onClick={() => onClick(id)}>
 				<h3 style={{fontWeight: 'bold'}}>{text}</h3>
 				{viewType === ViewType.ORDER_VIEW && <img src={cross_white} style={{paddingLeft: '10px'}} onClick={(event) => onDelete(id, event)}/> }
 			</div>
 		)
-	} else if(tabType === TabType.INACTIVE){
+	} else if(tabType === TabTypeOrder.INACTIVE){
 		return(
 			<div className='tabRowButton' onClick={() => onClick(id)}>
 				<h3 style={{fontWeight: 'bold'}}>{text}</h3>
@@ -98,50 +92,50 @@ const CompletedOrders = ({orders, orderCardOnClick}) => {
 	)
 }
 
-
-// call a setup tabs thing here?
-// get order actions here
-
-
-// RETURNING ORDERS FROM ORDERSLIST -- change export to ListOfOrders?
-const Orders = ({updateOrder, deleteOrder, addOrder, getOrders}) => {
+/**
+ * 
+ * @returns OrderList
+ */
+const OrderList = () => {
 	
-	// get the orders
+	// Get the orders from the store
 	var orders = useSelector(selectOrders)
 
-	// set the text
+	// Set the text
 	const [displayText, setDisplayText] = useState("Orders")
 	const [nextId, setNextId] = useState(3)
 	const [activeTabId, setActiveTabId] = useState(1)
+
+	// Static tabs Active/Complete
 	const [tabs, setTabs] = useState([
 		{
 			id: 1,
 			text: 'Active Orders',
-			tabType: TabType.ACTIVE,
+			tabType: TabTypeOrder.ACTIVE,
 			viewType: ViewType.ACTIVE_ORDERS,
 		},
 		{
 			id: 2,
 			text: 'Completed Orders',
-			tabType: TabType.INACTIVE,
+			tabType: TabTypeOrder.INACTIVE,
 			viewType: ViewType.COMPLETED_ORDERS,
 		},
-
 	])
 
+	// Add/open new tab for READ ONLY ORDER VIEW
 	function addAndOpenOrderView(order){
-		const tab = tabs.find(tab => (tab.viewType === ViewType.ORDER_VIEW && order.id === tab.order.id))
+		const tab = tabs.find(tab => (tab.viewType === ViewType.ORDER && order.id === tab.order.id))
 		if(tab === undefined){
 			const newTab = {
 				id: {nextId},
 				text: order.customer.lastName,
-				tabType: TabType.ACTIVE,
-				viewType: ViewType.ORDER_VIEW,
+				tabType: TabTypeOrder.ACTIVE,
+				viewType: ViewType.ORDER,
 				order: order,
 			}
 
 			const currentActiveTab = tabs.find(tab => tab.id === activeTabId)
-			currentActiveTab.tabType = TabType.INACTIVE
+			currentActiveTab.tabType = TabTypeOrder.INACTIVE
 			const newTabsList = tabs.slice()
 			setTabs([...newTabsList, newTab])
 			setActiveTabId(newTab.id)
@@ -150,13 +144,32 @@ const Orders = ({updateOrder, deleteOrder, addOrder, getOrders}) => {
 		} else{
 			setActiveTab(tab.id)
 		}
-		
 	}
 
+	// Add new tab for ADD ORDER
+	function addNewOrder() {
+		const newTab = {
+			id: {nextId},
+			text: "New Order",
+			tabType: TabTypeOrder.ACTIVE,
+			viewType: ViewType.ADD_ORDER,
+			order: {
+				// or should i pass in an order?
+			},
+		}
+		const currentActiveTab = tabs.find(tab => tab.id === activeTabId)
+		currentActiveTab.tabType = TabTypeOrder.INACTIVE
+		const newTabsList = tabs.slice()
+		setTabs([...newTabsList, newTab])
+		setActiveTabId(newTab.id)
+		setNextId(nextId + 1)
+	}
+
+	// Remove tab from bar
 	function removeOrderView(id, event){
 		if(activeTabId === id){
 			const newActiveTab = tabs[tabs.length-2]
-			newActiveTab.tabType = TabType.ACTIVE
+			newActiveTab.tabType = TabTypeOrder.ACTIVE
 			const newTabsList = tabs.slice().filter(tab => tab.id !== id)
 			setTabs(newTabsList)
 			setActiveTabId(newActiveTab.id)
@@ -169,11 +182,12 @@ const Orders = ({updateOrder, deleteOrder, addOrder, getOrders}) => {
 		event.stopPropagation()
 	}
 
+	// Set active tab - pass in id
 	function setActiveTab(id){
 		const currentActiveTab = tabs.find(tab => tab.id === activeTabId)
 		const newActiveTab = tabs.find(tab => tab.id === id)
-		currentActiveTab.tabType = TabType.INACTIVE
-		newActiveTab.tabType = TabType.ACTIVE
+		currentActiveTab.tabType = TabTypeOrder.INACTIVE
+		newActiveTab.tabType = TabTypeOrder.ACTIVE
 		const newTabsList = tabs.slice()
 		setTabs(newTabsList)
 		setActiveTabId(newActiveTab.id)
@@ -189,8 +203,11 @@ const Orders = ({updateOrder, deleteOrder, addOrder, getOrders}) => {
 		case ViewType.COMPLETED_ORDERS:
 			displayContent = <CompletedOrders orders={orders.filter(order => order.status === 'COMPLETED')} orderCardOnClick={addAndOpenOrderView} />
 			break
-		case ViewType.ORDER_VIEW:
-			displayContent = <OrderView order={activeContent.order} editOrder={updateOrder} deleteOrder={deleteOrder} />
+		case ViewType.ORDER:
+			displayContent = <Order order={activeContent.order}/>
+			break
+		case ViewType.ADD_ORDER:
+			displayContent = <OrderAddNew addOrder={addOrder}/>
 			break
 	}
 
@@ -199,7 +216,7 @@ const Orders = ({updateOrder, deleteOrder, addOrder, getOrders}) => {
 		<div id='Orders'>	
 			<div className="OrderTitleButton">
 				<h1 className='PageHeader'>{displayText}</h1> 
-				<button className='OrderActionButton' onClick={addOrder}>
+				<button className='OrderActionButton' onClick={addNewOrder}>
 					<img src={add_icon} alt='add order' style={{paddingRight: '10px'}}/>
 					<h4>Add Order</h4>
 				</button>
@@ -212,10 +229,10 @@ const Orders = ({updateOrder, deleteOrder, addOrder, getOrders}) => {
 					))}
 				</div>
 				<div id='rectangle' style={{height: '13px', width: '1144px', backgroundColor: '#C62032'}} />
-				{displayContent} {/*THIS IS THE ACTIVE/COMPLETE/ */}
+				{displayContent}
 			</div>
 		</div>
 	)
 }
 
-export default Orders;
+export default OrderList;

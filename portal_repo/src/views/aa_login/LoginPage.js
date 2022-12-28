@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import {useNavigate} from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { Box, FormControl, Input, InputAdornment, InputLabel, Button, FormHelperText } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import "./LoginPage.css";
 import { getUser } from "../../extra/ui-action";
-import LoginSvg from '../../shared/img/logout_black.svg';
 
 
 const LoginPage = (props) => {
@@ -51,9 +49,8 @@ const LoginPage = (props) => {
               )}
             </FormControl>
             <Button variant="contained" size="small" className="login-btn" onClick={handleSubmit}>
-              確認
+              Submit
             </Button>
-            <img className="image" src={LoginSvg}></img>
           </Box>
       </header>
     </div>

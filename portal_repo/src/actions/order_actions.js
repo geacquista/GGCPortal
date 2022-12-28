@@ -1,5 +1,24 @@
 import { deleteOrder, addOrder, editOrder } from "../store/order_slice";
 
+const handleClick = () => {
+    if (name && email) {
+      dispatch(
+        userAdded({
+          id: usersAmount + 1,
+          name,
+          email,
+        })
+      );
+
+      setError(null);
+      history.push("/");
+    } else {
+      setError("Fill in all fields");
+    }
+
+    setName("");
+    setEmail("");
+  };
 
 // from ui-actions
 // export const getUser = (history, userName, getUserURL) => {
