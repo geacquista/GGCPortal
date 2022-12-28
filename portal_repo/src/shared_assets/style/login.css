@@ -1,0 +1,99 @@
+.loginForm {
+    padding-top: 6em;
+  }
+  
+  .heading {
+    font-size: 180%;
+    color: green;
+    padding-bottom: 5px;
+  }
+  
+  .field {
+    margin: 1.3em auto;
+  }
+  
+  .inputfield {
+    padding: 10px;
+    font-size: 100%;
+    background: #dedede;
+    outline: none;
+    width: 230px;
+    border: none;
+  }
+  
+  .inputfield:-webkit-autofill,
+  .inputfield:-webkit-autofill:hover,
+  .inputfield:-webkit-autofill:focus {
+    -webkit-text-fill-color: green;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+  
+  .customInput {
+    background: #dedede;
+    width: 280px;
+    margin: 0 auto;
+  }
+  
+  .inputicon {
+    color: gray;
+  }
+  
+  .linkfield {
+    text-decoration: underline;
+    font-size: 90%;
+    cursor: pointer;
+  }
+  
+  .submit {
+    font-size: 100%;
+    width: 150px;
+    background: rgb(10, 255, 100);
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 20px;
+  }
+  
+  .submit:focus {
+    outline: none;
+  }
+  
+  .submitfield {
+    margin-bottom: 0px;
+  }
+  
+  .signupfield {
+    margin-top: 5px;
+  }
+  
+  .emailfield {
+    /* background-image: url(./images/email.png); */
+    background-repeat: no-repeat;
+    background-size: 6%;
+    background-position-y: center;
+    background-position-x: 3%;
+  }
+  
+  .passwordfield {
+    /* background-image: url(./images/pass.png); */
+    background-repeat: no-repeat;
+    background-size: 6%;
+    background-position-y: center;
+    background-position-x: 3%;
+  }
+  
+  .socialLogins {
+    margin-bottom: 10px;
+  }
+  
+  .socialLogin {
+    padding: 0px 5px;
+    width: 40px;
+    height: 40px;
+    margin: 8px;
+    border-radius: 50%;
+  }
+  
+  .standardText {
+    font-size: 90%;
+  }
+  
