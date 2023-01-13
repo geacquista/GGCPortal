@@ -1,10 +1,10 @@
-import cross_red from '../../shared/img/close_red.svg'
-import cross_white from '../../shared/img/close_white.svg'
+import cross_red from '../../shared_assets/img/close_red.svg'
+import cross_white from '../../shared_assets/img/close_white.svg'
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 
 import {
-	selectOrders
+	retrieveOrders
 } from '../../store/order_slice'
 import { render } from 'react-dom';
 
@@ -104,7 +104,7 @@ const ViewType = {
 }
 
 const Invoices = () => {
-	var orders = useSelector(selectOrders)
+	var orders = retrieveOrders
 	const [displayText, setDisplayText] = useState("Invoices")
 	const [nextId, setNextId] = useState(3)
 	const [activeTabId, setActiveTabId] = useState(1)

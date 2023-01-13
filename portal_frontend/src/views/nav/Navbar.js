@@ -1,6 +1,6 @@
-import logo from '../img/ggc_logo_dropshadow.png';
+import logo from '../../shared_assets/img/ggc_logo_dropshadow.png';
 import {ViewIndex} from '../../App.js';
-import '../style/navbar.css'
+import '../../shared_assets/style/navbar.css'
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -10,31 +10,31 @@ const NavBarButton = ({text, icon, onClick}) => {
 
 	switch(icon){
 		case ViewIndex.DASHBOARD:
-			iconPath = require('../img/home_black.svg')
+			iconPath = require('../../shared_assets/img/home_black.svg')
 			link = ''
 			break
 		case ViewIndex.ORDERS:
-			iconPath = require('../img/order_black.svg')
+			iconPath = require('../../shared_assets/img/order_black.svg')
 			link = 'Orders'
 			break
 		case ViewIndex.INVOICES:
-			iconPath = require('../img/invoice_black.svg')
+			iconPath = require('../../shared_assets/img/invoice_black.svg')
 			link = 'Invoices'
 			break
 		case ViewIndex.SEARCH:
-			iconPath = require('../img/search_black.svg')
+			iconPath = require('../../shared_assets/img/search_black.svg')
 			link = 'Search'
 			break
 		case ViewIndex.HELP:
-			iconPath = require('../img/help_black.svg')
+			iconPath = require('../../shared_assets/img/help_black.svg')
 			link = 'Help'
 			break
 		case ViewIndex.LOGOUT:
-			iconPath = require('../img/logout_black.svg')
+			iconPath = require('../../shared_assets/img/logout_black.svg')
 			link = 'Login'
 			break
 		case ViewIndex.TEST:
-			iconPath = require('../img/attachment_black.svg')
+			iconPath = require('../../shared_assets/img/attachment_black.svg')
 			link = 'Test'
 			break
 		default:
@@ -57,31 +57,31 @@ const NavBarButtonActive = ({text, icon, onClick}) => {
 
 	switch(icon){
 		case ViewIndex.DASHBOARD:
-			iconPath = require('../img/home_white.svg')
+			iconPath = require('../../shared_assets/img/home_white.svg')
 			link = ''
 			break
 		case ViewIndex.ORDERS:
-			iconPath = require('../img/order_white.svg')
+			iconPath = require('../../shared_assets/img/order_white.svg')
 			link = 'Orders'
 			break
 		case ViewIndex.INVOICES:
-			iconPath = require('../img/invoice_white.svg')
+			iconPath = require('../../shared_assets/img/invoice_white.svg')
 			link = 'Invoices'
 			break
 		case ViewIndex.SEARCH:
-			iconPath = require('../img/search_white.svg')
+			iconPath = require('../../shared_assets/img/search_white.svg')
 			link = 'Search'
 			break
 		case ViewIndex.HELP:
-			iconPath = require('../img/help_white.svg')
+			iconPath = require('../../shared_assets/img/help_white.svg')
 			link = 'Help'
 			break
 		case ViewIndex.LOGOUT:
-			iconPath = require('../img/logout_white.svg')
+			iconPath = require('../../shared_assets/img/logout_white.svg')
 			link = 'Login'
 			break
 		case ViewIndex.TEST:
-			iconPath = require('../img/attachment_white.svg')
+			iconPath = require('../../shared_assets/img/attachment_white.svg')
 			link = 'Test'
 			break
 		default:

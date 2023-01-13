@@ -1,6 +1,5 @@
 import React from 'react'
-import { useSelector } from "react-redux";
-import { selectOrders } from '../../store/order_slice'
+import { retrieveOrders } from '../../store/order_slice'
 
     
 /*
@@ -8,7 +7,7 @@ import { selectOrders } from '../../store/order_slice'
 */
     function List(props) {
 
-        var orders = useSelector(selectOrders);
+        var orders = retrieveOrders;
         //create a new array by filtering the original array
         const filteredData = orders.filter((el) => {
             //if no input the return the original

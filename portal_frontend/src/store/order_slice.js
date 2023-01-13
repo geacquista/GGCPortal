@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import OrderDataService from "../services/OrderDataService";
 
-// do i need to have a status enum up here?
-
 // fake data to use prior to DB
 const initialState = [
     {
@@ -179,16 +177,15 @@ const initialState = [
     },
 ]
 
-
-export const createTutorial = createAsyncThunk(
+export const createOrder = createAsyncThunk(
   "orders/create",
-  async ({ title, description }) => {
-    const res = await OrderDataService.create({ title, description });
+  async ({ datePlaced, isGift, giftFor, giftMessage, trackingNumber, orderStatusId, shippingId, customerId, referenceNumber }) => {
+    const res = await OrderDataService.create({ datePlaced, isGift, giftFor, giftMessage, trackingNumber, orderStatusId, shippingId, customerId, referenceNumber });
     return res.data;
   }
 );
 
-export const retrieveTutorials = createAsyncThunk(
+export const retrieveOrders = createAsyncThunk(
   "orders/retrieve",
   async () => {
     const res = await OrderDataService.getAll();
@@ -196,7 +193,15 @@ export const retrieveTutorials = createAsyncThunk(
   }
 );
 
-export const updateTutorial = createAsyncThunk(
+export const retrieveOrder = createAsyncThunk(
+  "orders/readOrder",
+  async ({ id }) => {
+    const res = await OrderDataService.get(id);
+    return res.data;
+  }
+)
+
+export const updateOrder = createAsyncThunk(
   "orders/update",
   async ({ id, data }) => {
     const res = await OrderDataService.update(id, data);
@@ -204,7 +209,7 @@ export const updateTutorial = createAsyncThunk(
   }
 );
 
-export const deleteTutorial = createAsyncThunk(
+export const deleteOrder = createAsyncThunk(
   "orders/delete",
   async ({ id }) => {
     await OrderDataService.remove(id);
@@ -212,7 +217,7 @@ export const deleteTutorial = createAsyncThunk(
   }
 );
 
-export const deleteAllTutorials = createAsyncThunk(
+export const deleteAllOrders = createAsyncThunk(
   "orders/deleteAll",
   async () => {
     const res = await OrderDataService.removeAll();
@@ -221,7 +226,7 @@ export const deleteAllTutorials = createAsyncThunk(
 );
 
 export const findTutorialsByLastName = createAsyncThunk(
-  "orders/findByTitle",
+  "orders/findByLastName",
   async ({ lastName }) => {
     const res = await OrderDataService.findByLast(lastName);
     return res.data;
@@ -229,7 +234,7 @@ export const findTutorialsByLastName = createAsyncThunk(
 );
 
 export const findTutorialsByReferenceNumber = createAsyncThunk(
-  "orders/findByTitle",
+  "orders/findByReferenceNumber",
   async ({ referenceNumber }) => {
     const res = await OrderDataService.findByReference(referenceNumber);
     return res.data;
@@ -237,51 +242,40 @@ export const findTutorialsByReferenceNumber = createAsyncThunk(
 );
 
 export const findTutorialsByInvoiceNumber = createAsyncThunk(
-  "orders/findByTitle",
+  "orders/findByInvoiceNumber",
   async ({ invoiceNumber }) => {
     const res = await OrderDataService.findByInvoice(invoiceNumber);
     return res.data;
   }
 );
 
-
 export const orderSlice = createSlice({
   name: 'orders',
   initialState,
   reducers: {
-    // deleteOrder: (state,action) => {
-    //     // // ...state,
-    //     // items: state.items.filter(item => item !== action.payload),
-    //     // lastUpdated: Date.now() 
-    // },
-    // addOrder: (state, action) => {
-    //   state.push(action.payload);
-    // },
-    // editOrder: (state, action) => {
-    // },
-    // selectOrder: (state) => {
-    //     return state
-    // }
   },
   extraReducers: {
-    [createTutorial.fulfilled]: (state, action) => {
+    [createOrder.fulfilled]: (state, action) => {
       state.push(action.payload);
     },
-    [retrieveTutorials.fulfilled]: (state, action) => {
+    [retrieveOrders.fulfilled]: (state, action) => {
       return [...action.payload];
     },
-    [updateTutorial.fulfilled]: (state, action) => {
-      const index = state.findIndex(tutorial => tutorial.id === action.payload.id);
+    [retrieveOrder.fulfilled]: (state, action) => {
+      return [...action.payload];
+    },
+    [updateOrder.fulfilled]: (state, action) => {
+      const index = state.findIndex(order => order.id === action.payload.id);
       state[index] = {
         ...state[index],
         ...action.payload,
       };
     },
-    [deleteTutorial.fulfilled]: (state, action) => {
+    [deleteOrder.fulfilled]: (state, action) => {
       let index = state.findIndex(({ id }) => id === action.payload.id);
       state.splice(index, 1);
     },
-    [deleteAllTutorials.fulfilled]: (state, action) => {
+    [deleteAllOrders.fulfilled]: (state, action) => {
       return [];
     },
     [findTutorialsByLastName.fulfilled]: (state, action) => {
@@ -295,9 +289,5 @@ export const orderSlice = createSlice({
     },
   },
 });
-
-export const {deleteOrder, addOrder, editOrder} = orderSlice.actions;
-
-export const selectOrders = (state) => state.orders; 		// Get orders
 
 export default orderSlice.reducer;

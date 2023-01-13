@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 
-import NavBar from './shared/nav/Navbar';
+import NavBar from './views/nav/Navbar';
 import './App.css';
 import Dashboard from './views/dashboard/Dashboard';
+import CreateOrder from './views/aa_login/test';
 import OrderList from './views/orders/OrdersList';
 import Search from './views/search/Search';
 import LoginPage from './views/aa_login/LoginPage';
 import Invoices from './views/invoices/Invoices';
+import AdminPanel from './views/admin/AdminPanel';
 
 // For Navigation
 export const ViewIndex = {
@@ -60,7 +62,7 @@ function App() {
             {displayContent === ViewIndex.ORDERS && <OrderList />}
             {displayContent === ViewIndex.INVOICES && <Invoices />}
             {displayContent === ViewIndex.SEARCH && <Search />}
-            {displayContent === ViewIndex.TEST && <Dashboard />}
+            {displayContent === ViewIndex.TEST && <AdminPanel />}
             {displayContent === ViewIndex.HELP && <Dashboard />}
             {displayContent === ViewIndex.LOGOUT && <LoginPage />}
           </header>

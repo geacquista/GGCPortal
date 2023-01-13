@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { addOrder } from "../../store/order_slice";
 
 const useOrderForm = (order) => {
 
@@ -15,51 +14,51 @@ const useOrderForm = (order) => {
 		if(event) {
 			event.preventDefault()
 			dispatch(
-        addOrder({
-          id: ordersAmount + 1,
-          referenceNumber: order.referenceNumber,
-          invoiceNumber: order.invoiceNumber,
-          status: order.status,
-          datePlaced: '',
-          revenue: 0,
-          isSelfOrder: true,
-          isGift: false,
-          giftFor: '',
-          giftMessage: '',
-          shipmentTrackingNumber: '',
-          customer: {
-            id: {},
-            email: 'gr-ggcexec@wpi.edu',
-            firstName: 'Gompei\'s',
-            lastName: 'Goat-Cheese',
-            phoneNumber: '',
+        // addOrder({
+        //   id: ordersAmount + 1,
+        //   referenceNumber: order.referenceNumber,
+        //   invoiceNumber: order.invoiceNumber,
+        //   status: order.status,
+        //   datePlaced: '',
+        //   revenue: 0,
+        //   isSelfOrder: true,
+        //   isGift: false,
+        //   giftFor: '',
+        //   giftMessage: '',
+        //   shipmentTrackingNumber: '',
+        //   customer: {
+        //     id: {},
+        //     email: 'gr-ggcexec@wpi.edu',
+        //     firstName: 'Gompei\'s',
+        //     lastName: 'Goat-Cheese',
+        //     phoneNumber: '',
         
-          },
-          productsOrdered: [{
-            id: '1',
-            quantity: 3,
-            product: {
-              id: 'jPL6',
-              name: 'plain',
-              productDescription: 'A six oz log of plain goat cheese',
-            }	
-          }],
-          shippingAddress: {
-            id: '1',
-            firstName: 'Gompei\'s',
-            lastName: 'Goat-Cheese',
-            streetAddress: '100 Institute Road\nMailbox #',
-            city: 'Worcester',
-            state: 'MA',
-            zipCode: '01609',
-          },
-          invoice: {
-            id: '1',
-            invoiceNumber: '',
-            expense: 0,
-            isPaid: false,
-          },
-        })
+        //   },
+        //   productsOrdered: [{
+        //     id: '1',
+        //     quantity: 3,
+        //     product: {
+        //       id: 'jPL6',
+        //       name: 'plain',
+        //       productDescription: 'A six oz log of plain goat cheese',
+        //     }	
+        //   }],
+        //   shippingAddress: {
+        //     id: '1',
+        //     firstName: 'Gompei\'s',
+        //     lastName: 'Goat-Cheese',
+        //     streetAddress: '100 Institute Road\nMailbox #',
+        //     city: 'Worcester',
+        //     state: 'MA',
+        //     zipCode: '01609',
+        //   },
+        //   invoice: {
+        //     id: '1',
+        //     invoiceNumber: '',
+        //     expense: 0,
+        //     isPaid: false,
+        //   },
+        // })
       );
 		}
 	}
@@ -73,6 +72,8 @@ const useOrderForm = (order) => {
 		inputs
 	};
 }
+
+//orderFunction = createOrder
 
 export const OrderAddNew = ({orderFunction}) => {
 
