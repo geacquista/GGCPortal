@@ -1,4 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import UserDataService from "../services/UserDataService";
+
 
 const UserStatus = {
 	GGC: 1,
@@ -14,6 +16,23 @@ const initialState = [
   { id: "2", name: "Bob", email: "bob@farm.coom", permissionType: UserStatus.FARM},
   { id: "3", name: "Audrey", email: "audrey@wpi.edu", permissionType: UserStatus.GGC}
 ];
+
+export const addUser = createAsyncThunk(
+  "users/create",
+  async ({ email, password, nickname, permissionType}) => {
+    const res = await UserDataService.create({ email, password, nickname, permissionType});
+    return res.data;
+  }
+);
+
+export const retrieveUsers = createAsyncThunk(
+  "users/retrieve",
+  async () => {
+    const res = await UserDataService.getAll();
+    return res.data;
+  }
+);
+
 
 // Creating a slice of the quickstats data defines the state and actions on that data
 export const userSlice = createSlice({
@@ -33,8 +52,16 @@ export const userSlice = createSlice({
         }
     },
   },
+  extraReducers: {
+    [addUser.fulfilled]: (state, action) => {
+      state.push(action.payload);
+    },
+    [retrieveUsers.fulfilled]: (state, action) => {
+      return [...action.payload];
+    }
+  }
 });
   
-export const { userAdded, userUpdated } = userSlice.actions;
+// export const { userAdded, userUpdated } = userSlice.actions;
   
 export default userSlice.reducer;

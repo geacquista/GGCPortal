@@ -1,10 +1,10 @@
-import cross_red from '../../shared/img/close_red.svg'
-import cross_white from '../../shared/img/close_white.svg'
-import add_icon from '../../shared/img/plus_white.svg'
+import cross_red from '../../shared_assets/img/close_red.svg'
+import cross_white from '../../shared_assets/img/close_white.svg'
+import add_icon from '../../shared_assets/img/plus_white.svg'
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import orderSlice, {
-	addOrder, deleteOrder, editOrder, getOrders, selectOrders
+	createOrder, deleteOrder, updateOrder, retrieveOrders
 } from '../../store/order_slice'
 import Order from './Order';
 import OrderAddNew, { AddOrder } from './OrderAddNew';
@@ -99,7 +99,7 @@ const CompletedOrders = ({orders, orderCardOnClick}) => {
 const OrderList = () => {
 	
 	// Get the orders from the store
-	var orders = useSelector(selectOrders)
+	var orders = retrieveOrders;
 
 	// Set the text
 	const [displayText, setDisplayText] = useState("Orders")
@@ -207,7 +207,7 @@ const OrderList = () => {
 			displayContent = <Order order={activeContent.order}/>
 			break
 		case ViewType.ADD_ORDER:
-			displayContent = <OrderAddNew addOrder={addOrder}/>
+			displayContent = <OrderAddNew addOrder={createOrder}/>
 			break
 	}
 

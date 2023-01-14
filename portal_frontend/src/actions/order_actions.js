@@ -1,24 +1,109 @@
-import { deleteOrder, addOrder, editOrder } from "../store/order_slice";
+import { CREATE_ORDER, RETRIEVE_ORDERS, UPDATE_ORDER, DELETE_ALL_ORDERS, DELETE_ORDER } from "./actionTypes";
+import OrderService from "../services/OrderDataService";
 
-const handleClick = () => {
-    if (name && email) {
-      dispatch(
-        userAdded({
-          id: usersAmount + 1,
-          name,
-          email,
-        })
-      );
+export const createOrder = (datePlaced, isGift, giftFor, giftMessage, trackingNumber, orderStatusId, shippingId, customerId, referenceNumber) => async (dispatch) => {
+  try {
+    const res = await OrderService.create({ datePlaced, isGift, giftFor, giftMessage, trackingNumber, orderStatusId, shippingId, customerId, referenceNumber });
 
-      setError(null);
-      history.push("/");
-    } else {
-      setError("Fill in all fields");
-    }
+    dispatch({
+      type: CREATE_ORDER,
+      payload: res.data,
+    });
 
-    setName("");
-    setEmail("");
-  };
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+export const retrieveOrders = () => async (dispatch) => {
+  try {
+    const res = await OrderService.getAll();
+
+    dispatch({
+      type: RETRIEVE_ORDERS,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const updateOrder = (id, data) => async (dispatch) => {
+  try {
+    const res = await OrderService.update(id, data);
+
+    dispatch({
+      type: UPDATE_ORDER,
+      payload: data,
+    });
+
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+export const deleteOrder = (id) => async (dispatch) => {
+  try {
+    await OrderService.delete(id);
+
+    dispatch({
+      type: DELETE_ORDER,
+      payload: { id },
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteAllOrders = () => async (dispatch) => {
+  try {
+    const res = await OrderService.deleteAll();
+
+    dispatch({
+      type: DELETE_ALL_ORDERS,
+      payload: res.data,
+    });
+
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+// export const findOrdersByTitle = (title) => async (dispatch) => {
+//   try {
+//     const res = await OrderService.findByTitle(title);
+
+//     dispatch({
+//       type: RETRIEVE_ORDERS,
+//       payload: res.data,
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
+
+// const handleClick = () => {
+//     if (name && email) {
+//       dispatch(
+//         userAdded({
+//           id: usersAmount + 1,
+//           name,
+//           email,
+//         })
+//       );
+
+//       setError(null);
+//       history.push("/");
+//     } else {
+//       setError("Fill in all fields");
+//     }
+
+//     setName("");
+//     setEmail("");
+//   };
 
 // from ui-actions
 // export const getUser = (history, userName, getUserURL) => {

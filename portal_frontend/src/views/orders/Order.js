@@ -1,7 +1,7 @@
-import edit_icon from '../../shared/img/edit_white.svg'
-import delete_icon from '../../shared/img/trash_white.svg'
+import edit_icon from '../../shared_assets/img/edit_white.svg'
+import delete_icon from '../../shared_assets/img/trash_white.svg'
 import React, { useState } from 'react'
-import { editOrder,deleteOrder } from '../../store/order_slice'
+import { createOrder, updateOrder, deleteOrder } from '../../store/order_slice'
 
 const useOrderForm = (order, orderFunction) => {
 	const [inputs, setInputs] = useState(order)
@@ -165,10 +165,10 @@ export const OrderEditView = ({order, orderFunction}) => {
 /**
  * This is the view of a singular order. It takes in the functions for the button clicks.
  * Should have EDIT and DELETE button. This is only for existing orders (those that have been saved) 
- * @param {Order,function,function} order editOrder deleteOrder
+ * @param {Order,function,function} order updateOrder deleteOrder
  * @returns This returns the view of a singular existing order 
  */
-// export const OrderViewOnly = ({order, editOrder, deleteOrder}) => {
+// export const OrderViewOnly = ({order, updateOrder, deleteOrder}) => {
 export const OrderViewOnly = ({order, readOnlyButton}) => {
 	let recipient
 	if(order.isGift){
@@ -305,7 +305,7 @@ const Order = ({order}) => {
 		)
 	} else {
 		return (
-			<OrderEditView order={order} orderFunction={editOrder}/>
+			<OrderEditView order={order} orderFunction={updateOrder}/>
 		)
 	}
 }

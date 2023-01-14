@@ -43,9 +43,9 @@ const OrderService = {
   update,
   remove,
   removeAll,
-  findByLast,
-  findByReference,
-  findByInvoice
+  // findByLast,
+  // findByReference,
+  // findByInvoice
 };
 
 export default OrderService;
