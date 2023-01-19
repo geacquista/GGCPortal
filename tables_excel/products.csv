@@ -1,0 +1,14 @@
+productID,name,description,sku
+1,Plain,NULL,NULL
+2,"Herb Garlic",NULL,NULL
+3,"Hickory Smoked",NULL,NULL
+4,"Blueberry Lemon",NULL,NULL
+5,"Cranberry Orange",NULL,NULL
+6,"Pink Peppercorn",NULL,NULL
+7,"Fiery Fig",NULL,NULL
+8,Chive,NULL,NULL
+9,Calabrini,NULL,NULL
+10,Chocolate,NULL,NULL
+11,"Calabrini (3lb)",NULL,NULL
+12,"Herb Garlic (3lb)",NULL,NULL
+13,"Plain (3lb)",NULL,NULL
