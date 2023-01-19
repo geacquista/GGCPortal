@@ -1,0 +1,4 @@
+orderID,datePlaced,isGift,giftFor,giftMessage,trackingNumber,orderStatus,shippingId,customerId,referenceNumber
+2,"2023-01-17 00:00:00",1,"Jane Miliotis & John McQuade","Happy New Year! We miss having you two across the street. Here is some of our favorite goat cheese from WPI's student-run business. Go Goats!
+
+- Tom, Anne, T.J, & Nini",NULL,Placed,1,1,7185233
