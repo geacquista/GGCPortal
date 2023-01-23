@@ -49,3 +49,8 @@ const OrderService = {
 };
 
 export default OrderService;
+
+// export const selectActiveOrders = (state) => state.quickstats.activeOrders; 		// Get active orders
+// export const selectOrdersPlaced = (state) => state.quickstats.ordersPlaced;			// Get orders placed
+// export const selectOrdersProcessed = (state) => state.quickstats.ordersProcessed;	// Get orders processed
+// export const selectOrdersShipped = (state) => state.quickstats.ordersShipped;		// Get orders shipped
