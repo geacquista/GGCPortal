@@ -119,7 +119,7 @@ exports.deleteAll = (req, res) => {
     if (err)
       res.status(500).send({
         message:
-          err.message || "Some error occurred while removing all tutorials."
+          err.message || "Some error occurred while removing all users."
       });
     else res.send({ message: `All Users were deleted successfully!` });
   });
