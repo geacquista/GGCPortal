@@ -7,7 +7,6 @@ const OrderLine = function(order_line) {
     this.qtyOrdered = order_line.qtyOrdered;
 };
 
-
 /**
  * [COMPLETE] Inserts a new orderLine into the database
  * @param {*} newOrderLine 

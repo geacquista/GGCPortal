@@ -149,4 +149,5 @@ const Product = function(product) {
     });
   };
 
+
 module.exports = Product;
