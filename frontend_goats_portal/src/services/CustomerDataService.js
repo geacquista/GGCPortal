@@ -12,6 +12,10 @@ const create = data => {
   return http.post("/customers", data);
 };
 
+const createCustomerWithAddress = data => {
+  return http.post("/customers", data);
+};
+
 const update = (id, data) => {
   return http.put(`/customers/${id}`, data);
 };
@@ -29,9 +33,10 @@ const CustomerDataService = {
   getAll,
   get,
   create,
+  createCustomerWithAddress,
   update,
   remove,
-  removeAll,
+  removeAll
 };
 
 export default CustomerDataService;
