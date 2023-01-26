@@ -36,8 +36,12 @@ const Invoice = function(invoice) {
  * @param {{*}}  
  * @param {*} result 
  */
-Invoice.getAll = (result) => {
+Invoice.getAll = (invoiceNumber, result) => {
     let query = "SELECT * FROM `Invoice`";
+
+    if (invoiceNumber) {
+      query += ` WHERE invoiceNumber LIKE '%${invoiceNumber}%'`;
+    }
   
     sql.query(query, (err, res) => {
       if (err) {

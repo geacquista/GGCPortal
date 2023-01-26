@@ -35,7 +35,8 @@ exports.create = (req, res) => {
  * @param {*} res 
  */
 exports.findAll = (req, res) => {
-    Invoice.getAll((err, data) => {
+  const invoiceNumber = req.query.invoiceNumber;
+    Invoice.getAll(invoiceNumber, (err, data) => {
       if (err)
         res.status(500).send({
           message:
@@ -119,3 +120,14 @@ exports.deleteAll = (req, res) => {
     else res.send({ message: `All Invoices were deleted successfully!` });
   });
 };
+
+exports.getAllPaid = (req, res) => {
+    Invoice.getAllPaid((err, data) => {
+        if (err)
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while retrieving invoices."
+          });
+        else res.send(data);
+    })
+}

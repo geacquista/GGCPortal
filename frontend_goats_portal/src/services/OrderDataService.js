@@ -32,10 +32,6 @@ const findByReference = referenceNumber => {
   return http.get(`/orders?referenceNumber=${referenceNumber}`);
 };
 
-const findByInvoice = invoiceNumber => {
-  return http.get(`/orders?invoiceNumber=${invoiceNumber}`);
-};
-
 const OrderService = {
   getAll,
   get,
@@ -44,8 +40,7 @@ const OrderService = {
   remove,
   removeAll,
   findByLast,
-  findByReference,
-  findByInvoice
+  findByReference
 };
 
 export default OrderService;

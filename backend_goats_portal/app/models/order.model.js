@@ -39,9 +39,6 @@ const Order = function(order) {
 };
 
 /**
- * router.get("/lastNames", orders.findByLast);
-  router.get("/reference", orders.findByReference);
-  router.get("/invoiceNumber", orders.findByInvoice);
  * @param {{*}} lastName, referenceNumber, invoiceNumber 
  * @param {*} result 
  */
@@ -50,7 +47,7 @@ const Order = function(order) {
  * @param {*} param0 
  * @param {*} result 
  */
-Order.getAll = (lastName,referenceNumber,invoiceNumber, result) => {
+Order.getAll = ([lastName,referenceNumber], result) => {
     let query = "SELECT * FROM `Order`";
   
     if (lastName) {
@@ -58,9 +55,6 @@ Order.getAll = (lastName,referenceNumber,invoiceNumber, result) => {
     } 
     else if (referenceNumber) {
       query += ` WHERE referenceNumber LIKE '%${referenceNumber}%'`;
-    }
-    else if (invoiceNumber) {
-      query += ` WHERE invoiceNumber LIKE '%${invoiceNumber}%'`;
     }
   
     sql.query(query, (err, res) => {

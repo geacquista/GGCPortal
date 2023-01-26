@@ -24,6 +24,14 @@ const removeAll = () => {
   return http.delete(`/invoices`);
 };
 
+const getAllPaid = isPaid => {
+  return http.get(`/invoices?paid=${isPaid}`);
+};
+
+const findByInvoice = invoiceNumber => {
+  return http.get(`/invoices?invoiceNumber=${invoiceNumber}`);
+};
+
 
 const InvoiceDataService = {
   getAll,
@@ -32,6 +40,8 @@ const InvoiceDataService = {
   update,
   remove,
   removeAll,
+  getAllPaid,
+  findByInvoice
 };
 
 export default InvoiceDataService;

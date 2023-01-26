@@ -35,7 +35,7 @@
   * @param {*} res 
   */
  exports.findAll = (req, res) => {
-     const permissionType = req.query.permissionType;
+     const lastName = req.query.lastName;
      Order.getAll(permissionType, (err, data) => {
        if (err)
          res.status(500).send({

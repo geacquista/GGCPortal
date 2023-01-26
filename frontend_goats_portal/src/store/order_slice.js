@@ -2,185 +2,204 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import OrderDataService from "../services/OrderDataService";
 
 // fake data to use prior to DB
-const initialState = [
-    {
-      id: '1234',
-      referenceNumber: '1234',
-      invoiceNumber: '',
-      status: 'PLACED',
-      datePlaced: '2/24/2022',
-      revenue: 26.00,
-      isSelfOrder: false,
-      isGift: true,
-      giftFor: 'Mr. Gompei',
-      giftMessage: 'Enjoy this cheese made from other goats! On second thought, maybe not...',
-      shipmentTrackingNumber: 'ABCD',
-      customer: {
-        id: '1',
-        email: 'customer@wpi.edu',
-        firstName: 'Frank',
-        lastName: 'McGovern',
-        phoneNumber: '20397588636',
+// const initialState = [
+//     {
+//       id: '1234',
+//       referenceNumber: '1234',
+//       invoiceNumber: '',
+//       status: 'PLACED',
+//       datePlaced: '2/24/2022',
+//       revenue: 26.00,
+//       isSelfOrder: false,
+//       isGift: true,
+//       giftFor: 'Mr. Gompei',
+//       giftMessage: 'Enjoy this cheese made from other goats! On second thought, maybe not...',
+//       shipmentTrackingNumber: 'ABCD',
+//       customer: {
+//         id: '1',
+//         email: 'customer@wpi.edu',
+//         firstName: 'Frank',
+//         lastName: 'McGovern',
+//         phoneNumber: '20397588636',
     
-      },
-      productsOrdered: [{
-        id: '1',
-        quantity: 3,
-        product: {
-          id: 'jPL6',
-          name: 'plain',
-          productDescription: 'A six oz log of plain goat cheese',
-        }	
-      }],
-      shippingAddress: {
-        id: '1',
-        streetAddress: '86 Brook road',
-        city: 'Southwick',
-        state: 'NH',
-        zipCode: '00675',
-      },
-      // invoice: {
-      //   id: '1',
-      //   invoiceNumber: '',
-      //   expense: 21.50,
-      //   isPaid: false,
-      // },
-    },
-    {
-      id: '1235',
-      referenceNumber: '1235',
-      invoiceNumber: '5678',
-      status: 'SHIPPED',
-      datePlaced: '2/24/2022',
-      revenue: 26.00,
-      isSelfOrder: false,
-      isGift: true,
-      giftFor: 'Mr. Gompei',
-      giftMessage: 'Enjoy this cheese made from other goats! On second thought, maybe not...',
-      shipmentTrackingNumber: 'ABCD',
-      customer: {
-        id: '1',
-        email: 'customer@wpi.edu',
-        firstName: 'Chad',
-        lastName: 'Buttler',
-        phoneNumber: '20397588636',
+//       },
+//       productsOrdered: [{
+//         id: '1',
+//         quantity: 3,
+//         product: {
+//           id: 'jPL6',
+//           name: 'plain',
+//           productDescription: 'A six oz log of plain goat cheese',
+//         }	
+//       }],
+//       shippingAddress: {
+//         id: '1',
+//         streetAddress: '86 Brook road',
+//         city: 'Southwick',
+//         state: 'NH',
+//         zipCode: '00675',
+//       },
+//       // invoice: {
+//       //   id: '1',
+//       //   invoiceNumber: '',
+//       //   expense: 21.50,
+//       //   isPaid: false,
+//       // },
+//     },
+//     {
+//       id: '1235',
+//       referenceNumber: '1235',
+//       invoiceNumber: '5678',
+//       status: 'SHIPPED',
+//       datePlaced: '2/24/2022',
+//       revenue: 26.00,
+//       isSelfOrder: false,
+//       isGift: true,
+//       giftFor: 'Mr. Gompei',
+//       giftMessage: 'Enjoy this cheese made from other goats! On second thought, maybe not...',
+//       shipmentTrackingNumber: 'ABCD',
+//       customer: {
+//         id: '1',
+//         email: 'customer@wpi.edu',
+//         firstName: 'Chad',
+//         lastName: 'Buttler',
+//         phoneNumber: '20397588636',
     
-      },
-      productsOrdered: [{
-        id: '1',
-        quantity: 3,
-        product: {
-          id: 'jPL6',
-          name: 'plain',
-          productDescription: 'A six oz log of plain goat cheese',
-        }	
-      }],
-      shippingAddress: {
-        id: '1',
-        streetAddress: '86 Brook road',
-        city: 'Southwick',
-        state: 'NH',
-        zipCode: '00675',
-      },
-      invoice: {
-        id: '1',
-        invoiceNumber: '5678',
-        expense: 21.50,
-        isPaid: true,
-      },
-    },
-    {
-      id: '1236',
-      referenceNumber: '1236',
-      invoiceNumber: '5678',
-      status: 'PROCESSED',
-      datePlaced: '2/24/2022',
-      revenue: 26.00,
-      isSelfOrder: false,
-      isGift: true,
-      giftFor: 'Mr. Gompei',
-      giftMessage: 'Enjoy this cheese made from other goats! On second thought, maybe not...',
-      shipmentTrackingNumber: 'ABCD',
-      customer: {
-        id: '1',
-        email: 'customer@wpi.edu',
-        firstName: 'William',
-        lastName: 'Fancyson',
-        phoneNumber: '20397588636',
+//       },
+//       productsOrdered: [{
+//         id: '1',
+//         quantity: 3,
+//         product: {
+//           id: 'jPL6',
+//           name: 'plain',
+//           productDescription: 'A six oz log of plain goat cheese',
+//         }	
+//       }],
+//       shippingAddress: {
+//         id: '1',
+//         streetAddress: '86 Brook road',
+//         city: 'Southwick',
+//         state: 'NH',
+//         zipCode: '00675',
+//       },
+//       invoice: {
+//         id: '1',
+//         invoiceNumber: '5678',
+//         expense: 21.50,
+//         isPaid: true,
+//       },
+//     },
+//     {
+//       id: '1236',
+//       referenceNumber: '1236',
+//       invoiceNumber: '5678',
+//       status: 'PROCESSED',
+//       datePlaced: '2/24/2022',
+//       revenue: 26.00,
+//       isSelfOrder: false,
+//       isGift: true,
+//       giftFor: 'Mr. Gompei',
+//       giftMessage: 'Enjoy this cheese made from other goats! On second thought, maybe not...',
+//       shipmentTrackingNumber: 'ABCD',
+//       customer: {
+//         id: '1',
+//         email: 'customer@wpi.edu',
+//         firstName: 'William',
+//         lastName: 'Fancyson',
+//         phoneNumber: '20397588636',
     
-      },
-      productsOrdered: [{
-        id: '1',
-        quantity: 3,
-        product: {
-          id: 'jPL6',
-          name: 'plain',
-          productDescription: 'A six oz log of plain goat cheese',
-        }	
-      }],
-      shippingAddress: {
-        id: '1',
-        streetAddress: '86 Brook road',
-        city: 'Southwick',
-        state: 'NH',
-        zipCode: '00675',
-      },
-      invoice: {
-        id: '1',
-        invoiceNumber: '5678',
-        expense: 21.50,
-        isPaid: true,
-      },
-    },
-    {
-      id: '1237',
-      referenceNumber: '1237',
-      invoiceNumber: '5678',
-      status: 'PROCESSED',
-      datePlaced: '2/24/2022',
-      revenue: 26.00,
-      isSelfOrder: false,
-      isGift: true,
-      giftFor: 'Mr. Gompei',
-      giftMessage: 'Enjoy this cheese made from other goats! On second thought, maybe not...',
-      shipmentTrackingNumber: 'ABCD',
-      customer: {
-        id: '1',
-        email: 'customer@wpi.edu',
-        firstName: 'James',
-        lastName: 'Fazzino',
-        phoneNumber: '20397588636',
+//       },
+//       productsOrdered: [{
+//         id: '1',
+//         quantity: 3,
+//         product: {
+//           id: 'jPL6',
+//           name: 'plain',
+//           productDescription: 'A six oz log of plain goat cheese',
+//         }	
+//       }],
+//       shippingAddress: {
+//         id: '1',
+//         streetAddress: '86 Brook road',
+//         city: 'Southwick',
+//         state: 'NH',
+//         zipCode: '00675',
+//       },
+//       invoice: {
+//         id: '1',
+//         invoiceNumber: '5678',
+//         expense: 21.50,
+//         isPaid: true,
+//       },
+//     },
+//     {
+//       id: '1237',
+//       referenceNumber: '1237',
+//       invoiceNumber: '5678',
+//       status: 'PROCESSED',
+//       datePlaced: '2/24/2022',
+//       revenue: 26.00,
+//       isSelfOrder: false,
+//       isGift: true,
+//       giftFor: 'Mr. Gompei',
+//       giftMessage: 'Enjoy this cheese made from other goats! On second thought, maybe not...',
+//       shipmentTrackingNumber: 'ABCD',
+//       customer: {
+//         id: '1',
+//         email: 'customer@wpi.edu',
+//         firstName: 'James',
+//         lastName: 'Fazzino',
+//         phoneNumber: '20397588636',
     
-      },
-      productsOrdered: [{
-        id: '1',
-        quantity: 3,
-        product: {
-          id: 'jPL6',
-          name: 'plain',
-          productDescription: 'A six oz log of plain goat cheese',
-        }	
-      }],
-      shippingAddress: {
-        id: '1',
-        streetAddress: '86 Brook road',
-        city: 'Southwick',
-        state: 'NH',
-        zipCode: '00675',
-      },
-      invoice: {
-        id: '1',
-        invoiceNumber: '5678',
-        expense: 21.50,
-        isPaid: false,
-      },
-    },
-]
+//       },
+//       productsOrdered: [{
+//         id: '1',
+//         quantity: 3,
+//         product: {
+//           id: 'jPL6',
+//           name: 'plain',
+//           productDescription: 'A six oz log of plain goat cheese',
+//         }	
+//       }],
+//       shippingAddress: {
+//         id: '1',
+//         streetAddress: '86 Brook road',
+//         city: 'Southwick',
+//         state: 'NH',
+//         zipCode: '00675',
+//       },
+//       invoice: {
+//         id: '1',
+//         invoiceNumber: '5678',
+//         expense: 21.50,
+//         isPaid: false,
+//       },
+//     },
+// ]
 
+/**
+ * This is what an order looks like:
+ * // fake data to use prior to DB
+  const initialState = [
+      {
+          id: '1234',
+          datePlaced: '2/24/2022',
+          isGift: true,
+          giftFor: 'Mr. Gompei',
+          giftMessage: 'Enjoy this cheese made from other goats! On second thought, maybe not...',
+          shipmentTrackingNumber: 'ABCD',
+          orderStatus: 'Placed',
+          customerId: '1',
+          shippingId: '1',
+          referenceNumber: '1234',
+          isSelfOrder: false,
+        },
+  ]
+ */
 export const createOrder = createAsyncThunk(
   "orders/create",
-  async ({ datePlaced, isGift, giftFor, giftMessage, trackingNumber, orderStatusId, shippingId, customerId, referenceNumber }) => {
-    const res = await OrderDataService.create({ datePlaced, isGift, giftFor, giftMessage, trackingNumber, orderStatusId, shippingId, customerId, referenceNumber });
+  async ({ datePlaced, isGift, giftFor, giftMessage, trackingNumber, orderStatusId, shippingId, customerId, referenceNumber, isSelfOrder }) => {
+    const res = await OrderDataService.create({ datePlaced, isGift, giftFor, giftMessage, trackingNumber, orderStatusId, shippingId, customerId, referenceNumber, isSelfOrder });
     return res.data;
   }
 );
@@ -225,7 +244,7 @@ export const deleteAllOrders = createAsyncThunk(
   }
 );
 
-export const findTutorialsByLastName = createAsyncThunk(
+export const findOrdersByLastName = createAsyncThunk(
   "orders/findByLastName",
   async ({ lastName }) => {
     const res = await OrderDataService.findByLast(lastName);
@@ -233,7 +252,7 @@ export const findTutorialsByLastName = createAsyncThunk(
   }
 );
 
-export const findTutorialsByReferenceNumber = createAsyncThunk(
+export const findOrdersByReferenceNumber = createAsyncThunk(
   "orders/findByReferenceNumber",
   async ({ referenceNumber }) => {
     const res = await OrderDataService.findByReference(referenceNumber);
@@ -241,7 +260,7 @@ export const findTutorialsByReferenceNumber = createAsyncThunk(
   }
 );
 
-export const findTutorialsByInvoiceNumber = createAsyncThunk(
+export const findOrdersByInvoiceNumber = createAsyncThunk(
   "orders/findByInvoiceNumber",
   async ({ invoiceNumber }) => {
     const res = await OrderDataService.findByInvoice(invoiceNumber);
@@ -251,7 +270,7 @@ export const findTutorialsByInvoiceNumber = createAsyncThunk(
 
 export const orderSlice = createSlice({
   name: 'orders',
-  initialState,
+  initialState: [],
   reducers: {
   },
   extraReducers: {
@@ -278,13 +297,13 @@ export const orderSlice = createSlice({
     [deleteAllOrders.fulfilled]: (state, action) => {
       return [];
     },
-    [findTutorialsByLastName.fulfilled]: (state, action) => {
+    [findOrdersByLastName.fulfilled]: (state, action) => {
       return [...action.payload];
     },
-    [findTutorialsByReferenceNumber.fulfilled]: (state, action) => {
+    [findOrdersByReferenceNumber.fulfilled]: (state, action) => {
       return [...action.payload];
     },
-    [findTutorialsByInvoiceNumber.fulfilled]: (state, action) => {
+    [findOrdersByInvoiceNumber.fulfilled]: (state, action) => {
       return [...action.payload];
     },
   },

@@ -1,4 +1,4 @@
-const ShippingAddress = require("../models/shippingAddress.model.js");
+const ShippingAddress = require("../models/address.model.js");
 
 // Create and Save a new Address
 exports.create = (req, res) => {

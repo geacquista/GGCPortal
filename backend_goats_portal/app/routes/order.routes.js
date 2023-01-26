@@ -12,10 +12,6 @@ module.exports = app => {
   // Retrieve a single Order with id
   router.get("/:id", orders.findOne);
 
-  // router.get("/lastNames", orders.findByLast);
-  // router.get("/reference", orders.findByReference);
-  // router.get("/invoiceNumber", orders.findByInvoice);
-
   // Update a Order with id
   router.put("/:id", orders.update);
 
