@@ -35,11 +35,14 @@ const Product = function(product) {
    * @param {{*}} sku 
    * @param {*} result 
    */
-  Product.getAll = (sku, result) => {
+  Product.getAll = (sku, name, result) => {
       let query = "SELECT * FROM `Product`";
     
       if (sku) {
         query += ` WHERE sku LIKE '%${sku}%'`;
+      }
+      else if (name) {
+        query += ` WHERE name LIKE '%${name}%'`;
       }
     
       sql.query(query, (err, res) => {

@@ -11,10 +11,16 @@
  
    // Create a Order
    const order = new Order({
-     email: req.body.email,
-     password: req.body.password,
-     nickname: req.body.nickname,
-     permissionType: req.body.permissionType, 
+    datePlaced: req.bodydatePlaced,
+    isGift: req.bodyisGift,
+    giftFor: req.bodygiftFor,
+    giftMessage: req.bodygiftMessage,
+    trackingNumber: req.bodytrackingNumber,
+    orderStatus: req.bodyorderStatus,
+    shippingId: req.bodyshippingId,
+    customerId: req.bodycustomerId,
+    referenceNumber: req.bodyreferenceNumber,
+    isSelfOrder: req.bodyisSelfOrder
     
    });
  

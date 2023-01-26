@@ -34,7 +34,8 @@ const Product = require("../models/product.model.js");
   */
  exports.findAll = (req, res) => {
      const sku = req.query.sku;
-     Product.getAll(sku, (err, data) => {
+     const name = req.query.name;
+     Product.getAll(sku, name, (err, data) => {
        if (err)
          res.status(500).send({
            message:

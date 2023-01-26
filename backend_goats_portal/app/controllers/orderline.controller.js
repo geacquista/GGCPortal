@@ -11,10 +11,9 @@ const OrderLine = require("../models/orderline.model.js");
  
    // Create a OrderLine
    const product = new OrderLine({
-     name: req.body.name,
-     description: req.body.description,
-     sku: req.body.sku,
-    
+      lineOrderID: req.body.lineOrderID,
+      lineProductID: req.body.lineProductID,
+      qtyOrdered: req.body.qtyOrdered
    });
  
    // Save OrderLine in the database

@@ -36,7 +36,7 @@ const OrderLine = function(order_line) {
       let query = "SELECT * FROM `OrderLine`";
 
       if (orderID) {
-        query += ` WHERE lineOrderID LIKE '%${orderID}%'`;
+        query += ` WHERE lineOrderID = ${orderID}`;
       }
 
 

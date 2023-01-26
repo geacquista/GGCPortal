@@ -24,6 +24,13 @@ const removeAll = () => {
   return http.delete(`/products`);
 };
 
+const findByName = name => {
+  return http.get(`/products?name=${name}`);
+};
+
+const findBySKU = sku => {
+  return http.get(`/orders?sku=${sku}`);
+};
 
 const ProductDataService = {
   getAll,
@@ -32,6 +39,8 @@ const ProductDataService = {
   update,
   remove,
   removeAll,
+  findByName,
+  findBySKU
 };
 
 export default ProductDataService;

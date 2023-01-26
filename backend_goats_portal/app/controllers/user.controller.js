@@ -19,7 +19,6 @@ exports.create = (req, res) => {
     password: req.body.password,
     nickname: req.body.nickname,
     permissionType: req.body.permissionType, 
-   
   });
 
   // Save User in the database

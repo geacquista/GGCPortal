@@ -24,6 +24,10 @@ const removeAll = () => {
   return http.delete(`/orderline`);
 };
 
+const findByOrder = orderID => {
+  return http.get(`/orderline?orderID=${orderID}`)
+};
+
 
 const OrderLineDataService = {
   getAll,
@@ -32,6 +36,7 @@ const OrderLineDataService = {
   update,
   remove,
   removeAll,
+  findByOrder
 };
 
 export default OrderLineDataService;
