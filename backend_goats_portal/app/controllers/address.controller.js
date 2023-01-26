@@ -11,10 +11,11 @@ exports.create = (req, res) => {
 
   // Create a ShippingAddress
   const shippingAddress = new ShippingAddress({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    phoneNumber: req.body.phoneNumber,
-    email: req.body.email
+    streetAddressOne: req.body.streetAddressOne,
+    streetAddressTwo: req.body.streetAddressTwo,
+    state: req.body.state,
+    city: req.body.city,
+    zip: req.body.zip
   });
 
   // Save ShippingAddress in the database

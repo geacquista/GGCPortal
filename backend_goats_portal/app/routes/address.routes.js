@@ -21,5 +21,5 @@ module.exports = app => {
   // Delete all Shipping Addresss
   router.delete("/", addresses.deleteAll);
 
-  app.use('/api/shipping_addresses', router);
+  app.use('/api/shippingAddresses', router);
 };
