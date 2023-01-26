@@ -1,12 +1,12 @@
 const sql = require("./db.js");
 
-// constructor for an CUSTOMER
+// constructor for a CUSTOMER
 const Customer = function(customer) {
   this.firstName = customer.firstName;
   this.lastName = customer.lastName;
   this.phoneNumber = customer.phoneNumber;
   this.email = customer.email;
-  //this.shippingID = customer.shippingID;
+  this.customerShippingID = customer.shippingID;
 };
 
 
@@ -21,6 +21,23 @@ const Customer = function(customer) {
   var query = "INSERT INTO `Customer` (`firstName`, `lastName`, `phoneNumber`, `email`) VALUES (?,?,?,?);"
   sql.query(query,
     [newCustomer.firstName, newCustomer.lastName, newCustomer.phoneNumber, newCustomer.email], function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    console.log("created customer: ", { customerID: res.insertId, ...newCustomer });
+    result(null, { customerID: res.insertId, ...newCustomer });
+  });
+};
+
+Customer.createWithAddress = (newCustomer, result) => {
+
+  // could change query formatting here to be consistent throughout
+  var query = "INSERT INTO `Customer` (`firstName`, `lastName`, `phoneNumber`, `email`, `customerShippingId) VALUES (?,?,?,?,?);"
+  sql.query(query,
+    [newCustomer.firstName, newCustomer.lastName, newCustomer.phoneNumber, newCustomer.email, newCustomerShippingID.customerShippingId], function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(err, null);
