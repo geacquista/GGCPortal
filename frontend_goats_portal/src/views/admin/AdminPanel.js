@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PermissionTypes from "../../App"
+import "../../assets/style/admin.css";
 
 import { addUser, retrieveUsers, deleteAllUsers, retrieveUser , updateUser, deleteUser, findUsersByPermission } from "../../store/user_slice";
 
@@ -159,13 +160,12 @@ class AdminPanel extends Component {
 
     return (
         <div id='AdminPanel'>
-            <h1>TEST:admin?</h1>
+            <h1>ADMIN</h1>
               <div>
                 <div id='OrderView_Header'>
                     {/**on submit i want to dispatch the create user action  */}
-                    <button onClick={this.saveUser} type="submit">Save</button>
-                    <button onClick={this.refreshUser}>Cancel</button>
-                    <button className="m-3 btn btn-sm btn-danger" onClick={this.removeAllUsers} > Remove All </button>
+                    <button onClick={this.saveUser} type="submit" className={"primary_abtn"}>Save</button>
+                    <button onClick={this.refreshUser} className={"secondary_abtn"}>Cancel</button>
                 </div>
                 <div className="list_users">
                   <h3>List of users</h3>
@@ -265,6 +265,7 @@ class AdminPanel extends Component {
                     <p>Please click on a User...</p>
                   </div>
                 )}
+                <button className="btn-danger" onClick={this.removeAllUsers} > Remove All </button>
               </div>
         </div>
         
@@ -278,4 +279,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { addUser, retrieveUsers, retrieveUser, updateUser, deleteUser, deleteAllUsers, findUsersByPermission })(AdminPanel);
+export default connect(mapStateToProps, { addUser, retrieveUsers, retrieveUser, updateUser, deleteUser, deleteAllUsers, findUsersByPermission }) (AdminPanel);

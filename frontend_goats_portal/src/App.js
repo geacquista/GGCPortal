@@ -50,12 +50,9 @@ function App() {
             {displayContent === ViewIndex.SEARCH  && <Search/>} 
             {displayContent === ViewIndex.TEST && <AdminPanel/>} 
             {displayContent === ViewIndex.HELP && <Dashboard/>} 
-            {displayContent === ViewIndex.LOGOUT && <Dashboard/>} 
+            {displayContent === ViewIndex.LOGOUT && <Dashboard/>}
           </header>
         </div>    
   );
-
-
 }
-
 export default App;
