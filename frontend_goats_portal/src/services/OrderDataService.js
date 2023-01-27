@@ -32,10 +32,6 @@ const findByReference = referenceNumber => {
   return http.get(`/orders?referenceNumber=${referenceNumber}`);
 };
 
-const findByInvoice = invoiceNumber => {
-  return http.get(`/orders?invoiceNumber=${invoiceNumber}`);
-};
-
 const OrderService = {
   getAll,
   get,
@@ -43,9 +39,13 @@ const OrderService = {
   update,
   remove,
   removeAll,
-  // findByLast,
-  // findByReference,
-  // findByInvoice
+  findByLast,
+  findByReference
 };
 
 export default OrderService;
+
+// export const selectActiveOrders = (state) => state.quickstats.activeOrders; 		// Get active orders
+// export const selectOrdersPlaced = (state) => state.quickstats.ordersPlaced;			// Get orders placed
+// export const selectOrdersProcessed = (state) => state.quickstats.ordersProcessed;	// Get orders processed
+// export const selectOrdersShipped = (state) => state.quickstats.ordersShipped;		// Get orders shipped

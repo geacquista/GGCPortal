@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-// const mysql = require('mysql')
 
 var corsOptions = {
   origin: "http://localhost:3000"
@@ -18,6 +17,12 @@ app.get("/", (req, res) => {
 });
 
 //ROUTES GO HERE
+require("./app/routes/address.routes.js")(app);
+require("./app/routes/customer.routes.js")(app);
+require("./app/routes/invoice.routes.js")(app);
+require("./app/routes/order.routes.js")(app);
+require("./app/routes/orderline.routes.js")(app);
+require("./app/routes/product.routes.js")(app);
 require("./app/routes/user.routes.js")(app);
 
 // set port, listen for requests
