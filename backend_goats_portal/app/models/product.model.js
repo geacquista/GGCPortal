@@ -17,7 +17,7 @@ const Product = function(product) {
  Product.create = (newProduct, result) => {
 
     // could change query formatting here to be consistent throughout
-    var query = "INSERT INTO `Product` (`name`, `description`, `sku`) VALUES ('"+newProduct.name+"', '"+newProduct.description+"','"+newProduct.sku+"');"
+    var query = "INSERT INTO `Product` (`sku`, `name`, `description`) VALUES ('"+newProduct.sku+"', '"+newProduct.name+"', '"+newProduct.description+"',);"
     sql.query(query, function (err, res) {
       if (err) {
         console.log("error: ", err);
@@ -25,8 +25,8 @@ const Product = function(product) {
         return;
       }
   
-      console.log("created product: ", { productID: res.insertId, ...newProduct });
-      result(null, { productID: res.insertId, ...newProduct });
+      console.log("created product: ", { ...newProduct });
+      result(null, {  ...newProduct });
     });
   };
   
@@ -64,7 +64,7 @@ const Product = function(product) {
    * @param {*} result 
    */
   Product.findById = (id, result) => {
-    sql.query(`SELECT * FROM Product WHERE productID = ${id}`, (err, res) => {
+    sql.query(`SELECT * FROM Product WHERE sku = ${id}`, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -88,10 +88,10 @@ const Product = function(product) {
    * @param {*} product 
    * @param {*} result 
    */
-  Product.updateById = (id, product, result) => {
+  Product.updateById = (idSKU, product, result) => {
     sql.query(
-      "UPDATE Product SET name = ?, description = ?, sku = ? WHERE productID = ?",
-      [product.name, product.description, product.sku, id],
+      "UPDATE Product SET name = ?, description = ?, WHERE sku = ?",
+      [product.name, product.description, idSKU],
       (err, res) => {
         if (err) {
           console.log("error: ", err);
@@ -105,19 +105,18 @@ const Product = function(product) {
           return;
         }
   
-        console.log("updated product: ", { productID: id, ...product });
-        result(null, { productID: id, ...product });
+        console.log("updated product: ", { ...product });
+        result(null, { ...product });
       }
     );
   };
   
   /**
-   * Removes product with the id passed to the function
    * @param {*} id 
    * @param {*} result 
    */
   Product.remove = (id, result) => {
-    sql.query("DELETE FROM Product WHERE productID = ?", id, (err, res) => {
+    sql.query("DELETE FROM Product WHERE sku = ?", id, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);

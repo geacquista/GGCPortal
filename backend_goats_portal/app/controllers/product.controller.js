@@ -11,9 +11,9 @@ const Product = require("../models/product.model.js");
  
    // Create a Product
    const product = new Product({
+     sku: req.body.sku,
      name: req.body.name,
      description: req.body.description,
-     sku: req.body.sku,
     
    });
  

@@ -33,8 +33,8 @@ const OrderLine = require("../models/orderline.model.js");
   * @param {*} res 
   */
  exports.findAll = (req, res) => {
-     const orderID = req.query.orderID;
-     OrderLine.getAll(orderID, (err, data) => {
+     const lineOrderID = req.query.lineOrderID;
+     OrderLine.getAll(lineOrderID, (err, data) => {
        if (err)
          res.status(500).send({
            message:
