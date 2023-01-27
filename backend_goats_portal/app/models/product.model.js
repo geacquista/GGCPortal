@@ -63,8 +63,8 @@ const Product = function(product) {
    * @param {*} id 
    * @param {*} result 
    */
-  Product.findById = (id, result) => {
-    sql.query(`SELECT * FROM Product WHERE sku = ${id}`, (err, res) => {
+  Product.findById = (idSKU, result) => {
+    sql.query(`SELECT * FROM Product WHERE sku = ${idSKU}`, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);

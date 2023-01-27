@@ -24,8 +24,8 @@ const removeAll = () => {
   return http.delete(`/invoices`);
 };
 
-const getAllPaid = isPaid => {
-  return http.get(`/invoices?paid=${isPaid}`);
+const getAllPaid = () => {
+  return http.get(`/invoices/paid`);
 };
 
 const findByInvoice = invoiceNumber => {
