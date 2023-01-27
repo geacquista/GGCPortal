@@ -47,7 +47,7 @@ const Order = function(order) {
  * @param {*} param0 
  * @param {*} result 
  */
-Order.getAll = ([lastName,referenceNumber], result) => {
+Order.getAll = (lastName,referenceNumber, result) => {
     let query = "SELECT * FROM `Order`";
   
     if (lastName) {

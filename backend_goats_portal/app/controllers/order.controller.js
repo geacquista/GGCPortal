@@ -36,13 +36,14 @@
  };
  
  /**
-  * Get all orders in the database, it also accepts permissionType for a filter
+  * Get all orders in the database, it also accepts lastName for a filter
   * @param {*} req 
   * @param {*} res 
   */
  exports.findAll = (req, res) => {
      const lastName = req.query.lastName;
-     Order.getAll(permissionType, (err, data) => {
+     const referenceNumber = req.query. referenceNumber;
+     Order.getAll(lastName, referenceNumber, (err, data) => {
        if (err)
          res.status(500).send({
            message:
