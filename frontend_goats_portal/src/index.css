@@ -16,6 +16,8 @@ code {
     monospace;
 }
 
+/* HEADINGS ---------------------- */
+
 h1 {
 	font-size: 64px;
 	font-family: 'Roboto', sans-serif;
@@ -46,6 +48,8 @@ h4 {
 text {
 	font-family: 'Roboto', sans-serif;
 }
+
+/* QUICKSTATS -------------------------- */
 
 .QuickStatsTallRegular {
 	display: flex;
@@ -117,6 +121,7 @@ text {
 	justify-content: space-between;
 }
 
+/* VIEWS --------------------------- */
 
 #Dashboard {
 	text-align: left;
@@ -139,6 +144,8 @@ text {
 .search {
     width: 30%;
 }
+
+/*ORDERS -------------------------- */
 
 #Orders {
 	text-align: left;
