@@ -4,7 +4,8 @@ import {Link} from 'react-router-dom'
 import NavBar from './views/nav/Navbar';
 import './App.css';
 import Dashboard from './views/dashboard/Dashboard';
-import OrderList from './views/orders/OrdersList';
+import MainOrderView from './views/orders/MainOrderView';
+import OrderList from './views/orders/OrdersListTEST';
 import Search from './views/search/Search';
 import Invoices from './views/invoices/Invoices';
 import AdminPanel from './views/admin/AdminPanel';
@@ -45,7 +46,7 @@ function App() {
             {/* TODO: Make sure on refresh the link is _____goatsportal.com/ ||| aka: localhost:3000/ */}
             <NavBar activeButton={displayContent} buttonOnClick={setDisplayContent}/>
             {displayContent === ViewIndex.DASHBOARD && <Dashboard/>} 
-            {displayContent === ViewIndex.ORDERS  && <OrderList/>} 
+            {displayContent === ViewIndex.ORDERS  && <MainOrderView/>} 
             {displayContent === ViewIndex.INVOICES  && <Invoices/>} 
             {displayContent === ViewIndex.SEARCH  && <Search/>} 
             {displayContent === ViewIndex.TEST && <AdminPanel/>} 

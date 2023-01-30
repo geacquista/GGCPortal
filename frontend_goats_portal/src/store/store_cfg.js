@@ -1,15 +1,25 @@
 import { configureStore } from '@reduxjs/toolkit';
+
+import shippingAddressSlice from './address_slice';
+import customerSlice from './customer_slice';
+import invoiceSlice from './invoice_slice';
 import orderSlice from './order_slice';
-import statsSlice from './stats_slice';
+import orderlineSlice from './orderline_slice';
+import productSlice from './product_slice';
+
+// import statsSlice from './stats_slice';
 import userSlice from './user_slice';
-import testOrderSlice from "./test_order_slice";
 
 export const store = configureStore({
   reducer: {
     orders: orderSlice,
-    quickstats: statsSlice,
+    shippingAddresses: shippingAddressSlice,
+    customers: customerSlice,
+    invoices: invoiceSlice,
+    orderlines: orderlineSlice,
+    products: productSlice,
+    // quickstats: statsSlice,
     users:userSlice,
-    orders_test:testOrderSlice,
   },
   devTools: true,
 });

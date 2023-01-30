@@ -2,10 +2,8 @@ import cross_red from '../../assets/img/close_red.svg'
 import cross_white from '../../assets/img/close_white.svg'
 import add_icon from '../../assets/img/plus_white.svg'
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
-import orderSlice, {
-	createOrder, deleteOrder, updateOrder, retrieveOrders
-} from '../../store/order_slice'
+
+import { createOrder, retrieveOrders } from '../../store/order_slice'
 import Order from './Order';
 import OrderAddNew, { AddOrder } from './OrderAddNew';
 
@@ -41,7 +39,7 @@ export const TabButton = ({id, text, tabType, viewType, onClick, onDelete}) => {
 }
 
 // Cards are part of the list
-const OrderCard = ({order, color, onClick}) => {
+export const OrderCard = ({order, color, onClick}) => {
 	var numberOfLogs = 0
 	order.productsOrdered.forEach(product => numberOfLogs+= product.quantity)
 
@@ -60,7 +58,7 @@ const OrderCard = ({order, color, onClick}) => {
 }
 
 // Columns are part of the list
-const OrderDisplayColumn = ({title, orders, orderCardOnClick}) => {
+export const OrderDisplayColumn = ({title, orders, orderCardOnClick}) => {
 	return(
 		<ul className='OrderDisplayColumn'>
 			<li key={title} style={{position: 'sticky', top: '0px'}}><div className='OrderDisplayColumnTitle'><h3 style={{padding: '0px', margin: '0px'}}>{title}</h3></div></li>
@@ -73,7 +71,7 @@ const OrderDisplayColumn = ({title, orders, orderCardOnClick}) => {
 }
 
 // Active Orders Tab
-const ActiveOrders = ({orders, orderCardOnClick}) => {
+export const ActiveOrders = ({orders, orderCardOnClick}) => {
 	return (
 		<div id='OrderDisplayColumns'>
 			<OrderDisplayColumn title='Placed' orders={orders.filter(order => order.status === 'PLACED')} orderCardOnClick={orderCardOnClick} />
@@ -84,7 +82,7 @@ const ActiveOrders = ({orders, orderCardOnClick}) => {
 }
 
 // Completed Orders Tab
-const CompletedOrders = ({orders, orderCardOnClick}) => {
+export const CompletedOrders = ({orders, orderCardOnClick}) => {
 	return (
 		<div id='OrderDisplayColumns' style={{display: 'flex', displayDirection: 'column'}}>
 			<OrderDisplayColumn title='Completed' orders={orders} orderCardOnClick={orderCardOnClick} />

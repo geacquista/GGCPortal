@@ -2,143 +2,168 @@ const sql = require("./db.js");
 
 // constructor for an ORDER
 const Order = function(order) {
-  this.title = order.title;
-  this.description = order.description;
-  this.published = order.published;
+  //orderID is the pk AI
+  this.datePlaced = order.datePlaced;
+  this.isGift = order.isGift;
+  this.giftFor = order.giftFor;
+  this.giftMessage = order.giftMessage;
+  this.trackingNumber = order.trackingNumber;
+  this.orderStatus = order.orderStatus;
+  this.shippingId = order.shippingId;
+  this.customerId = order.customerId;
+  this.referenceNumber = order.referenceNumber;
+  this.isSelfOrder = order.isSelfOrder
 };
 
 
-// app.post('/create', (req, res) => {
-//   const name = req.body.name //get info from front end
-//   const price = req.body.price
-//   const type = req.body.type
+/**
+ * [COMPLETE] Inserts a new order into the database
+ * @param {*} newOrder 
+ * @param {*} result 
+ */
+ Order.create = (newOrder, result) => {
+  // could change query formatting here to be consistent throughout
+  var query = "INSERT INTO `Order` (`datePlaced`, `isGift`, `giftFor`, `giftMessage`, `trackingNumber`,`orderStatus`,`shippingId`,`customerId`,`referenceNumber`,`isSelfOrder`) VALUES (?,?,?,?,?,?,?,?,?,?);"
+  sql.query(query,
+    [newOrder.datePlaced, newOrder.isGift, newOrder.giftFor, newOrder.giftMessage, newOrder.trackingNumber, newOrder.orderStatus, newOrder.shippingId, newOrder.customerId, newOrder.referenceNumber, newOrder.isSelfOrder], 
+    function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
 
-//   db.query('INSERT INTO orders (name, price, type) VALUES (?,?,?)', 
-//   [name, price, type], (err, result) => {
-//       if (err) {
-//           console.log(err);
-//       } else {
-//           res.send("Values inserted");
-//       }
-//   })
-// });
-// Tutorial.create = (newTutorial, result) => {
-//   sql.query("INSERT INTO tutorials SET ?", newTutorial, (err, res) => {
-//     if (err) {
-//       console.log("error: ", err);
-//       result(err, null);
-//       return;
-//     }
+    console.log("created order: ", { orderID: res.insertId, ...newOrder });
+    result(null, { orderID: res.insertId, ...newOrder });
+  });
+};
 
-//     console.log("created tutorial: ", { id: res.insertId, ...newTutorial });
-//     result(null, { id: res.insertId, ...newTutorial });
-//   });
-// };
+/**
+ * @param {{*}} lastName, referenceNumber, invoiceNumber 
+ * @param {*} result 
+ */
+/**
+ * 
+ * @param {*} param0 
+ * @param {*} result 
+ */
+Order.getAll = (lastName,referenceNumber, result) => {
+    let query = "SELECT * FROM `Order`";
+  
+    if (lastName) {
+      query += ` WHERE lastName LIKE '%${lastName}%'`;
+    } 
+    else if (referenceNumber) {
+      query += ` WHERE referenceNumber LIKE '%${referenceNumber}%'`;
+    }
+  
+    sql.query(query, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+  
+      var data = JSON.parse(JSON.stringify(res))
+      console.log("orders: ", data);
+      result(null, data);
+    });
+  };
 
-// Tutorial.findById = (id, result) => {
-//   sql.query(`SELECT * FROM tutorials WHERE id = ${id}`, (err, res) => {
-//     if (err) {
-//       console.log("error: ", err);
-//       result(err, null);
-//       return;
-//     }
+/**
+ * 
+ * @param {*} id 
+ * @param {*} result 
+ */
+Order.findById = (id, result) => {
+  sql.query(`SELECT * FROM Order WHERE orderID = ${id}`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
 
-//     if (res.length) {
-//       console.log("found tutorial: ", res[0]);
-//       result(null, res[0]);
-//       return;
-//     }
+    if (res.length) {
+      console.log("found order: ", res[0]);
+      result(null, res[0]);
+      return;
+    }
 
-//     // not found Tutorial with the id
-//     result({ kind: "not_found" }, null);
-//   });
-// };
+    // not found Order with the id
+    result({ kind: "not_found" }, null);
+  });
+};
 
-// Tutorial.getAll = (title, result) => {
-//   let query = "SELECT * FROM tutorials";
+/**
+ * 
+ * @param {*} id 
+ * @param {*} order 
+ * @param {*} result 
+ */
+Order.updateById = (id, order, result) => {
+  sql.query(
+    "UPDATE Order SET datePlace = ?, isGift = ?, giftFor = ?, giftMessage = ?, trackingNumber = ?, orderStatus = ?, shippingId = ?, customerId = ?, referenceNumber = ?, isSelfOrder = ? WHERE orderID = ?",
+    [order.datePlaced, order.isGift, order.giftFor, order.giftMessage, order.trackingNumber, order.orderStatus, order.shippingId, order.customerId, order.referenceNumber, order.isSelfOrder, id], 
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
 
-//   if (title) {
-//     query += ` WHERE title LIKE '%${title}%'`;
-//   }
+      if (res.affectedRows == 0) {
+        // not found Order with the id
+        result({ kind: "not_found" }, null);
+        return;
+      }
 
-//   sql.query(query, (err, res) => {
-//     if (err) {
-//       console.log("error: ", err);
-//       result(null, err);
-//       return;
-//     }
+      console.log("updated order: ", { orderID: id, ...order });
+      result(null, { orderID: id, ...order });
+    }
+  );
+};
 
-//     console.log("tutorials: ", res);
-//     result(null, res);
-//   });
-// };
+/**
+ * Removes order with the id passed to the function
+ * @param {*} id 
+ * @param {*} result 
+ */
+Order.remove = (id, result) => {
+  sql.query("DELETE FROM Order WHERE orderID = ?", id, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
 
-// Tutorial.getAllPublished = result => {
-//   sql.query("SELECT * FROM tutorials WHERE published=true", (err, res) => {
-//     if (err) {
-//       console.log("error: ", err);
-//       result(null, err);
-//       return;
-//     }
+    if (res.affectedRows == 0) {
+      // not found Order with the id
+      result({ kind: "not_found" }, null);
+      return;
+    }
 
-//     console.log("tutorials: ", res);
-//     result(null, res);
-//   });
-// };
+    console.log("deleted order with id: ", id);
+    result(null, res);
+  });
+};
 
-// Tutorial.updateById = (id, tutorial, result) => {
-//   sql.query(
-//     "UPDATE tutorials SET title = ?, description = ?, published = ? WHERE id = ?",
-//     [tutorial.title, tutorial.description, tutorial.published, id],
-//     (err, res) => {
-//       if (err) {
-//         console.log("error: ", err);
-//         result(null, err);
-//         return;
-//       }
+/**
+ * REMOVES ALL orders
+ * @param {*} result 
+ */
+Order.removeAll = result => {
+  sql.query("DELETE FROM Order", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
 
-//       if (res.affectedRows == 0) {
-//         // not found Tutorial with the id
-//         result({ kind: "not_found" }, null);
-//         return;
-//       }
+    console.log(`deleted ${res.affectedRows} orders`);
+    result(null, res);
+  });
+};
 
-//       console.log("updated tutorial: ", { id: id, ...tutorial });
-//       result(null, { id: id, ...tutorial });
-//     }
-//   );
-// };
 
-// Tutorial.remove = (id, result) => {
-//   sql.query("DELETE FROM tutorials WHERE id = ?", id, (err, res) => {
-//     if (err) {
-//       console.log("error: ", err);
-//       result(null, err);
-//       return;
-//     }
 
-//     if (res.affectedRows == 0) {
-//       // not found Tutorial with the id
-//       result({ kind: "not_found" }, null);
-//       return;
-//     }
-
-//     console.log("deleted tutorial with id: ", id);
-//     result(null, res);
-//   });
-// };
-
-// Tutorial.removeAll = result => {
-//   sql.query("DELETE FROM tutorials", (err, res) => {
-//     if (err) {
-//       console.log("error: ", err);
-//       result(null, err);
-//       return;
-//     }
-
-//     console.log(`deleted ${res.affectedRows} tutorials`);
-//     result(null, res);
-//   });
-// };
-
-// module.exports = Tutorial;
+module.exports = Order;

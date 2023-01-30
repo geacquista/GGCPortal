@@ -1,9 +1,0 @@
-export const LOGIN = "LOGIN";
-export const LOGINPROCESSING = "LOGINPROCESSING";
-export const CREATE_ORDER = "CREATE_ORDER";
-export const RETRIEVE_ORDERS = "RETRIEVE_ORDERS";
-export const UPDATE_ORDER = "UPDATE_ORDER";
-export const DELETE_ORDER = "DELETE_ORDER";
-export const DELETE_ALL_ORDERS = "DELETE_ALL_ORDERS";
-export const ADD_USER = "ADD_USER";
-export const RETRIEVE_USERS = "RETRIEVE_USERS";

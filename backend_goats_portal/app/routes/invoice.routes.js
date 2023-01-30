@@ -10,7 +10,7 @@ module.exports = app => {
     router.get("/", invoices.findAll);
   
     // Retrieve all paid Invoices
-    router.get("/paid", invoices.findAllPaid);
+    router.get("/paid", invoices.getAllPaid);
   
     // Retrieve a single Invoice with id
     router.get("/:id", invoices.findOne);
