@@ -49,6 +49,10 @@ text {
 	font-family: 'Roboto', sans-serif;
 }
 
+:root {
+	--primary-abtn: brown;
+}
+
 /* QUICKSTATS -------------------------- */
 
 .QuickStatsTallRegular {
