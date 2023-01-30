@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PermissionTypes from "../../App"
 import "../../assets/style/admin.css";
+import "../../index.css"
 
 import { addUser, retrieveUsers, deleteAllUsers, retrieveUser , updateUser, deleteUser, findUsersByPermission } from "../../store/user_slice";
 
