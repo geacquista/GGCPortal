@@ -20,5 +20,5 @@ module.exports = app => {
     // Delete all orderlines
     router.delete("/", orderline.deleteAll);
   
-    app.use('/api/orderlines', router);
+    app.use('/api/orderline', router);
   };

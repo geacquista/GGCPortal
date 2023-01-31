@@ -14,7 +14,7 @@ import OrderLineDataService from "../services/OrderLineDataService";
  */
 
 export const createOrderLine = createAsyncThunk(
-  "orderlines/create",
+  "orderline/create",
   async ({ lineOrderID, lineProductID, qty}) => {
     const res = await OrderLineDataService.create({lineOrderID, lineProductID, qty});
     return res.data;
@@ -22,7 +22,7 @@ export const createOrderLine = createAsyncThunk(
 );
 
 export const retrieveOrderLines = createAsyncThunk(
-  "orderlines/retrieve",
+  "orderline/retrieve",
   async () => {
     const res = await OrderLineDataService.getAll();
     return res.data;
@@ -30,7 +30,7 @@ export const retrieveOrderLines = createAsyncThunk(
 );
 
 export const retrieveOrderLine = createAsyncThunk(
-  "orderlines/readOrderLine",
+  "orderline/readOrderLine",
   async ({ id }) => {
     const res = await OrderLineDataService.get(id);
     return res.data;
@@ -38,7 +38,7 @@ export const retrieveOrderLine = createAsyncThunk(
 )
 
 export const updateOrderLine = createAsyncThunk(
-  "orderlines/update",
+  "orderline/update",
   async ({ id, data }) => {
     const res = await OrderLineDataService.update(id, data);
     return res.data;
@@ -46,7 +46,7 @@ export const updateOrderLine = createAsyncThunk(
 );
 
 export const deleteOrderLine = createAsyncThunk(
-  "orderlines/delete",
+  "orderline/delete",
   async ({ id }) => {
     await OrderLineDataService.remove(id);
     return { id };
@@ -54,7 +54,7 @@ export const deleteOrderLine = createAsyncThunk(
 );
 
 export const deleteAllOrderLines = createAsyncThunk(
-  "orderlines/deleteAll",
+  "orderline/deleteAll",
   async () => {
     const res = await OrderLineDataService.removeAll();
     return res.data;
@@ -62,7 +62,7 @@ export const deleteAllOrderLines = createAsyncThunk(
 );
 
 export const findOrderLineByOrderID = createAsyncThunk(
-    "orderlines/findByOrderID",
+    "orderline/findByOrderID",
     async ({ lineOrderID }) => {
       const res = await OrderLineDataService.findByOrder(lineOrderID);
       return res.data;
@@ -72,7 +72,7 @@ export const findOrderLineByOrderID = createAsyncThunk(
 
 
 export const orderlineSlice = createSlice({
-  name: 'orderlines',
+  name: 'orderline',
   initialState: [],
   reducers: {
   },

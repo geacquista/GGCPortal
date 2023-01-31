@@ -16,7 +16,7 @@ export const store = configureStore({
     shippingAddresses: shippingAddressSlice,
     customers: customerSlice,
     invoices: invoiceSlice,
-    orderlines: orderlineSlice,
+    orderline: orderlineSlice,
     products: productSlice,
     // quickstats: statsSlice,
     users:userSlice,

@@ -75,7 +75,7 @@ const useOrderForm = (order) => {
 
 //orderFunction = createOrder
 
-export const OrderAddNew = ({orderFunction}) => {
+export const NewOrder = ({orderFunction}) => {
 
   //ON SAVE: update the view to readonly (so it should be able to close)
 	// orderFunction = addOrder
@@ -261,4 +261,4 @@ export const OrderAddNew = ({orderFunction}) => {
 	)
 }
 
-export default OrderAddNew;
+export default NewOrder;
