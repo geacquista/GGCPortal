@@ -165,8 +165,8 @@ class AdminPanel extends Component {
               <div>
                 <div id='OrderView_Header'>
                     {/**on submit i want to dispatch the create user action  */}
-                    <button onClick={this.saveUser} type="submit" className={"primary_abtn"}>Save</button>
                     <button onClick={this.refreshUser} className={"secondary_abtn"}>Cancel</button>
+                    <button onClick={this.saveUser} type="submit" className={"primary_abtn"}>Save</button>
                 </div>
                 <div className="list_users">
                   <h3>List of users</h3>

@@ -42,7 +42,7 @@ main {
   height: 50px;
   margin: 10px;
   color: white;
-  background-color: #222222;
+  background-color: var(--primary-action);
 }
 
 .secondary_abtn{
@@ -53,7 +53,7 @@ main {
    height: 50px;
    margin: 10px;
    color: white;
-   background-color: #222222;
+   background-color: var(--secondary-action);
  }
 
 .btn-danger{
