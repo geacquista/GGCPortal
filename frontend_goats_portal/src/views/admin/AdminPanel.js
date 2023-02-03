@@ -162,7 +162,6 @@ class AdminPanel extends Component {
     return (
         <div id='AdminPanel'>
             <h1>ADMIN</h1>
-              <div>
                 <div id='OrderView_Header'>
                     {/**on submit i want to dispatch the create user action  */}
                     <button onClick={this.refreshUser} className={"secondary_abtn"}>Cancel</button>
@@ -232,7 +231,6 @@ class AdminPanel extends Component {
                     name="permissionType"
                   />
                 </div>
-              </div>
 
               <div className="col-md-6">
                 {currentUser.userID ? (
