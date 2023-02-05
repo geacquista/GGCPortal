@@ -102,7 +102,7 @@ const NavBar = ({activeButton, buttonOnClick}) => {
 	return(
 		<div id='NavBar'>
 			<div id='NavBarTop'>
-				<img alt='logo' src={logo} height='200' width='200' />
+				<img alt='logo' src={logo} height='175' width='175' />
 				<h2>G.O.A.T.S.</h2>
 				{activeButton === ViewIndex.DASHBOARD ? <NavBarButtonActive text='Dashboard' icon={ViewIndex.DASHBOARD} onClick={buttonOnClick}/> : <NavBarButton text='Dashboard' icon={ViewIndex.DASHBOARD} onClick={buttonOnClick}/>}
 				{activeButton === ViewIndex.ORDERS ? <NavBarButtonActive text='Orders' icon={ViewIndex.ORDERS} onClick={buttonOnClick}/> : <NavBarButton text='Orders' icon={ViewIndex.ORDERS} onClick={buttonOnClick}/>}

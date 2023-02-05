@@ -3,6 +3,10 @@
   --secondary-action: #8A8A8A;
 }
 
+a {
+    text-decoration: none;
+}
+
 .App {
   text-align: center;
 }
@@ -35,7 +39,6 @@ main {
 }
 
 .primary_abtn{
-  position: relative;
   border: none;
   border-radius: 10px;
   width: 150px;
@@ -46,7 +49,6 @@ main {
 }
 
 .secondary_abtn{
-   position: relative;
    border: none;
    border-radius: 10px;
    width: 150px;
@@ -63,3 +65,5 @@ main {
   height: 50px;
   margin: 10px;
 }
+
+

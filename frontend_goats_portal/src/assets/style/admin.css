@@ -1,3 +1,5 @@
+.A
+
 h1 {
     color: darkred;
     padding-bottom: 5px;
@@ -5,7 +7,7 @@ h1 {
 
 #OrderView_Header {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     /* review css froggy again*/
 }
 
