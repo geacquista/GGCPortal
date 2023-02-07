@@ -24,8 +24,8 @@ const removeAll = () => {
   return http.delete(`/orderline`);
 };
 
-const findByOrder = orderID => {
-  return http.get(`/orderline?orderID=${orderID}`)
+const findByOrder = lineOrderID => {
+  return http.get(`/orderline?lineOrderID=${lineOrderID}`)
 };
 
 

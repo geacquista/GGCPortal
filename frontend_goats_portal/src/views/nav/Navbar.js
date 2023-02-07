@@ -106,7 +106,7 @@ const NavBar = ({activeButton, buttonOnClick}) => {
 				<h2>G.O.A.T.S.</h2>
 				{activeButton === ViewIndex.DASHBOARD ? <NavBarButtonActive text='Dashboard' icon={ViewIndex.DASHBOARD} onClick={buttonOnClick}/> : <NavBarButton text='Dashboard' icon={ViewIndex.DASHBOARD} onClick={buttonOnClick}/>}
 				{activeButton === ViewIndex.ORDERS ? <NavBarButtonActive text='Orders' icon={ViewIndex.ORDERS} onClick={buttonOnClick}/> : <NavBarButton text='Orders' icon={ViewIndex.ORDERS} onClick={buttonOnClick}/>}
-				{activeButton === ViewIndex.INVOICES ? <NavBarButtonActive text='Invoices' icon={ViewIndex.INVOICES} onClick={buttonOnClick}/> : <NavBarButton text='Invoices' icon={ViewIndex.INVOICES} onClick={buttonOnClick}/>}
+				{/* {activeButton === ViewIndex.INVOICES ? <NavBarButtonActive text='Invoices' icon={ViewIndex.INVOICES} onClick={buttonOnClick}/> : <NavBarButton text='Invoices' icon={ViewIndex.INVOICES} onClick={buttonOnClick}/>} */}
 				{activeButton === ViewIndex.SEARCH ? <NavBarButtonActive text='Order Search' icon={ViewIndex.SEARCH} onClick={buttonOnClick}/> : <NavBarButton text='Order Search' icon={ViewIndex.SEARCH} onClick={buttonOnClick}/>}
 				{activeButton === ViewIndex.TEST ? <NavBarButtonActive text='Test' icon={ViewIndex.TEST} onClick={buttonOnClick}/> : <NavBarButton text='Test' icon={ViewIndex.TEST} onClick={buttonOnClick}/>}
 			</div>

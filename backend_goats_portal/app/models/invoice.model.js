@@ -70,8 +70,9 @@ Invoice.findById = (id, result) => {
     }
 
     if (res.length) {
-      console.log("found invoice: ", res[0]);
-      result(null, res[0]);
+      var data = JSON.parse(JSON.stringify(res[0]))
+      console.log("found invoice: ", data);
+      result(null, data);
       return;
     }
 

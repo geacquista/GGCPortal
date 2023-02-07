@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import OrderDataService from "../services/OrderDataService";
+import CustomerDataService from '../services/CustomerDataService';
 
 /**
  * This is what an order looks like:
@@ -83,6 +84,7 @@ export const findOrdersByReferenceNumber = createAsyncThunk(
     return res.data;
   }
 );
+
 
 export const orderSlice = createSlice({
   name: 'orders',

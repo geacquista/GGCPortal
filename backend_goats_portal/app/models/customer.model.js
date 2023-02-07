@@ -84,8 +84,10 @@ Customer.findById = (id, result) => {
     }
 
     if (res.length) {
-      console.log("found customer: ", res[0]);
-      result(null, res[0]);
+      var data = JSON.parse(JSON.stringify(res[0]))
+      console.log("found customer: ", data);
+
+      result(null, data);
       return;
     }
 

@@ -1,13 +1,17 @@
 import cross_red from '../../assets/img/close_red.svg'
 import cross_white from '../../assets/img/close_white.svg'
 import add_icon from '../../assets/img/plus_white.svg'
-import React, { useState } from 'react'
+import React, { Component } from 'react'
+import { connect } from "react-redux";
 
+import { retrieveOrders } from '../../store/order_slice'
+
+import ActiveOrdersTab from './Tab_ActiveOrders'
+import CompletedOrdersTab from './Tab_CompletedOrders';
 import ExistingOrder from './Tab_ExistingOrder';
 import NewOrder from './Tab_NewOrder';
-import ActiveOrdersTab from './Tab_ActiveOrders'
-import CompletedOrdersTab from './Tab_CompletedOrders'
 
+import OrderCard from './orderview_components/OrderCard';
 
 export const TabTypeOrder = {
 	ACTIVE: 1,
@@ -21,20 +25,33 @@ const ViewType = {
 	NEW_ORDER: 4
 }
 
+export const OrderDisplayColumn = ({title, orders, orderCardOnClick}) => {
+
+	return(
+		<ul className='OrderDisplayColumn'>
+			<li key={title} style={{position: 'sticky', top: '0px'}}><div className='OrderDisplayColumnTitle'><h3 style={{padding: '0px', margin: '0px'}}>{title}</h3></div></li>
+
+			{orders.map((order) => (
+				<li><OrderCard key={order.orderID} order={order} color='#90E0C9' orderCardOnClick={orderCardOnClick} /></li>
+			))}
+		</ul>
+	)
+}
+
 
 export const TabButton = ({id, text, tabType, viewType, onClick, onDelete}) => {
 	if(tabType === TabTypeOrder.ACTIVE){
 		return(
 			<div className='tabRowButtonActive' onClick={() => onClick(id)}>
 				<h3 style={{fontWeight: 'bold'}}>{text}</h3>
-				{viewType === (ViewType.EXISTING_ORDER || ViewType.NEW_ORDER) && <img alt="close" src={cross_white} style={{paddingLeft: '10px'}} onClick={(event) => onDelete(id, event)}/> }
+				{(viewType === (ViewType.EXISTING_ORDER )|| (viewType ===ViewType.NEW_ORDER)) && <img alt="close" src={cross_white} style={{paddingLeft: '10px'}} onClick={(event) => onDelete(id, event)}/> }
 			</div>
 		)
 	} else if(tabType === TabTypeOrder.INACTIVE){
 		return(
 			<div className='tabRowButton' onClick={() => onClick(id)}>
 				<h3 style={{fontWeight: 'bold'}}>{text}</h3>
-				{viewType === (ViewType.EXISTING_ORDER || ViewType.NEW_ORDER) && <img alt="close" src={cross_red} style={{paddingLeft: '10px'}} onClick={(event) => onDelete(id, event)}/> }
+				{(viewType === (ViewType.EXISTING_ORDER )|| (viewType ===ViewType.NEW_ORDER)) && <img alt="close" src={cross_red} style={{paddingLeft: '10px'}} onClick={(event) => onDelete(id, event)}/> }
 			</div>
 		)
 	}
@@ -44,138 +61,185 @@ export const TabButton = ({id, text, tabType, viewType, onClick, onDelete}) => {
  * 
  * MainOrderPane acts as the Tab container for everything involving orders
  */
-const MainOrderPane = () => {
-	
-	// Set the text
-	const [displayText, setDisplayText] = useState("Orders")
-	const [nextId, setNextId] = useState(3)
-	const [activeTabId, setActiveTabId] = useState(1)
+class MainOrderPane extends Component {
+	constructor(props) {
+	  	super(props);
 
-	// Static tabs Active/Complete
-	const [tabs, setTabs] = useState([
-		{
-			id: 1,
-			text: 'Active Orders',
-			tabType: TabTypeOrder.ACTIVE,
-			viewType: ViewType.ACTIVE_ORDERS,
-		},
-		{
-			id: 2,
-			text: 'Completed Orders',
-			tabType: TabTypeOrder.INACTIVE,
-			viewType: ViewType.COMPLETED_ORDERS,
-		},
-	])
+	  	this.addAndOpenOrderView = this.addAndOpenOrderView.bind(this);
+	 	this.addNewOrder = this.addNewOrder.bind(this);
+		this.removeOrderView = this.removeOrderView.bind(this);
+		this.setActiveTab = this.setActiveTab.bind(this);
+		this.setActiveTabId = this.setActiveTabId.bind(this);
+		this.setNextId = this.setNextId.bind(this);
+		this.setTabs = this.setTabs.bind(this);
 
-	// Add/open new tab for READ ONLY ORDER VIEW
-	function addAndOpenOrderView(order, customer){
-		const tab = tabs.find(tab => (tab.viewType === ViewType.EXISTING_ORDER && order.id === tab.order.id))
-		
+	  this.state = {
+			tabs: [
+				{
+					id: 1,
+					text: 'Active Orders',
+					tabType: TabTypeOrder.ACTIVE,
+					viewType: ViewType.ACTIVE_ORDERS,
+				},
+				{
+					id: 2,
+					text: 'Completed Orders',
+					tabType: TabTypeOrder.INACTIVE,
+					viewType: ViewType.COMPLETED_ORDERS,
+				},
+			],
+
+			nextId: 3,
+			activeTabId: 1,
+		};
+
+	}
+
+	// when the component loads
+	componentDidMount() {
+		this.props.retrieveOrders();
+	}
+
+	 addAndOpenOrderView(data){
+		const tab = this.state.tabs.find(tab => (tab.viewType === ViewType.EXISTING_ORDER && data.order.orderID === tab.order.orderID))
 		if(tab === undefined){
 			const newTab = {
-				id: {nextId},
-				text: customer.lastName,
+				id: this.state.nextId,
+				text: data.lastName,
 				tabType: TabTypeOrder.ACTIVE,
 				viewType: ViewType.EXISTING_ORDER,
+				order: data.order,
+			}
+
+			const currentActiveTab = this.state.tabs.find(tab => tab.id === this.state.activeTabId)
+			currentActiveTab.tabType = TabTypeOrder.INACTIVE
+			const newTabsList = this.state.tabs.slice()
+			this.setTabs([...newTabsList, newTab])
+			this.setActiveTabId(newTab.id)
+			this.setNextId(this.state.nextId + 1)
+
+		} else{
+			this.setActiveTab(tab.id)
+		}
+		
+	}
+
+	addNewOrder(order){
+			const newTab = {
+				id: this.state.nextId,
+				text: "New Order",
+				tabType: TabTypeOrder.ACTIVE,
+				viewType: ViewType.NEW_ORDER,
 				order: order,
 			}
 
-			const currentActiveTab = tabs.find(tab => tab.id === activeTabId)
+			const currentActiveTab = this.state.tabs.find(tab => tab.id === this.state.activeTabId)
 			currentActiveTab.tabType = TabTypeOrder.INACTIVE
-			const newTabsList = tabs.slice()
-			setTabs([...newTabsList, newTab])
-			setActiveTabId(newTab.id)
-			setNextId(nextId + 1)
-
-		} else{
-			setActiveTab(tab.id)
-		}
+			const newTabsList = this.state.tabs.slice()
+			this.setTabs([...newTabsList, newTab])
+			this.setActiveTabId(newTab.id)
+			this.setNextId(this.state.nextId+1)
+		
 	}
+	
 
-	// Add new tab for ADD ORDER
-	function addNewOrder() {
-		const newTab = {
-			id: {nextId},
-			text: "New Order",
-			tabType: TabTypeOrder.ACTIVE,
-			viewType: ViewType.NEW_ORDER,
-			order: {
-			},
-		}
-		const currentActiveTab = tabs.find(tab => tab.id === activeTabId)
-		currentActiveTab.tabType = TabTypeOrder.INACTIVE
-		const newTabsList = tabs.slice()
-		setTabs([...newTabsList, newTab])
-		setActiveTabId(newTab.id)
-		setNextId(nextId + 1)
-	}
-
-	// Remove tab from bar
-	function removeOrderView(id, event){
-		if(activeTabId === id){
-			const newActiveTab = tabs[tabs.length-2]
+	 removeOrderView(id, event){
+		if(this.state.activeTabId === id){
+			const newActiveTab = this.state.tabs[1]
 			newActiveTab.tabType = TabTypeOrder.ACTIVE
-			const newTabsList = tabs.slice().filter(tab => tab.id !== id)
-			setTabs(newTabsList)
-			setActiveTabId(newActiveTab.id)
+			const newTabsList = this.state.tabs.slice().filter(tab => tab.id !== id)
+			this.setTabs(newTabsList)
+			this.setActiveTabId(newActiveTab.id)
 
 		} else{
-			setTabs(tabs.filter(tab => tab.id !== id))
+			this.setTabs(this.state.tabs.filter(tab => tab.id !== id))
 		}
+
+		{/*So that the tab does not click when the close button is clicked*/}
 		event.stopPropagation()
 	}
 
-	// Set active tab - pass in id
-	function setActiveTab(id){
-		const currentActiveTab = tabs.find(tab => tab.id === activeTabId)
-		const newActiveTab = tabs.find(tab => tab.id === id)
+	 setActiveTab(id){
+		const currentActiveTab = this.state.tabs.find(tab => tab.id === this.state.activeTabId)
+		const newActiveTab = this.state.tabs.find(tab => tab.id === id)
 		currentActiveTab.tabType = TabTypeOrder.INACTIVE
 		newActiveTab.tabType = TabTypeOrder.ACTIVE
-		const newTabsList = tabs.slice()
-		setTabs(newTabsList)
-		setActiveTabId(newActiveTab.id)
+		const newTabsList = this.state.tabs.slice()
+		this.setTabs(newTabsList)
+		this.setActiveTabId(newActiveTab.id)
 	}
 
-	let tabDisplayContent
-	const activeContent = tabs.find(tab => tab.id === activeTabId)
-
-	switch(activeContent.viewType){
-		case ViewType.ACTIVE_ORDERS:
-			tabDisplayContent = <ActiveOrdersTab orderCardOnClick={addAndOpenOrderView}/>
-			break
-		case ViewType.COMPLETED_ORDERS:
-			tabDisplayContent = <CompletedOrdersTab orderCardOnClick={addAndOpenOrderView}/>
-			break
-		case ViewType.EXISTING_ORDER:
-			tabDisplayContent = <ExistingOrder order={activeContent.order} orderCardOnClick={addAndOpenOrderView}/>
-			break
-		case ViewType.NEW_ORDER:
-			tabDisplayContent = <NewOrder orderCardOnClick={addAndOpenOrderView}/>
-			break
-		default:
-			// tabDisplayContent = <Logout/>
+	setActiveTabId(id) {
+		this.setState({
+			activeTabId: id,
+		});
 	}
 
-	return(
-		<div id='Orders'>	
-			<div className="OrderTitleButton">
-				<h1 className='PageHeader'>{displayText}</h1> 
-				<button className='OrderActionButton' onClick={addNewOrder}>
-					<img src={add_icon} alt='add order' style={{paddingRight: '10px'}}/>
-					<h4>Add Order</h4>
-				</button>
-			</div>
-			<div id='OrdersDisplay' style={{display: 'flex', displayDirection: 'column'}}>
-				<div className='tabRow'>
-					{tabs.map((tab) => (
-						<TabButton key={tab.id} id={tab.id} text={tab.text} tabType={tab.tabType} viewType={tab.viewType} onClick={setActiveTab} onDelete={removeOrderView}/>
-					))}
+	setNextId(id) {
+		this.setState({
+			nextId: id,
+		});
+	}
+	
+	setTabs(tabs) {
+		this.setState({
+			tabs: tabs
+		});
+	}
+
+	render() {
+		const {orders} = this.props
+		let tabDisplayContent
+		const activeContent = this.state.tabs.find(tab => tab.id === this.state.activeTabId)
+		const currentActiveOrders = orders.filter(order => (order.orderStatus === "Placed" || order.orderStatus === 'Processed' || order.orderStatus === 'Shipped'));		
+		const currentCompletedOrders = orders.filter(order => (order.orderStatus === "Complete"));
+
+
+		switch(activeContent.viewType){
+			case ViewType.ACTIVE_ORDERS:
+				tabDisplayContent = <ActiveOrdersTab orders={currentActiveOrders} orderCardOnClick={this.addAndOpenOrderView}/>
+				break
+			case ViewType.COMPLETED_ORDERS:
+				tabDisplayContent = <CompletedOrdersTab orders={currentCompletedOrders} orderCardOnClick={this.addAndOpenOrderView}/>
+				break
+			case ViewType.EXISTING_ORDER:
+				tabDisplayContent = <ExistingOrder order={activeContent.order} orderCardOnClick={this.addAndOpenOrderView}/>
+				break
+			case ViewType.NEW_ORDER:
+				tabDisplayContent = <NewOrder orderCardOnClick={this.addAndOpenOrderView}/>
+				break
+			default:
+				// tabDisplayContent = <ActiveOrdersTab orders={currentActiveOrders} orderCardOnClick={this.addAndOpenOrderView}/>
+		}
+		return(
+			<div id='Orders'>	
+				<div className="OrderTitleButton">
+					<h1 className='PageHeader'>Orders</h1> 
+					<button className='OrderActionButton' onClick={this.addNewOrder}>
+						<img src={add_icon} alt='add order' style={{paddingRight: '10px'}}/>
+						<h4>Add Order</h4>
+					</button>
 				</div>
-				<div id='rectangle' style={{height: '13px', width: '1144px', backgroundColor: '#C62032'}} />
-				{tabDisplayContent}
+				<div id='OrdersDisplay' style={{display: 'flex', displayDirection: 'column'}}>
+					<div className='tabRow'>
+						{this.state.tabs.map((tab) => (
+							<TabButton key={tab.id} id={tab.id} text={tab.text} tabType={tab.tabType} viewType={tab.viewType} onClick={this.setActiveTab} onDelete={this.removeOrderView}/>
+						))}
+					</div>
+					<div id='rectangle' style={{height: '13px', width: '1144px', backgroundColor: '#C62032'}} />
+					{tabDisplayContent}
+				</div>
 			</div>
-		</div>
-	)
+		);
+	}
+		
 }
 
-export default MainOrderPane;
+const mapStateToProps = (state) => {
+	return {
+		orders: state.orders,
+
+	};
+  };
+  
+export default connect(mapStateToProps, {retrieveOrders})(MainOrderPane);

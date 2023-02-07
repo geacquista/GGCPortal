@@ -63,8 +63,8 @@ export const deleteAllOrderLines = createAsyncThunk(
 
 export const findOrderLineByOrderID = createAsyncThunk(
     "orderline/findByOrderID",
-    async ({ lineOrderID }) => {
-      const res = await OrderLineDataService.findByOrder(lineOrderID);
+    async ({ id }) => {
+      const res = await OrderLineDataService.findByOrder(id);
       return res.data;
     }
   );

@@ -69,7 +69,9 @@ User.findById = (id, result) => {
 
     if (res.length) {
       console.log("found user: ", res[0]);
-      result(null, res[0]);
+      var data = JSON.parse(JSON.stringify(res[0]))
+
+      result(null, data);
       return;
     }
 

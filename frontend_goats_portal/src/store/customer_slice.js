@@ -12,7 +12,6 @@ import CustomerDataService from "../services/CustomerDataService";
         phoneNumber: '20397588636',
         email: 'customer@wpi.edu',
         customerShippingId: null
-    
       },
   ]
  */
@@ -43,7 +42,7 @@ export const retrieveCustomers = createAsyncThunk(
 );
 
 export const retrieveCustomer = createAsyncThunk(
-  "customers/readCustomer",
+  "customers/read",
   async ({ id }) => {
     const res = await CustomerDataService.get(id);
     return res.data;
@@ -91,7 +90,7 @@ export const customerSlice = createSlice({
       return [...action.payload];
     },
     [retrieveCustomer.fulfilled]: (state, action) => {
-      return [...action.payload];
+      return [action.payload];
     },
     [updateCustomer.fulfilled]: (state, action) => {
       const index = state.findIndex(order => order.id === action.payload.id);

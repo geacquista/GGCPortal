@@ -81,7 +81,7 @@ export const invoiceSlice = createSlice({
       return [...action.payload];
     },
     [retrieveInvoice.fulfilled]: (state, action) => {
-      return [...action.payload];
+      return [action.payload];
     },
     [updateInvoice.fulfilled]: (state, action) => {
       const index = state.findIndex(order => order.id === action.payload.id);

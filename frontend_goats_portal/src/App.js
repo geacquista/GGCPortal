@@ -6,14 +6,14 @@ import NavBar from './views/nav/Navbar';
 import Dashboard from './views/dashboard/Dashboard';
 import MainOrderPane from './views/orders/MainOrderView_Tabs';
 import Search from './views/search/Search';
-import Invoices from './views/invoices/Invoices';
+// import Invoices from './views/invoices/Invoices';
 import AdminPanel from './views/admin/AdminPanel';
 
 // For Navigation
 export const ViewIndex = {
 	DASHBOARD: 1,
 	ORDERS: 2,
-	INVOICES: 3,
+	// INVOICES: 3,
 	SEARCH: 4,
 	HELP: 5,
 	LOGOUT: 6,
@@ -46,7 +46,7 @@ function App() {
             <NavBar activeButton={displayContent} buttonOnClick={setDisplayContent}/>
             {displayContent === ViewIndex.DASHBOARD && <Dashboard/>} 
             {displayContent === ViewIndex.ORDERS  && <MainOrderPane/>} 
-            {displayContent === ViewIndex.INVOICES  && <Invoices/>} 
+            {/* {displayContent === ViewIndex.INVOICES  && <Invoices/>}  */}
             {displayContent === ViewIndex.SEARCH  && <Search/>} 
             {displayContent === ViewIndex.TEST && <AdminPanel/>} 
             {displayContent === ViewIndex.HELP && <Dashboard/>} 
