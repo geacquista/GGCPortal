@@ -25,7 +25,7 @@ export const createShippingAddress = createAsyncThunk(
   }
 );
 
-export const retrieveShippingAddresss = createAsyncThunk(
+export const retrieveShippingAddresses = createAsyncThunk(
   "shippingAddresses/retrieve",
   async () => {
     const res = await ShippingAddressDataService.getAll();
@@ -57,7 +57,7 @@ export const deleteShippingAddress = createAsyncThunk(
   }
 );
 
-export const deleteAllShippingAddresss = createAsyncThunk(
+export const deleteAllShippingAddresses = createAsyncThunk(
   "shippingAddresses/deleteAll",
   async () => {
     const res = await ShippingAddressDataService.removeAll();
@@ -75,11 +75,11 @@ export const shippingAddressSlice = createSlice({
     [createShippingAddress.fulfilled]: (state, action) => {
       state.push(action.payload);
     },
-    [retrieveShippingAddresss.fulfilled]: (state, action) => {
+    [retrieveShippingAddresses.fulfilled]: (state, action) => {
       return [...action.payload];
     },
     [retrieveShippingAddress.fulfilled]: (state, action) => {
-      return [...action.payload];
+      return [action.payload];
     },
     [updateShippingAddress.fulfilled]: (state, action) => {
       const index = state.findIndex(order => order.id === action.payload.id);
@@ -92,7 +92,7 @@ export const shippingAddressSlice = createSlice({
       let index = state.findIndex(({ id }) => id === action.payload.id);
       state.splice(index, 1);
     },
-    [deleteAllShippingAddresss.fulfilled]: (state, action) => {
+    [deleteAllShippingAddresses.fulfilled]: (state, action) => {
       return [];
     },
   },

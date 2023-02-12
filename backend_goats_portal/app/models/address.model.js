@@ -59,7 +59,7 @@ ShippingAddress.getAll = (result) => {
  * @param {*} result 
  */
 ShippingAddress.findById = (id, result) => {
-  sql.query(`SELECT * FROM ShippingAddress WHERE shippingAddressID = ${id}`, (err, res) => {
+  sql.query(`SELECT * FROM ShippingAddress WHERE shippingID = ${id}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -68,7 +68,8 @@ ShippingAddress.findById = (id, result) => {
 
     if (res.length) {
       console.log("found shippingAddress: ", res[0]);
-      result(null, res[0]);
+      var data = JSON.parse(JSON.stringify(res[0]))
+      result(null, data);
       return;
     }
 
@@ -85,7 +86,7 @@ ShippingAddress.findById = (id, result) => {
  */
 ShippingAddress.updateById = (id, shippingAddress, result) => {
   sql.query(
-    "UPDATE ShippingAddress SET email = ?, password = ?, nickname = ?, permissionType = ? WHERE shippingAddressID = ?",
+    "UPDATE ShippingAddress SET email = ?, password = ?, nickname = ?, permissionType = ? WHERE shippingID = ?",
     [shippingAddress.email, shippingAddress.password, shippingAddress.nickname, this.permissionType, id],
     (err, res) => {
       if (err) {
@@ -112,7 +113,7 @@ ShippingAddress.updateById = (id, shippingAddress, result) => {
  * @param {*} result 
  */
 ShippingAddress.remove = (id, result) => {
-  sql.query("DELETE FROM ShippingAddress WHERE shippingAddressID = ?", id, (err, res) => {
+  sql.query("DELETE FROM ShippingAddress WHERE shippingID = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);

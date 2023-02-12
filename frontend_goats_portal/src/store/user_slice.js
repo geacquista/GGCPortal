@@ -106,7 +106,7 @@ export const userSlice = createSlice({
       return [...action.payload];
     },
     [retrieveUsers.fulfilled]: (state, action) => {
-      return [...action.payload];
+      return [action.payload];
     },
     [updateUser.fulfilled]: (state, action) => {
       const index = state.findIndex(user => user.id === action.payload.id);

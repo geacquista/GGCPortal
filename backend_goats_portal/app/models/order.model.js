@@ -76,7 +76,7 @@ Order.getAll = (lastName,referenceNumber, result) => {
  * @param {*} result 
  */
 Order.findById = (id, result) => {
-  sql.query(`SELECT * FROM Order WHERE orderID = ${id}`, (err, res) => {
+  sql.query(`SELECT * FROM Order WHERE orderID = ?`, id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -129,7 +129,7 @@ Order.updateById = (id, order, result) => {
  * @param {*} result 
  */
 Order.remove = (id, result) => {
-  sql.query("DELETE FROM Order WHERE orderID = ?", id, (err, res) => {
+  sql.query("DELETE FROM `Order` WHERE `orderID` = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);

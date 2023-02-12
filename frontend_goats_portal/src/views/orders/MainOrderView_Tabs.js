@@ -195,6 +195,7 @@ class MainOrderPane extends Component {
 		const currentCompletedOrders = orders.filter(order => (order.orderStatus === "Complete"));
 
 
+
 		switch(activeContent.viewType){
 			case ViewType.ACTIVE_ORDERS:
 				tabDisplayContent = <ActiveOrdersTab orders={currentActiveOrders} orderCardOnClick={this.addAndOpenOrderView}/>
@@ -203,7 +204,8 @@ class MainOrderPane extends Component {
 				tabDisplayContent = <CompletedOrdersTab orders={currentCompletedOrders} orderCardOnClick={this.addAndOpenOrderView}/>
 				break
 			case ViewType.EXISTING_ORDER:
-				tabDisplayContent = <ExistingOrder order={activeContent.order} orderCardOnClick={this.addAndOpenOrderView}/>
+				console.log(activeContent.order)
+				tabDisplayContent = <ExistingOrder order={activeContent.order} orderCardOnClick={this.addAndOpenOrderView} orderCardOnDelete={this.removeOrderView} activeTabId={this.state.activeTabId}/>
 				break
 			case ViewType.NEW_ORDER:
 				tabDisplayContent = <NewOrder orderCardOnClick={this.addAndOpenOrderView}/>
@@ -238,7 +240,6 @@ class MainOrderPane extends Component {
 const mapStateToProps = (state) => {
 	return {
 		orders: state.orders,
-
 	};
   };
   

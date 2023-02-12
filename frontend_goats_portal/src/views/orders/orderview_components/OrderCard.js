@@ -77,7 +77,7 @@ class OrderCard extends Component {
 				console.log(data);
 				this.setState({
 
-					invoiceNumber: data.payload.invoiceNumber || 'NA',
+					invoiceNumber: data.payload.invoiceNumber,
 					
 				  });
 				  this.findOrderLinesByID(this.props.order.orderID);
@@ -113,20 +113,18 @@ class OrderCard extends Component {
 	}
   
 	render() {
-		const {order, customers, orderline, invoices} = this.props;
-		console.log(order);
-		console.log(customers);
-		console.log(orderline);
-		console.log(invoices);
+		const {order} = this.props;
 
 
 		const {firstName, lastName, invoiceNumber, numberOfLogs, datePlaced} = this.state;
 
-		console.log(datePlaced)
-
+		const data = {
+			order: order,
+			lastName: lastName
+		}
 
 		return (
-			<div className='OrderCard' onClick={() => this.handleOnClick(order, lastName)}>
+			<div className='OrderCard' onClick={() => this.handleOnClick(data)}>
 				<div className='OrderCardHeader' style={{ backgroundColor: this.props.color }}>
 					<h4 style={{ fontWeight: 'bold' }}>{lastName}, {firstName}</h4>
 				</div>
