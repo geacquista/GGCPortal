@@ -102,7 +102,7 @@ Order.findById = (id, result) => {
  */
 Order.updateById = (id, order, result) => {
   sql.query(
-    "UPDATE Order SET datePlace = ?, isGift = ?, giftFor = ?, giftMessage = ?, trackingNumber = ?, orderStatus = ?, shippingId = ?, customerId = ?, referenceNumber = ?, isSelfOrder = ? WHERE orderID = ?",
+    "UPDATE Order SET datePlaced = ?, isGift = ?, giftFor = ?, giftMessage = ?, trackingNumber = ?, orderStatus = ?, shippingId = ?, customerId = ?, referenceNumber = ?, isSelfOrder = ? WHERE orderID = ?",
     [order.datePlaced, order.isGift, order.giftFor, order.giftMessage, order.trackingNumber, order.orderStatus, order.shippingId, order.customerId, order.referenceNumber, order.isSelfOrder, id], 
     (err, res) => {
       if (err) {
