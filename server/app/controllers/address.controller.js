@@ -11,8 +11,7 @@ exports.create = (req, res) => {
 
   // Create a ShippingAddress
   const shippingAddress = new ShippingAddress({
-    streetAddressOne: req.body.streetAddressOne,
-    streetAddressTwo: req.body.streetAddressTwo,
+    streetAddress: req.body.streetAddress,
     state: req.body.state,
     city: req.body.city,
     zip: req.body.zip

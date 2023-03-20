@@ -1,0 +1,19 @@
+CREATE TABLE `Order` (
+  `orderID` int NOT NULL AUTO_INCREMENT,
+  `referenceNumber` varchar(45) DEFAULT NULL,
+  `datePlaced` datetime NOT NULL,
+  `isGift` tinyint NOT NULL DEFAULT '0',
+  `giftFor` varchar(108) DEFAULT NULL,
+  `giftMessage` varchar(1024) DEFAULT NULL,
+  `trackingNumber` varchar(45) DEFAULT NULL,
+  `orderStatus` enum('Placed','Proccessed','Shipped','Complete','Archive') NOT NULL DEFAULT 'Placed',
+  `shippingId` int NOT NULL,
+  `customerId` int NOT NULL,
+  `isSelfOrder` tinyint DEFAULT '0',
+  PRIMARY KEY (`orderID`),
+  KEY `ShippingID_idx` (`shippingId`),
+  KEY `CustomerID_idx` (`customerId`),
+  KEY `OrderStatusID_idx` (`orderStatus`),
+  CONSTRAINT `CustomerID_Order` FOREIGN KEY (`customerId`) REFERENCES `Customer` (`customerID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `ShippingID_Order` FOREIGN KEY (`shippingId`) REFERENCES `ShippingAddress` (`shippingID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

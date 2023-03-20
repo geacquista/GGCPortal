@@ -1,0 +1,4 @@
+userID,email,password,nickname,permissionType
+1,geacquista@wpi.edu,developer,Nini,ADMIN
+2,gr-ggc@wpi.edu,company,GGC,GGC
+3,bob@farm.com,invoiceLover,Bob,FARM

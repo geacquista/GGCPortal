@@ -4,32 +4,32 @@ const sql = require("./db.js");
 const Invoice = function(invoice) {
   this.orderID == invoice.orderID;
   this.invoiceNumber = invoice.invoiceNumber;
+  this.customerPaid = invoice.customerPaid;
   this.revenue = invoice.revenue;
   this.expense = invoice.expense;
-  this.isPaid = invoice.isPaid;
+  this.invoiceStatus = invoice.invoiceStatus;
 };
 
 /**
- * [COMPLETE] Inserts a new invoice into the database
  * @param {*} newInvoice 
  * @param {*} result 
  */
- Invoice.create = (newInvoice, result) => {
+//  Invoice.create = (newInvoice, result) => {
 
-  // could change query formatting here to be consistent throughout
-  var query = "INSERT INTO `Invoice` (`orderID`, `invoiceNumber`, `revenue`, `expense`, `isPaid`) VALUES (?,?,?,?,?);"
-  sql.query(query,
-    [newInvoice.orderID, newInvoice.invoiceNumber, newInvoice.revenue, newInvoice.expense, newInvoice.isPaid], function (err, res) {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-      return;
-    }
+//   // could change query formatting here to be consistent throughout
+//   var query = "INSERT INTO `Invoice` (`orderID`, `invoiceNumber`, `customerPaid`, `revenue`, `expense`, `isPaid`) VALUES (?,?,?,?,?);"
+//   sql.query(query,
+//     [newInvoice.orderID, newInvoice.invoiceNumber, newInvoice.customerPaid, newInvoice.revenue, newInvoice.expense, newInvoice.isPaid], function (err, res) {
+//     if (err) {
+//       console.log("error: ", err);
+//       result(err, null);
+//       return;
+//     }
 
-    console.log("created invoice: ", {...newInvoice });
-    result(null, {...newInvoice });
-  });
-};
+//     console.log("created invoice: ", {...newInvoice });
+//     result(null, {...newInvoice });
+//   });
+// };
 
 /**
  * 
@@ -89,8 +89,8 @@ Invoice.findById = (id, result) => {
  */
 Invoice.updateById = (id, invoice, result) => {
   sql.query(
-    "UPDATE Invoice SET email = ?, password = ?, nickname = ?, permissionType = ? WHERE orderID = ?",
-    [invoice.email, invoice.password, invoice.nickname, this.permissionType, id],
+    "UPDATE Invoice SET invoiceNumber = ?, customerPaid = ?, revenue = ?, expense = ?, invoiceStatus = ? WHERE orderID = ?",
+    [invoice.invoiceNumber, invoice.customerPaid, invoice.revenue, invoice.expense, invoice.invoiceStatus, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -153,7 +153,7 @@ Invoice.removeAll = result => {
 
 
 Invoice.getAllPaid = result => {
-    sql.query("SELECT * FROM Invoice WHERE isPaid=true", (err, res) => {
+    sql.query("SELECT * FROM Invoice WHERE invoiceStatus='PaymentRecieved'", (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);

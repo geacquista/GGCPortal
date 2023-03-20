@@ -1,0 +1,12 @@
+CREATE TABLE `Customer` (
+  `customerID` int NOT NULL AUTO_INCREMENT,
+  `firstName` varchar(45) NOT NULL,
+  `lastName` varchar(45) NOT NULL,
+  `phoneNumber` varchar(45) DEFAULT 'NA',
+  `email` varchar(255) NOT NULL,
+  `customerShippingId` int DEFAULT NULL,
+  PRIMARY KEY (`customerID`),
+  UNIQUE KEY `customerID_UNIQUE` (`customerID`),
+  KEY `ShippingID_idx` (`customerShippingId`),
+  CONSTRAINT `CustomerAddressID` FOREIGN KEY (`customerShippingId`) REFERENCES `ShippingAddress` (`shippingID`)
+) ENGINE=InnoDB AUTO_INCREMENT=312 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

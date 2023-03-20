@@ -1,0 +1,9 @@
+CREATE TABLE `OrderLine` (
+  `lineOrderID` int NOT NULL,
+  `lineProductID` varchar(15) NOT NULL,
+  `qtyOrdered` int DEFAULT '0',
+  PRIMARY KEY (`lineOrderID`,`lineProductID`),
+  KEY `sku_idx` (`lineProductID`),
+  CONSTRAINT `LineOrderID` FOREIGN KEY (`lineOrderID`) REFERENCES `Order` (`orderID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `SKU_FK_LINE` FOREIGN KEY (`lineProductID`) REFERENCES `Product` (`sku`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
