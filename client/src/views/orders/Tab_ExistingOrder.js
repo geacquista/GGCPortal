@@ -1,5 +1,7 @@
 import edit_icon from '../../assets/img/edit_white.svg'
 import delete_icon from '../../assets/img/trash_white.svg'
+import '../../assets/style/order_view.css'
+
 import React, { useState, Component } from 'react'
 import { connect, useDispatch, useSelector } from "react-redux";
 import moment from 'moment';
@@ -15,7 +17,7 @@ import { findBySKU, retrieveProducts } from "../../store/product_slice";
 
 const GeneralInfoView = ({referenceNumber, datePlaced, trackingNumber, orderStatus, giftFor, giftMessage}) => {
 	return (
-		<div id='OrderView_General_Details'>
+		<div id='OrderView'>
 			<table>
 				<tbody>
 					<tr>
@@ -480,17 +482,17 @@ class ExistingOrder extends Component {
 			phoneNumber: "",
 		},
 		activeAddress: {
-			streetAddressOne: "",
-			streetAddressTwo: "",
+			streetAddress: "",
 			city: "",
 			state: "",
 			zip: ""
 		},
 		activeInvoice: {
 			invoiceNumber: "NA",
-			revenue: "",
-			expense: "",
-			isPaid: "",
+			customerPaid:0,
+			revenue: 0,
+			expense: 0,
+			invoiceStatus: "",
 		},
 		productsOrdered: [
 			
@@ -605,13 +607,17 @@ class ExistingOrder extends Component {
 					<div className='Column'>		
 						<GeneralInfoView referenceNumber={referenceNumber} datePlaced= {datePlaced} trackingNumber={trackingNumber} orderStatus={orderStatus} giftFor={giftFor} giftMessage={giftMessage}/>
 						<CustomerInfoView firstName={firstName} lastName={lastName} email={email} phoneNumber={phoneNumber}/>
-						<ProductInfoView numberOfFlavors={numberOfFlavors} numberOfLogs={numberOfLogs} productsOrdered={productsOrdered}/>
-
 					</div>
 					<div className='Column'>		
 						<ShippingInfoView streetAddressOne={streetAddressOne} streetAddressTwo={streetAddressTwo} city={city} state={state} zip={zip}/>
 						<InvoiceInfoView invoiceNumber={invoiceNumber} revenue={revenue} expense={expense} isPaid={isPaid}/>
 					</div>
+				</div>
+				<div className='Row'>
+				<div className='Column'>	
+				<ProductInfoView numberOfFlavors={numberOfFlavors} numberOfLogs={numberOfLogs} productsOrdered={productsOrdered}/>
+	
+				</div>
 				</div>
 
 			</div>

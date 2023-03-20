@@ -38,7 +38,7 @@ class AllQuickStats extends Component{
 		const {orders, invoices} = this.props;
 
 		const currentActiveOrders = orders.filter(order => (order.orderStatus === "Placed" || order.orderStatus === 'Processed' || order.orderStatus === 'Shipped'));		
-		const currentActiveInvoices = invoices.filter(invoice => (invoice.invoiceStatus === "Missing") || invoice.invoiceStatus === "Unpaid");
+		const currentActiveInvoices = invoices.filter(invoice => (invoice.invoiceStatus === "Missing") || invoice.invoiceStatus === "Waiting");
 	
 		const currentOrdersPlaced = orders.filter(order => (order.orderStatus === "Placed"));		
 		const currentOrdersProcessed = orders.filter(order => (order.orderStatus === 'Processed'));		

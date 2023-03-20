@@ -1,6 +1,7 @@
 {
   "name": "ggcportal",
   "version": "1.0.0",
+  
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -33,7 +34,7 @@
   "bugs": {
     "url": "https://github.com/geacquista/GGCPortal/issues"
   },
-  "homepage": "https://github.com/geacquista/GGCPortal#readme",
+  "homepage": "https://geacquista.github.io/GGCPortal/",
   "devDependencies": {
     "concurrently": "^7.6.0",
     "gh-pages": "^5.0.0",

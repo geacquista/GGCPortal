@@ -2,14 +2,6 @@ import React, {Component} from "react";
 import moment from 'moment';
 import { connect } from "react-redux";
 
-
-import { retrieveShippingAddress } from '../../../store/address_slice'
-import { retrieveCustomer } from '../../../store/customer_slice';
-import { retrieveInvoice } from '../../../store/invoice_slice';
-import { findOrderLineByOrderID } from "../../../store/orderline_slice";
-import { retrieveProducts } from "../../../store/product_slice";
-
-
 class OrderCard extends Component {
 	constructor(props) {
 	  super(props);
@@ -42,17 +34,17 @@ class OrderCard extends Component {
 			phoneNumber: "",
 		},
 		activeAddress: {
-			streetAddressOne: "",
-			streetAddressTwo: "",
+			streetAddress: "",
 			city: "",
 			state: "",
 			zip: ""
 		},
 		activeInvoice: {
 			invoiceNumber: "NA",
-			revenue: "",
-			expense: "",
-			isPaid: "",
+			customerPaid: 0,
+			revenue: 0,
+			expense: 0,
+			invoiceStatus: "",
 		},
 		productsOrdered: [
 			
@@ -68,7 +60,6 @@ class OrderCard extends Component {
 
 
 	componentDidMount() {
-        // this.props.retrieveProducts();
 		const {orderID, referenceNumber, datePlaced, orderStatus, trackingNumber, giftFor, giftMessage, isGift, customerId, shippingId, isSelfOrder} = this.props.order
 		this.setState({
 			orderID: parseInt(orderID),
@@ -92,12 +83,11 @@ class OrderCard extends Component {
 
 	getShippingInfo(shippingId, customerId) {
 		const filteredAddress = this.props.shippingAddresses.find(address => address.shippingID === shippingId)
-		const {streetAddressOne, streetAddressTwo, city, state, zip} = filteredAddress;
+		const {streetAddress, city, state, zip} = filteredAddress;
 
 		this.setState({
 			activeAddress: {
-				streetAddressOne: streetAddressOne,
-				streetAddressTwo: streetAddressTwo,
+				streetAddress: streetAddress,
 				city: city,
 				state: state,
 				zip: zip,
@@ -169,6 +159,7 @@ class OrderCard extends Component {
 		this.setState({
 			activeInvoice: {
 				invoiceNumber: filteredInvoice.invoiceNumber || "NA",
+				customerPaid: filteredInvoice.customerPaid,
 				revenue: filteredInvoice.revenue,
 				expense: filteredInvoice.expense,
 				isPaid: filteredInvoice.isPaid,

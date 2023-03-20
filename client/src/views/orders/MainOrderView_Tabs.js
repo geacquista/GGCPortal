@@ -5,7 +5,6 @@ import React, { Component } from 'react'
 import { connect } from "react-redux";
 
 import { retrieveOrders } from '../../store/order_slice'
-import { retrieveProducts } from '../../store/product_slice';
 
 import ActiveOrdersTab from './Tab_ActiveOrders'
 import CompletedOrdersTab from './Tab_CompletedOrders';
@@ -33,7 +32,6 @@ export const OrderDisplayColumn = ({title, orders, orderCardOnClick, products}) 
 			<li key={title} style={{position: 'sticky', top: '0px'}}><div className='OrderDisplayColumnTitle'><h3 style={{padding: '0px', margin: '0px'}}>{title}</h3></div></li>
 
 			{orders.map((order) => {
-				//can i filter the list here
 				return (
 				<li><OrderCard key={order.orderID} order={order} color='#90E0C9' orderCardOnClick={orderCardOnClick}  /></li>
 			)})}

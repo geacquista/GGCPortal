@@ -19,8 +19,8 @@ import ShippingAddressDataService from "../services/AddressDataService";
  */
 export const createShippingAddress = createAsyncThunk(
   "shippingAddresses/create",
-  async ({ streetAddressOne, streetAddressTwo, city, state, zip }) => {
-    const res = await ShippingAddressDataService.create({ streetAddressOne, streetAddressTwo, city, state, zip });
+  async ({ streetAddress, city, state, zip }) => {
+    const res = await ShippingAddressDataService.create({ streetAddress, city, state, zip });
     return res.data;
   }
 );

@@ -23,7 +23,6 @@ import { retrieveOrderLines } from './store/orderline_slice';
 export const ViewIndex = {
 	DASHBOARD: 1,
 	ORDERS: 2,
-	// INVOICES: 3,
 	SEARCH: 4,
 	HELP: 5,
 	LOGOUT: 6,
@@ -31,10 +30,25 @@ export const ViewIndex = {
 }
 
 export const PermissionTypes = {
-	ADMIN: "Administrator",
-	GGC: "Gompei's Goat Cheese - Operations Access",
-	FARM: "Farm Permissions"
+	ADMIN: "ADMIN",
+	GGC: "GGC",
+	FARM: "FARM"
   // Potential for more permissions here
+} 
+
+export const InvoiceStatus = {
+	MISSING: "Missing",
+	WAITING: "Waiting",
+	SENT: "PaymentSent",
+  RECIEVED: "PaymentRecieved"
+} 
+
+export const OrderStatus = {
+	PLACED: "Missing",
+	PROCESSED: "Waiting",
+	SHIPPED: "Shipped",
+  COMPLETE: "Complete",
+  ARCHIVE: "Archive"
 } 
 
 // Will this be controlled by the state?
@@ -53,7 +67,6 @@ class App extends Component {
       displayContent: ViewIndex.DASHBOARD
     }
   }
-
 
   componentDidMount() {
 		this.props.retrieveOrders();

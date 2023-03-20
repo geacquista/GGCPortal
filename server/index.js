@@ -26,7 +26,9 @@ require("./app/routes/product.routes.js")(app);
 require("./app/routes/user.routes.js")(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 3001;
+// 3001 local
+// rds 3306
+const PORT = process.env.PORT || 3306;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
