@@ -74,20 +74,12 @@ class Login extends PureComponent {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    loggedIn: state.loggedIn,
-    loginProcessing: state.loginProcessing
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    login: data => dispatch(startLogin(data))
+      users: state.users
   };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
 )(Login);

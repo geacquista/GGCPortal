@@ -1,19 +1,5 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-
-// to do actions add useDispatch
-
-// do i need to sync something here so it updates? or do a fetch?
-
-// import {
-// 	selectActiveInvoices,
-// 	selectActiveOrders,
-// 	selectMissingInvoices,
-// 	selectOrdersPlaced,
-// 	selectOrdersProcessed,
-// 	selectOrdersShipped,
-// 	selectUnpaidInvoices
-// } from '../../store/stats_slice';
+import React, { Component } from 'react';
+import { connect } from "react-redux";
 
 const QuickStatsTallRegular = ({amount, label, amountColor}) => {
 	return(
@@ -45,24 +31,45 @@ const QuickStatsShortWide = ({amount, label, amountColor}) => {
 	)
 }
 
-const AllQuickStats = () =>{
-	return(
-		<div id='AllQuickStats' className='Row'>
-			<QuickStatsTallRegular amount = {0} label = 'Active Orders' amountColor = '#911D34' />
-			<QuickStatsTallRegular amount = {0} label = 'Active Invoices' amountColor = '#911D34' />
-			<div id='IndividualStats' className='Column'>
-				<div id='OrderStats' className='Row'>
-					<QuickStatsShortRegular amount = {0} label = 'Orders Placed' amountColor = '#C62032' />
-					<QuickStatsShortRegular amount = {0} label = 'Orders Processed' amountColor = '#C62032' />
-					<QuickStatsShortRegular amount = {0} label = 'Orders Shipped' amountColor = '#C62032' />
-				</div>
-				<div id='InvoiceStats' className='Row'>
-					<QuickStatsShortWide amount = {0} label = 'Missing Invoices' amountColor = '#C62032' />
-					<QuickStatsShortWide amount = {0} label = 'Unpaid Invoices' amountColor = '#C62032' />
+class AllQuickStats extends Component{
+
+
+	render() {
+		const {orders, invoices} = this.props;
+
+		const currentActiveOrders = orders.filter(order => (order.orderStatus === "Placed" || order.orderStatus === 'Processed' || order.orderStatus === 'Shipped'));		
+		const currentActiveInvoices = invoices.filter(invoice => (invoice.invoiceStatus === "Missing") || invoice.invoiceStatus === "Unpaid");
+	
+		const currentOrdersPlaced = orders.filter(order => (order.orderStatus === "Placed"));		
+		const currentOrdersProcessed = orders.filter(order => (order.orderStatus === 'Processed'));		
+		const currentOrdersShipped = orders.filter(order => (order.orderStatus === 'Shipped'));		
+	
+		const currentMissingInvoices = invoices.filter(invoice => (invoice.invoiceStatus === "Missing"));
+	
+		const currentUnpaidInvoices =  invoices.filter(invoice => ( invoice.invoiceStatus === "Unpaid"));
+	
+
+	
+		return(
+			<div id='AllQuickStats' className='Row'>
+				<QuickStatsTallRegular amount = {currentActiveOrders.length} label = 'Active Orders' amountColor = '#911D34' />
+				<QuickStatsTallRegular amount = {currentActiveInvoices.length} label = 'Active Invoices' amountColor = '#911D34' />
+				<div id='IndividualStats' className='Column'>
+					<div id='OrderStats' className='Row'>
+						<QuickStatsShortRegular amount = {currentOrdersPlaced.length} label = 'Orders Placed' amountColor = '#C62032' />
+						<QuickStatsShortRegular amount = {currentOrdersProcessed.length} label = 'Orders Processed' amountColor = '#C62032' />
+						<QuickStatsShortRegular amount = {currentOrdersShipped.length} label = 'Orders Shipped' amountColor = '#C62032' />
+					</div>
+					<div id='InvoiceStats' className='Row'>
+						<QuickStatsShortWide amount = {currentMissingInvoices.length} label = 'Missing Invoices' amountColor = '#C62032' />
+						<QuickStatsShortWide amount = {currentUnpaidInvoices.length} label = 'Unpaid Invoices' amountColor = '#C62032' />
+					</div>
 				</div>
 			</div>
-		</div>
-	)
-}
+		);
+	}
 
-export default AllQuickStats
+} 
+
+
+export default connect()(AllQuickStats);

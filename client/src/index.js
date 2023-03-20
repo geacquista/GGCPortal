@@ -4,7 +4,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux';
-import { store } from './store/store_cfg'; // provides the data
+import { store } from './store_cfg'; // provides the data
 import App from './App'; // launches the components 
 import reportWebVitals from './reportWebVitals';
 import './index.css'; 

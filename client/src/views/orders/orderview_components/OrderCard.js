@@ -68,7 +68,7 @@ class OrderCard extends Component {
 
 
 	componentDidMount() {
-        this.props.retrieveProducts();
+        // this.props.retrieveProducts();
 		const {orderID, referenceNumber, datePlaced, orderStatus, trackingNumber, giftFor, giftMessage, isGift, customerId, shippingId, isSelfOrder} = this.props.order
 		this.setState({
 			orderID: parseInt(orderID),
@@ -91,102 +91,90 @@ class OrderCard extends Component {
 	}
 
 	getShippingInfo(shippingId, customerId) {
-        this.props
-			.retrieveShippingAddress({id: shippingId})
-			.then((data) => {
-				this.setState({
-					activeAddress: {
-						streetAddressOne: data.payload.streetAddressOne,
-						streetAddressTwo: data.payload.streetAddressTwo,
-						city: data.payload.city,
-						state: data.payload.state,
-						zip: data.payload.zip,
-					}
-				});
-				this.getCustomerData(customerId);
-			})
-			.catch((e) => {
-				console.log(e);
-			});
+		const filteredAddress = this.props.shippingAddresses.find(address => address.shippingID === shippingId)
+		const {streetAddressOne, streetAddressTwo, city, state, zip} = filteredAddress;
+
+		this.setState({
+			activeAddress: {
+				streetAddressOne: streetAddressOne,
+				streetAddressTwo: streetAddressTwo,
+				city: city,
+				state: state,
+				zip: zip,
+			}
+		});
+		this.getCustomerData(customerId);
+		
 	}
 
-	getCustomerData(id) {
-		const {orderID} = this.state
-
-		this.props
-			.retrieveCustomer({id})
-			.then((data) => {
-				this.setState({
-                    activeCustomer: {
-						firstName: data.payload.firstName,
-						lastName: data.payload.lastName,
-						email: data.payload.email,
-						phoneNumber: data.payload.phoneNumber,
-					} 
-				});
-				this.findOrderLinesByID(orderID);
-			})
-			.catch((e) => {
-				console.log(e);
-			});
+	getCustomerData(customerId) {
+		const filteredCustomer = this.props.customers.find(customer => customer.customerID === customerId)
+		const {firstName, lastName, email, phoneNumber} = filteredCustomer;
+		
+		this.setState({
+			activeCustomer: {
+				firstName: firstName,
+				lastName: lastName,
+				email: email,
+				phoneNumber: phoneNumber,
+			} 
+		});
+		this.findOrderLinesByID();
+	
 	}
 
-	findOrderLinesByID(id) {
-		const {products} = this.props
-		this.props
-			.findOrderLineByOrderID({ id })
-			.then((data) => {
-				let i = 0;
-				let logs = 0;
-                let flavors = data.payload.length;
+	findOrderLinesByID() {
+		const {orderID} = this.props.order
+		const {products, orderline} = this.props
 
-				const productList = [];
-				while (i < flavors) {
-					const {name} = products.filter(product => product.sku === data.payload[i].lineProductID)[0]
-                    const newProduct = {
-                        lineOrderID: data.payload[i].lineOrderID,
-                        lineProductID: data.payload[i].lineProductID,
-                        qtyOrdered: data.payload[i].qtyOrdered,
-						name: name
-                    }
-					productList.push(newProduct)
-					
-                    logs+= data.payload[i].qtyOrdered;
-					i++;
+		const filteredOrderLines = orderline.filter(line => line.lineOrderID === orderID)
+		
+		let i = 0;
+		let logs = 0;
+		let flavors = filteredOrderLines.length;
 
-				}
+		const productList = [];
+		while (i < flavors) {
+			const {name} = products.filter(product => product.sku === filteredOrderLines[i].lineProductID)[0]
+			const newProduct = {
+				lineOrderID: filteredOrderLines[i].lineOrderID,
+				lineProductID: filteredOrderLines[i].lineProductID,
+				qtyOrdered: filteredOrderLines[i].qtyOrdered,
+				name: name
+			}
+			productList.push(newProduct)
+			
+			logs+= filteredOrderLines[i].qtyOrdered;
+			i++;
 
-				this.setState({
-					productsOrdered: productList,
-					numberOfLogs: logs,
-                    numberOfFlavors: flavors
-				});
+		}
 
-				this.getInvoiceData(id);
-				
-			})
-			.catch((e) => {
-				console.log(e);
-			});
+		this.setState({
+			productsOrdered: productList,
+			numberOfLogs: logs,
+			numberOfFlavors: flavors
+		});
+
+		this.getInvoiceData(orderID);
+		
 	}
 
 
 	getInvoiceData(id) {
-		this.props
-			.retrieveInvoice({id})
-			.then((data) => {
-				this.setState({
-					activeInvoice: {
-						invoiceNumber: data.payload.invoiceNumber,
-						revenue: data.payload.revenue,
-						expense: data.payload.expense,
-						isPaid: data.payload.isPaid,
-					}
-				});
-			})
-			.catch((e) => {
-			console.log(e);
-			});
+		const {invoices} = this.props
+		console.log(id)
+		console.log(invoices)
+
+		const filteredInvoice = invoices.find(invoice => invoice.orderID === id)		
+		this.setState({
+			activeInvoice: {
+				invoiceNumber: filteredInvoice.invoiceNumber || "NA",
+				revenue: filteredInvoice.revenue,
+				expense: filteredInvoice.expense,
+				isPaid: filteredInvoice.isPaid,
+			}
+		});
+			
 	}
 
 	render() {
@@ -195,11 +183,11 @@ class OrderCard extends Component {
 
 		const existingOrderData = {
 			order: {
-				orderID:orderID, 
+				orderID: orderID, 
 				activeOrder: activeOrder, 
 				activeAddress: activeAddress, 
 				activeCustomer: activeCustomer, 
-				activeInvoice:activeInvoice, 
+				activeInvoice: activeInvoice, 
 				productsOrdered: productsOrdered, 
 				numberOfFlavors: numberOfFlavors, 
 				numberOfLogs: numberOfLogs
@@ -236,4 +224,4 @@ class OrderCard extends Component {
 	};
   };
   
-export default connect(mapStateToProps, { retrieveProducts, retrieveShippingAddress, retrieveCustomer, findOrderLineByOrderID, retrieveInvoice })(OrderCard);
+export default connect(mapStateToProps, {  })(OrderCard);
