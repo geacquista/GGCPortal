@@ -9,4 +9,4 @@ CREATE TABLE `Customer` (
   UNIQUE KEY `customerID_UNIQUE` (`customerID`),
   KEY `ShippingID_idx` (`customerShippingId`),
   CONSTRAINT `CustomerAddressID` FOREIGN KEY (`customerShippingId`) REFERENCES `ShippingAddress` (`shippingID`)
-) ENGINE=InnoDB AUTO_INCREMENT=312 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+)
