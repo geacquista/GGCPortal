@@ -1,0 +1,11 @@
+CREATE TABLE `Invoice` (
+  `orderID` int NOT NULL,
+  `invoiceNumber` varchar(45) DEFAULT NULL,
+  `customerPaid` float DEFAULT '0',
+  `revenue` float DEFAULT '0',
+  `expense` float DEFAULT '0',
+  `invoiceStatus` enum('Missing','Waiting','PaymentSent','PaymentRecieved') DEFAULT 'Missing',
+  PRIMARY KEY (`orderID`),
+  UNIQUE KEY `OrderID_UNIQUE` (`orderID`),
+  CONSTRAINT `ORDER_ID_INVOICE` FOREIGN KEY (`orderID`) REFERENCES `Order` (`orderID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

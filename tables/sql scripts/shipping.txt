@@ -1,0 +1,8 @@
+CREATE TABLE `ShippingAddress` (
+  `shippingID` int NOT NULL AUTO_INCREMENT,
+  `streetAddress` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `state` varchar(45) NOT NULL,
+  `zip` char(5) NOT NULL,
+  PRIMARY KEY (`shippingID`)
+) ENGINE=InnoDB AUTO_INCREMENT=480 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
