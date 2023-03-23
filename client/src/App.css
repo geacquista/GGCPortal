@@ -28,3 +28,327 @@
 main {
   padding: 32px;
 }
+
+
+/*------------------ Orders ---------------------*/
+
+#Orders {
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+	align-content: flex-start;
+	justify-content: flex-start;
+	padding-left: 335px;
+  
+}
+
+#OrdersDisplay {
+  height: 100vh;
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+	align-content: flex-start;
+	justify-content: flex-start;
+}
+
+
+#OrderView{
+	
+	display: flex;
+  max-width: 1144px;
+	overflow-y: scroll;
+  scroll-behavior:hidden;
+	flex-direction: column;
+	justify-content: center;
+	background-color: White;
+	padding: 10px;
+}
+
+#OrderView_Header{
+	max-width: 1144px;
+	height: 60px;
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+	background-color: White;
+	padding: 10px;
+	position: sticky;
+	top: 0px;
+}
+
+#OrderView_General{
+	width:  382px;
+	height:  282px;
+	display: flex;
+	border-radius: 10px;
+	flex-direction: column;
+	justify-content: space-evenly;
+	background-color: #D5D5D5;
+	padding: 10px;
+	margin: 5px;
+}
+
+#OrderView_General_Details{
+	width:  423px;
+	height:  238px;
+	display: flex;
+	flex-direction: column;
+	border-radius: 10px;
+	background-color: #F3F3F3;
+	padding: 10px;
+	margin: 5px;
+}
+
+#OrderView_Invoice_Details{
+	width:  423px;
+	height:  238px;
+	display: flex;
+	flex-direction: column;
+	border-radius: 10px;
+	background-color: #F3F3F3;
+	padding: 10px;
+	margin: 5px;
+}
+
+#OrderView_Customer{
+	width:  382px;
+	height:  282px;
+	display: flex;
+	border-radius: 10px;
+	flex-direction: column;
+	justify-content: space-evenly;
+	background-color: #D5D5D5;
+	padding: 10px;
+	margin: 5px;
+}
+
+#OrderView_Customer_Details{
+	width:  423px;
+	height:  213px;
+	display: flex;
+	flex-direction: column;
+	border-radius: 10px;
+	background-color: #F3F3F3;
+	padding: 10px;
+	margin: 5px;
+}
+
+#OrderView_Shipping_Details{
+	width:  95%;
+	height:  227px;
+	display: flex;
+	border-radius: 10px;
+  
+	flex-direction: column;
+	justify-content: space-evenly;
+	background-color: #D5D5D5;
+	padding: 10px;
+	margin: 5px;
+}
+
+
+#OrderView_Products{
+	width:  683px;
+	height:  340px;
+	display: flex;
+	border-radius: 10px;
+	flex-direction: column;
+	justify-content: space-evenly;
+	background-color: #D5D5D5;
+	padding: 10px;
+	margin: 5px;
+}
+
+#OrderView_Products_Details{
+	width:  1099px;
+	height:  258px;
+	border-radius: 10px;
+	background-color: #F3F3F3;
+	padding: 7px;
+}
+
+#OrderDisplayColumns {
+	display: flex;
+	height: 70vh;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.OrderDisplayColumn {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 381px;
+	background-color: White;
+	overflow-y: auto;
+	list-style: none;
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+.OrderCard {
+	text-align: left;
+	width: 296px;
+	min-height: 164px;
+	border-radius: 20px;
+	box-shadow: 0px 0px 15px #D5D5D5;
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+
+.OrderCardHeader {
+	width: 296px;
+	height: 47px;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	padding-left: 7px;
+}
+
+.OrderCardContent {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 7px;
+}
+
+.OrderDisplayColumnTitle {
+	width: 381px;
+	height: 50px;
+	background-color: White;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 2px 0px 15px #D5D5D5;
+	margin-bottom: 14px;
+}
+
+.OrderTitleButton {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.OrderActionButton {
+	background-color: #C62032;
+	color: white;
+	width: fit-content;
+	height: fit-content;
+	border-radius: 12px;
+	border: none;
+	padding: 16px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	cursor: pointer;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.PageHeader {
+	font-size: 64px;
+	display: flex;
+	font-family: 'Roboto', sans-serif;
+	width: fit-content;
+    font-weight: bold;
+}
+
+#OrderView_Header {
+	display: flex;
+	padding: 8px;
+	flex-direction: row;
+}
+
+/*------------------ Navbar ---------------------*/
+@font-face {
+  font-family: Roboto;
+  src: url('./assets/fonts/Roboto-Regular.ttf');
+}
+
+.NavBarButton {
+height: 58px;
+width: 100%;
+padding: 25px;
+  font-family: Roboto;
+display: flex;
+size: 24px;
+flex-direction: row;
+justify-content: flex-start;
+align-items: center;
+  border: none;
+background-color: White;
+  border-radius: 5px;
+}
+
+.NavBarButton:hover {
+background-color: #D5D5D5;
+  font-size: large;
+  cursor: pointer;
+}
+
+.NavBarButtonActive {
+height: 58px;
+width: 275px;
+padding: 25px;
+display: flex;
+flex-direction: row;
+justify-content: flex-start;
+align-items: center;
+border: none;
+color: White;
+  cursor: pointer;
+background-color: #C62032;
+}
+
+.NavBarIcon {
+width: fit-content;
+}
+
+#NavBar {
+height: 100vh;
+width: 275px;
+display: flex;
+flex-direction: column;
+align-content: flex-start;
+background-color: white;
+position: fixed;
+}
+
+#NavBarTop {
+margin-top: 40px;
+}
+
+#NavBarBottom {
+  margin-top: auto;
+}
+
+
+
+
+#AdminPanel {
+  text-align: left;
+	display: flex;
+	flex-direction: column;
+	align-content: flex-start;
+	justify-content: flex-start;
+	padding-left: 335px;
+}
+
+
+
+
+#Search {
+	text-align: left;
+	flex: 1 1 auto;
+	flex-direction: column;
+	align-content: flex-start;
+	justify-content: flex-start;
+	padding-left: 335px;
+}
+
+.search {
+    width: 75%;
+}

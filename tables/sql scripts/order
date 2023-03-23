@@ -1,4 +1,4 @@
-CREATE TABLE `Order` (
+CREATE TABLE `GGC_WAREHOUSE_CLOUD`.`Order` (
   `orderID` int NOT NULL AUTO_INCREMENT,
   `referenceNumber` varchar(45) DEFAULT NULL,
   `datePlaced` datetime NOT NULL,
@@ -14,6 +14,6 @@ CREATE TABLE `Order` (
   KEY `ShippingID_idx` (`shippingId`),
   KEY `CustomerID_idx` (`customerId`),
   KEY `OrderStatusID_idx` (`orderStatus`),
-  CONSTRAINT `CustomerID_Order` FOREIGN KEY (`customerId`) REFERENCES `Customer` (`customerID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `ShippingID_Order` FOREIGN KEY (`shippingId`) REFERENCES `ShippingAddress` (`shippingID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `CustomerID_Order_FK` FOREIGN KEY (`customerId`) REFERENCES `Customer` (`customerID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `ShippingID_Order_FK` FOREIGN KEY (`shippingId`) REFERENCES `ShippingAddress` (`shippingID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) 

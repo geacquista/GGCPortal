@@ -1,4 +1,4 @@
-CREATE TABLE `Invoice` (
+CREATE TABLE `GGC_WAREHOUSE_CLOUD`.`Invoice` (
   `orderID` int NOT NULL,
   `invoiceNumber` varchar(45) DEFAULT NULL,
   `customerPaid` float DEFAULT '0',
@@ -7,5 +7,5 @@ CREATE TABLE `Invoice` (
   `invoiceStatus` enum('Missing','Waiting','PaymentSent','PaymentRecieved') DEFAULT 'Missing',
   PRIMARY KEY (`orderID`),
   UNIQUE KEY `OrderID_UNIQUE` (`orderID`),
-  CONSTRAINT `ORDER_ID_INVOICE` FOREIGN KEY (`orderID`) REFERENCES `Order` (`orderID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `ORDER_ID_INVOICE_FK` FOREIGN KEY (`orderID`) REFERENCES `Order` (`orderID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) 

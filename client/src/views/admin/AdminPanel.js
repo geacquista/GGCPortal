@@ -154,7 +154,7 @@ class AdminPanel extends Component {
 
   render() {
     const {users} = this.props;
-    console.log(this.props);
+    console.log(users);
     const { currentUser, currentIndex } = this.state;
 
     return (
@@ -175,7 +175,7 @@ class AdminPanel extends Component {
                         <li className={"list-group-item " + (index === currentIndex ? "active" : "")}
                             onClick={() => this.setActiveUser(user, index)} key={index}>
                             {user.nickname}
-                            {/* <button onClick={this.updateContent} type="submit">Edit</button> */}
+                            <button onClick={this.updateContent} type="submit">Edit</button>
                             {/* <button onClick={this.removeUser} type="delete">Delete</button> */}
                         </li>
                       ))}

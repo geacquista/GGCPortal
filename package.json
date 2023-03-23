@@ -5,12 +5,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "predeploy" : "npm run dev",
-    "deploy" : "gh-pages -d build",
+    "predeploy": "npm run dev",
+    "deploy": "gh-pages -d build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon --quiet server",
+    "start": "nodemon --exec babel-node server.js",
     "client": "npm start --prefix client",
-    "build": "react-scripts build",
+    "build": "babel server.js --out-file server.compiled.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
@@ -34,10 +35,14 @@
   "bugs": {
     "url": "https://github.com/geacquista/GGCPortal/issues"
   },
-  "homepage": "https://geacquista.github.io/GGCPortal/",
+  "homepage": "https://github.com/geacquista/GGCPortal",
   "devDependencies": {
+    "@babel/cli": "^7.21.0",
+    "@babel/core": "^7.21.3",
+    "@babel/node": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
     "concurrently": "^7.6.0",
     "gh-pages": "^5.0.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.22"
   }
 }

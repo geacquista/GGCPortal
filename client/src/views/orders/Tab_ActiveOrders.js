@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { retrieveOrders } from '../../store/order_slice'
 import { OrderDisplayColumn } from "./MainOrderView_Tabs";
 
 // Active Orders Tab
@@ -23,7 +22,6 @@ class ActiveOrdersTab extends Component {
   
 	// This gets the users when the component loads
 	componentDidMount() {
-	//   this.props.retrieveOrders();
 	}
   
 	render() {

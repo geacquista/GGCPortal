@@ -1,0 +1,8 @@
+CREATE TABLE `GGC_WAREHOUSE_CLOUD`.`User` (
+  `userID` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL DEFAULT 'ggc@wpi',
+  `nickname` varchar(45) DEFAULT NULL,
+  `permissionType` enum('ADMIN','GGC','FARM') NOT NULL,
+  PRIMARY KEY (`userID`)
+) 

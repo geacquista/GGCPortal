@@ -1,6 +1,5 @@
 import edit_icon from '../../assets/img/edit_white.svg'
 import delete_icon from '../../assets/img/trash_white.svg'
-import '../../assets/style/order_view.css'
 
 import React, { useState, Component } from 'react'
 import { connect, useDispatch, useSelector } from "react-redux";
@@ -17,7 +16,7 @@ import { findBySKU, retrieveProducts } from "../../store/product_slice";
 
 const GeneralInfoView = ({referenceNumber, datePlaced, trackingNumber, orderStatus, giftFor, giftMessage}) => {
 	return (
-		<div id='OrderView'>
+		<div id='OrderView_General'>
 			<table>
 				<tbody>
 					<tr>
@@ -38,21 +37,19 @@ const GeneralInfoView = ({referenceNumber, datePlaced, trackingNumber, orderStat
 					</tr>
 				</tbody>
 			</table>
-			<div id='OrderView_Invoice_Details'>
-                <table>
-					<tbody>
-						<tr>
-							<td><h4 style={{fontWeight: 'bold'}}>Gift Recipient</h4></td>
-							<td><h4>{giftFor}</h4></td>
-						</tr>
-						<tr>
-							<td><h4 style={{fontWeight: 'bold'}}>Gift Message</h4></td>
-							<td><h4>{giftMessage}</h4></td>
-						</tr>
-					</tbody>
-                </table>
-            </div> 
-		</div> 
+			<table>
+				<tbody>
+					<tr>
+						<td><h4 style={{fontWeight: 'bold'}}>Gift Recipient</h4></td>
+						<td><h4>{giftFor}</h4></td>
+					</tr>
+					<tr>
+						<td><h4 style={{fontWeight: 'bold'}}>Gift Message</h4></td>
+						<td><h4>{giftMessage}</h4></td>
+					</tr>
+				</tbody>
+			</table>
+        </div> 
 	);	
 }
 
@@ -80,7 +77,7 @@ const CustomerInfoView = ({firstName, lastName, email, phoneNumber}) => {
 	);	
 }
 
-const ShippingInfoView = ({streetAddressOne, streetAddressTwo, city, state, zip}) => {
+const ShippingInfoView = ({ streetAddress, city, state, zip}) => {
 	return (
 		<div id='OrderView_Shipping_Details'>
 		<table>
@@ -88,8 +85,7 @@ const ShippingInfoView = ({streetAddressOne, streetAddressTwo, city, state, zip}
 				<tr>
 					<td><h4 style={{fontWeight: 'bold'}}>Street Address</h4></td>
 					<td>
-						<h4>{streetAddressOne}
-						<br></br> {streetAddressTwo}
+						<h4>{streetAddress}
 						<br></br> {city}, {state}<br></br>{zip}
 						</h4>
 					</td>
@@ -108,7 +104,7 @@ const ShippingInfoView = ({streetAddressOne, streetAddressTwo, city, state, zip}
 	)
 }
 
-const InvoiceInfoView = ({invoiceNumber, revenue, expense, isPaid}) => {
+const InvoiceInfoView = ({invoiceNumber, revenue, expense, orderStatus}) => {
 	if (invoiceNumber) {
 		return (
 			<div id='OrderView_Invoice_Details'>
@@ -300,32 +296,20 @@ const CustomerInfoEdit = ({firstName, lastName, email, phoneNumber, handleChange
 	);	
 }
 
-const ShippingInfoEdit = ({streetAddressOne, streetAddressTwo, city, state, zip, handleChange}) => {
+const ShippingInfoEdit = ({streetAddress, city, state, zip, handleChange}) => {
 	return (
 		<div id='OrderView_Shipping_Details'>
 			<td><h4 style={{fontWeight: 'bold'}}>Street Address</h4></td>
 			<div className="form-group">
-                  <label htmlFor="streetAddressOne"><h4 style={{fontWeight: 'bold'}}>StreetAddressOne</h4></label>
+                  <label htmlFor="streetAddress"><h4 style={{fontWeight: 'bold'}}>StreetAddress</h4></label>
                   <input
                     type="text"
                     className="form-control"
-                    id="streetAddressOne"
+                    id="streetAddress"
                     required
-                    defaultValue={streetAddressOne || ''}
+                    defaultValue={streetAddress || ''}
                     onChange={handleChange}
-                    name="streetAddressOne"
-                  />
-                </div>
-				<div className="form-group">
-                  <label htmlFor="streetAddressTwo"><h4 style={{fontWeight: 'bold'}}>StreetAddressTwo</h4></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="streetAddressTwo"
-                    required
-                    defaultValue={streetAddressTwo || ''}
-                    onChange={handleChange}
-                    name="streetAddressTwo"
+                    name="streetAddress"
                   />
                 </div>
 				<div className="form-group">
@@ -377,7 +361,7 @@ const ShippingInfoEdit = ({streetAddressOne, streetAddressTwo, city, state, zip,
 	)
 }
 
-const InvoiceInfoEdit = ({invoiceNumber, revenue, expense, isPaid, handleChange}) => {
+const InvoiceInfoEdit = ({invoiceNumber, revenue, expense, invoiceStatus, handleChange}) => {
 		return (
 			<div id='OrderView_Invoice_Details'>
 				<div className="form-group">
@@ -582,42 +566,49 @@ class ExistingOrder extends Component {
 
 		const {referenceNumber, datePlaced, orderStatus, trackingNumber, giftFor, giftMessage, isGift} = this.state.activeOrder;
 		const {firstName, lastName, email, phoneNumber } = this.state.activeCustomer;
-		const {streetAddressOne, streetAddressTwo, city, state, zip} = this.state.activeAddress;
+		const {streetAddress, city, state, zip} = this.state.activeAddress;
 
 		const {numberOfFlavors, numberOfLogs, productsOrdered} = this.state;
 
-		const {invoiceNumber, revenue, expense, isPaid} = this.state.activeInvoice;
+		const {invoiceNumber, customerPaid, revenue, expense, invoiceStatus} = this.state.activeInvoice;
 
 		if (viewOnly) {
 			return (
 				<div id='OrderView'>
-					<div id='OrderView_Header'>
-					{/* on click EDIT, we change to edit view */}
-					<button className='OrderActionButton' onClick={ this.updateViewOnly}>
-						<img src={edit_icon} alt='add order' style={{paddingRight: '10px'}}/>
-						<h4>Edit Order</h4>
-					</button>
-					{/* on click DELETE, we dispatch delete call with ID*/}
-					<button className='OrderActionButton' onClick={(event) => this.deleteCurrOrder(activeTabId, event)}>
-						<img src={delete_icon} alt='add order' style={{paddingRight: '10px'}}/>
-						<h4>Delete Order</h4>
-					</button>
-				</div>
+					<div className='Row'>
+						<div id='OrderView_Header'>
+							{/* on click EDIT, we change to edit view */}
+							<button className='OrderActionButton' onClick={ this.updateViewOnly}>
+								<img src={edit_icon} alt='add order' style={{paddingRight: '10px'}}/>
+								<h4>Edit Order</h4>
+							</button>
+							{/* on click DELETE, we dispatch delete call with ID*/}
+							<button className='OrderActionButton' onClick={(event) => this.deleteCurrOrder(activeTabId, event)}>
+								<img src={delete_icon} alt='add order' style={{paddingRight: '10px'}}/>
+								<h4>Delete Order</h4>
+							</button>
+						</div>
+					</div>
+					
 				<div className='Row'>
 					<div className='Column'>		
 						<GeneralInfoView referenceNumber={referenceNumber} datePlaced= {datePlaced} trackingNumber={trackingNumber} orderStatus={orderStatus} giftFor={giftFor} giftMessage={giftMessage}/>
-						<CustomerInfoView firstName={firstName} lastName={lastName} email={email} phoneNumber={phoneNumber}/>
 					</div>
 					<div className='Column'>		
-						<ShippingInfoView streetAddressOne={streetAddressOne} streetAddressTwo={streetAddressTwo} city={city} state={state} zip={zip}/>
-						<InvoiceInfoView invoiceNumber={invoiceNumber} revenue={revenue} expense={expense} isPaid={isPaid}/>
+						<CustomerInfoView firstName={firstName} lastName={lastName} email={email} phoneNumber={phoneNumber}/>
 					</div>
 				</div>
 				<div className='Row'>
-				<div className='Column'>	
-				<ProductInfoView numberOfFlavors={numberOfFlavors} numberOfLogs={numberOfLogs} productsOrdered={productsOrdered}/>
-	
+					<div className='Column'>	
+						<InvoiceInfoView invoiceNumber={invoiceNumber} revenue={revenue} expense={expense} invoiceStatus={invoiceStatus}/>
+		
+					</div>
+					<div className='Column'>		
+						<ShippingInfoView streetAddress={streetAddress} city={city} state={state} zip={zip}/>
+					</div>
 				</div>
+				<div className='Row'>
+					<ProductInfoView numberOfFlavors={numberOfFlavors} numberOfLogs={numberOfLogs} productsOrdered={productsOrdered}/>
 				</div>
 
 			</div>
@@ -625,28 +616,39 @@ class ExistingOrder extends Component {
 		} else {
 			return (
 				<div id='OrderView'>
-					<div id='OrderView_Header'>
-					{/* on click EDIT, we change to edit view */}
-					<button className='OrderActionButton' onClick={this.saveEdits}>
-						<img src={edit_icon} alt='add order' style={{paddingRight: '10px'}}/>
-						<h4>Save Order</h4>
-					</button>
-					{/* on click DELETE, we dispatch delete call with ID*/}
-					<button className='OrderActionButton' onClick={(this.updateViewOnly)}>
-						<img src={delete_icon} alt='add order' style={{paddingRight: '10px'}}/>
-						<h4>Cancel</h4>
-					</button>
+					<div className='Row'>
+						<div id='OrderView_Header'>
+							{/* on click EDIT, we change to edit view */}
+							<button className='OrderActionButton' onClick={this.saveEdits}>
+								<img src={edit_icon} alt='add order' style={{paddingRight: '10px'}}/>
+								<h4>Save Order</h4>
+							</button>
+							{/* on click DELETE, we dispatch delete call with ID*/}
+							<button className='OrderActionButton' onClick={(this.updateViewOnly)}>
+								<img src={delete_icon} alt='add order' style={{paddingRight: '10px'}}/>
+								<h4>Cancel</h4>
+							</button>
+						</div>
+					</div>
+					<div className='Row'>
+					<div className='Column'>		
+					<	GeneralInfoEdit handleChange={this.handleInputActiveOrder} referenceNumber={referenceNumber} datePlaced= {datePlaced} trackingNumber={trackingNumber} orderStatus={orderStatus}/>
+					</div>
+					<div className='Column'>		
+					<CustomerInfoEdit handleChange={this.handleInputChange} firstName={firstName} lastName={lastName} email={email} phoneNumber={phoneNumber}/>
+					</div>
 				</div>
 				<div className='Row'>
+					<div className='Column'>	
+						<InvoiceInfoEdit handleChange={this.handleInputChange} invoiceNumber={invoiceNumber} revenue={revenue} expense={expense} orderStatus={orderStatus}/>
+		
+					</div>
 					<div className='Column'>		
-						<GeneralInfoEdit handleChange={this.handleInputActiveOrder} referenceNumber={referenceNumber} datePlaced= {datePlaced} trackingNumber={trackingNumber} orderStatus={orderStatus}/>
-						<InvoiceInfoEdit handleChange={this.handleInputChange} invoiceNumber={invoiceNumber} revenue={revenue} expense={expense} isPaid={isPaid}/>
-						<ProductInfoEdit handleChange={this.handleInputChange} numberOfFlavors={numberOfFlavors} numberOfLogs={numberOfLogs} productsOrdered={productsOrdered}/>
+					<ShippingInfoEdit handleChange={this.handleInputChange} streetAddress={streetAddress} city={city} state={state} zip={zip}/>
 					</div>
-					<div className='Column'>
-						<CustomerInfoEdit handleChange={this.handleInputChange} firstName={firstName} lastName={lastName} email={email} phoneNumber={phoneNumber}/>
-						<ShippingInfoEdit handleChange={this.handleInputChange} streetAddressOne={streetAddressOne} streetAddressTwo={streetAddressTwo} city={city} state={state} zip={zip}/>
-					</div>
+				</div>
+				<div className='Row'>
+					<ProductInfoEdit handleChange={this.handleInputChange} numberOfFlavors={numberOfFlavors} numberOfLogs={numberOfLogs} productsOrdered={productsOrdered}/>
 				</div>
 			</div>
 			);

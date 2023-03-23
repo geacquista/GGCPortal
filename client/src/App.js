@@ -97,7 +97,7 @@ class App extends Component {
             {displayContent === ViewIndex.DASHBOARD && <Dashboard orders={orders} invoices={invoices}/>} 
             {displayContent === ViewIndex.ORDERS  && <MainOrderPane/>} 
             {/* {displayContent === ViewIndex.INVOICES  && <Invoices/>}  */}
-            {displayContent === ViewIndex.SEARCH  && <Search/>} 
+            {displayContent === ViewIndex.SEARCH  && <Search orders={orders}/>} 
             {displayContent === ViewIndex.TEST && <AdminPanel/>} 
             {displayContent === ViewIndex.HELP && <Dashboard/>} 
             {displayContent === ViewIndex.LOGOUT && <Dashboard/>} 

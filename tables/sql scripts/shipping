@@ -1,4 +1,4 @@
-CREATE TABLE `ShippingAddress`(
+CREATE TABLE `GGC_WAREHOUSE_CLOUD`.`ShippingAddress`(
   `shippingID` int NOT NULL AUTO_INCREMENT,
   `streetAddress` varchar(255) NOT NULL,
   `city` varchar(255) NOT NULL,
