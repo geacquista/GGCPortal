@@ -10,8 +10,7 @@
     "server": "nodemon --quiet server",
     "start": "nodemon --exec babel-node server.js",
     "client": "npm start --prefix client",
-    "build": "babel server.js --out-file server.compiled.js",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "build": "babel server.js --out-file server.compiled.js"
   },
   "repository": {
     "type": "git",
