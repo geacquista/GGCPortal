@@ -2,7 +2,8 @@ const sql = require("./db.js");
 
 // constructor for a SHIPPING_ADDRESS
 const ShippingAddress = function(shipping_address) {
-  this.streetAddress = shipping_address.streetAddress;
+  this.streetAddressOne = shipping_address.streetAddressOne;
+  this.streetAddressTwo = shipping_address.streetAddressTwo;
   this.state = shipping_address.state;
   this.city = shipping_address.city;
   this.zip = shipping_address.zip;
@@ -16,9 +17,9 @@ const ShippingAddress = function(shipping_address) {
  ShippingAddress.create = (newShippingAddress, result) => {
 
   // could change query formatting here to be consistent throughout
-  var query = "INSERT INTO `ShippingAddress` (`streetAddress`, `state`, `city`, `zip`) VALUES (?,?,?,?,?);"
+  var query = "INSERT INTO `ShippingAddress` (`streetAddressOne`, `streetAddressTwo`, `state`, `city`, `zip`) VALUES (?,?,?,?,?,?);"
   sql.query(query,
-    [newShippingAddress.streetAddress, newShippingAddress.state, newShippingAddress.city, newShippingAddress.zip], 
+    [newShippingAddress.streetAddressOne,newShippingAddress.streetAddressTwo, newShippingAddress.state, newShippingAddress.city, newShippingAddress.zip], 
     function (err, res) {
     if (err) {
       console.log("error: ", err);
@@ -84,8 +85,8 @@ ShippingAddress.findById = (id, result) => {
  * @param {*} result 
  */
 ShippingAddress.updateById = (id, shippingAddress, result) => {
-  sql.query("UPDATE ShippingAddress SET streetAddress = ?, state = ?, city = ?, zip = ? WHERE shippingID = ?",
-    [shippingAddress.streetAddress, shippingAddress.state, shippingAddress.city, this.zip, id],
+  sql.query("UPDATE ShippingAddress SET streetAddressOne = ?, streetAddressTwo = ?, state = ?, city = ?, zip = ? WHERE shippingID = ?",
+    [shippingAddress.streetAddressOne,shippingAddress.streetAddressTwo, shippingAddress.state, shippingAddress.city, this.zip, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
