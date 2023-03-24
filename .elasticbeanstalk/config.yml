@@ -1,10 +1,12 @@
 branch-defaults:
   main:
     environment: Goatsportalne-env
+  nini-version1:
+    environment: Goatsportalne-env
 environment-defaults:
   Goatsportalne-env:
-    branch: null
-    repository: null
+    branch: nini-version1
+    repository: GOATS
 global:
   application_name: GOATS Portal NE
   default_ec2_keyname: null
