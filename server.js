@@ -6,7 +6,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:3000"
+  origin: "http://goatsportalne-env.eba-jgwabt4g.us-east-1.elasticbeanstalk.com"
 };
 
 app.use(cors(corsOptions));

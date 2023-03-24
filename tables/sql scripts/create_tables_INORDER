@@ -1,0 +1,81 @@
+CREATE TABLE `GGC_WAREHOUSE_CLOUD`.`User` (
+  `userID` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL DEFAULT 'ggc@wpi',
+  `nickname` varchar(45) DEFAULT NULL,
+  `permissionType` enum('ADMIN','GGC','FARM') NOT NULL,
+  PRIMARY KEY (`userID`)
+) ;
+
+CREATE TABLE `GGC_WAREHOUSE_CLOUD`.`Product` (
+  `sku` varchar(15) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `description` varchar(1024) DEFAULT NULL,
+  PRIMARY KEY (`sku`),
+  UNIQUE KEY `sku_UNIQUE` (`sku`)
+) ;
+
+CREATE TABLE `GGC_WAREHOUSE_CLOUD`.`ShippingAddress` (
+  `shippingID` int(11) NOT NULL AUTO_INCREMENT,
+  `streetAddressOne` varchar(255) NOT NULL,
+  `streetAddressTwo` varchar(45) DEFAULT NULL,
+  `city` varchar(255) NOT NULL,
+  `state` varchar(45) NOT NULL,
+  `zip` char(5) NOT NULL,
+  PRIMARY KEY (`shippingID`)
+) ;
+
+CREATE TABLE `GGC_WAREHOUSE_CLOUD`.`Customer` (
+  `customerID` int NOT NULL AUTO_INCREMENT,
+  `firstName` varchar(45) NOT NULL,
+  `lastName` varchar(45) NOT NULL,
+  `phoneNumber` varchar(45) DEFAULT 'NA',
+  `email` varchar(255) NOT NULL,
+  `customerShippingId` int DEFAULT NULL,
+  PRIMARY KEY (`customerID`),
+  UNIQUE KEY `customerID_UNIQUE` (`customerID`),
+  KEY `ShippingID_idx` (`customerShippingId`),
+  CONSTRAINT `CustomerAddressID` FOREIGN KEY (`customerShippingId`) REFERENCES `ShippingAddress` (`shippingID`)
+);
+
+CREATE TABLE `GGC_WAREHOUSE_CLOUD`.`Order` (
+  `orderID` int NOT NULL AUTO_INCREMENT,
+  `referenceNumber` varchar(45) DEFAULT NULL,
+  `datePlaced` datetime NOT NULL,
+  `isGift` tinyint NOT NULL DEFAULT '0',
+  `giftFor` varchar(108) DEFAULT NULL,
+  `giftMessage` varchar(1024) DEFAULT NULL,
+  `trackingNumber` varchar(45) DEFAULT NULL,
+  `orderStatus` enum('Placed','Proccessed','Shipped','Complete','Archive') NOT NULL DEFAULT 'Placed',
+  `shippingId` int NOT NULL,
+  `customerId` int NOT NULL,
+  `isSelfOrder` tinyint DEFAULT '0',
+  PRIMARY KEY (`orderID`),
+  KEY `ShippingID_idx` (`shippingId`),
+  KEY `CustomerID_idx` (`customerId`),
+  KEY `OrderStatusID_idx` (`orderStatus`),
+  CONSTRAINT `CustomerID_Order_FK` FOREIGN KEY (`customerId`) REFERENCES `Customer` (`customerID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `ShippingID_Order_FK` FOREIGN KEY (`shippingId`) REFERENCES `ShippingAddress` (`shippingID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ;
+
+CREATE TABLE `GGC_WAREHOUSE_CLOUD`.`Invoice` (
+  `orderID` int NOT NULL,
+  `invoiceNumber` varchar(45) DEFAULT NULL,
+  `customerPaid` float DEFAULT '0',
+  `revenue` float DEFAULT '0',
+  `expense` float DEFAULT '0',
+  `invoiceStatus` enum('Missing','Waiting','PaymentSent','PaymentRecieved') DEFAULT 'Missing',
+  PRIMARY KEY (`orderID`),
+  UNIQUE KEY `OrderID_UNIQUE` (`orderID`),
+  CONSTRAINT `ORDER_ID_INVOICE_FK` FOREIGN KEY (`orderID`) REFERENCES `Order` (`orderID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ;
+
+CREATE TABLE `GGC_WAREHOUSE_CLOUD`.`OrderLine` (
+  `lineOrderID` int NOT NULL,
+  `lineProductID` varchar(15) NOT NULL,
+  `qtyOrdered` int DEFAULT '0',
+  PRIMARY KEY (`lineOrderID`,`lineProductID`),
+  KEY `sku_idx` (`lineProductID`),
+  CONSTRAINT `LineOrderID_FK` FOREIGN KEY (`lineOrderID`) REFERENCES `Order` (`orderID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `SKU_FK_LINE` FOREIGN KEY (`lineProductID`) REFERENCES `Product` (`sku`) ON UPDATE CASCADE
+) ;
