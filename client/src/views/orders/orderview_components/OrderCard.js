@@ -34,7 +34,8 @@ class OrderCard extends Component {
 			phoneNumber: "",
 		},
 		activeAddress: {
-			streetAddress: "",
+			streetAddressOne: "",
+			streetAddressTwo: "",
 			city: "",
 			state: "",
 			zip: ""
@@ -83,11 +84,12 @@ class OrderCard extends Component {
 
 	getShippingInfo(shippingId, customerId) {
 		const filteredAddress = this.props.shippingAddresses.find(address => address.shippingID === shippingId)
-		const {streetAddress, city, state, zip} = filteredAddress;
+		const {streetAddressOne, streetAddressTwo, city, state, zip} = filteredAddress;
 
 		this.setState({
 			activeAddress: {
-				streetAddress: streetAddress,
+				streetAddressOne: streetAddressOne,
+				streetAddressTwo: streetAddressTwo,
 				city: city,
 				state: state,
 				zip: zip,

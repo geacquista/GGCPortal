@@ -466,7 +466,8 @@ class ExistingOrder extends Component {
 			phoneNumber: "",
 		},
 		activeAddress: {
-			streetAddress: "",
+			streetAddressOne: "",
+			streetAddressTwo: "",
 			city: "",
 			state: "",
 			zip: ""
@@ -535,11 +536,11 @@ class ExistingOrder extends Component {
 	}
 
 	saveEdits() {
-		console.log("edit order")
+		console.log(this.state.activeOrder)
+
 
 		this.props
-		.updateOrder({ id: this.state.orderID, data: this.state.activeOrder })
-		.unwrap()
+		.updateOrder({ id: parseInt(this.state.orderID), data: this.state.activeOrder })
 		.then((reponse) => {
 		  console.log(reponse);
 		  
@@ -566,7 +567,7 @@ class ExistingOrder extends Component {
 
 		const {referenceNumber, datePlaced, orderStatus, trackingNumber, giftFor, giftMessage, isGift} = this.state.activeOrder;
 		const {firstName, lastName, email, phoneNumber } = this.state.activeCustomer;
-		const {streetAddress, city, state, zip} = this.state.activeAddress;
+		const {streetAddressOne,streetAddressTwo, city, state, zip} = this.state.activeAddress;
 
 		const {numberOfFlavors, numberOfLogs, productsOrdered} = this.state;
 
@@ -604,7 +605,7 @@ class ExistingOrder extends Component {
 		
 					</div>
 					<div className='Column'>		
-						<ShippingInfoView streetAddress={streetAddress} city={city} state={state} zip={zip}/>
+						<ShippingInfoView streetAddressOne={streetAddressOne} streetAddressTwo={streetAddressTwo} city={city} state={state} zip={zip}/>
 					</div>
 				</div>
 				<div className='Row'>
@@ -632,7 +633,7 @@ class ExistingOrder extends Component {
 					</div>
 					<div className='Row'>
 					<div className='Column'>		
-					<	GeneralInfoEdit handleChange={this.handleInputActiveOrder} referenceNumber={referenceNumber} datePlaced= {datePlaced} trackingNumber={trackingNumber} orderStatus={orderStatus}/>
+					<GeneralInfoEdit handleChange={this.handleInputActiveOrder} referenceNumber={referenceNumber} datePlaced= {datePlaced} trackingNumber={trackingNumber} orderStatus={orderStatus}/>
 					</div>
 					<div className='Column'>		
 					<CustomerInfoEdit handleChange={this.handleInputChange} firstName={firstName} lastName={lastName} email={email} phoneNumber={phoneNumber}/>
@@ -644,7 +645,7 @@ class ExistingOrder extends Component {
 		
 					</div>
 					<div className='Column'>		
-					<ShippingInfoEdit handleChange={this.handleInputChange} streetAddress={streetAddress} city={city} state={state} zip={zip}/>
+					<ShippingInfoEdit handleChange={this.handleInputChange} streetAddressOne={streetAddressOne} streetAddressTwo={streetAddressTwo} city={city} state={state} zip={zip}/>
 					</div>
 				</div>
 				<div className='Row'>

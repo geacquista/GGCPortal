@@ -22,9 +22,9 @@ const Order = function(order) {
  */
  Order.create = (newOrder, result) => {
   // could change query formatting here to be consistent throughout
-  var query = "INSERT INTO `Order` (`datePlaced`, `referenceNumber`, `isGift`, `giftFor`, `giftMessage`, `trackingNumber`,`orderStatus`,`shippingId`,`customerId`,`isSelfOrder`) VALUES (?,?,?,?,?,?,?,?,?,?);"
+  var query = "INSERT INTO `Order` ( `referenceNumber`,`datePlaced`, `isGift`, `giftFor`, `giftMessage`, `trackingNumber`,`orderStatus`,`shippingId`,`customerId`,`isSelfOrder`) VALUES (?,?,?,?,?,?,?,?,?,?);"
   sql.query(query,
-    [newOrder.datePlaced, newOrder.referenceNumber, newOrder.isGift, newOrder.giftFor, newOrder.giftMessage, newOrder.trackingNumber, newOrder.orderStatus, newOrder.shippingId, newOrder.customerId, newOrder.isSelfOrder], 
+    [newOrder.referenceNumber, newOrder.datePlaced, newOrder.isGift, newOrder.giftFor, newOrder.giftMessage, newOrder.trackingNumber, newOrder.orderStatus, newOrder.shippingId, newOrder.customerId, newOrder.isSelfOrder], 
     function (err, res) {
     if (err) {
       console.log("error: ", err);
@@ -101,8 +101,8 @@ Order.findById = (id, result) => {
  */
 Order.updateById = (id, order, result) => {
   sql.query(
-    "UPDATE Order SET datePlaced = ?, referenceNumber = ?, isGift = ?, giftFor = ?, giftMessage = ?, trackingNumber = ?, orderStatus = ?, shippingId = ?, customerId = ?, isSelfOrder = ? WHERE orderID = ?",
-    [order.datePlaced, order.referenceNumber, order.isGift, order.giftFor, order.giftMessage, order.trackingNumber, order.orderStatus, order.shippingId, order.customerId, order.isSelfOrder, id], 
+    "UPDATE Order SET referenceNumber = ?, datePlaced = ?, isGift = ?, giftFor = ?, giftMessage = ?, trackingNumber = ?, orderStatus = ?, shippingId = ?, customerId = ?, isSelfOrder = ? WHERE orderID = ?",
+    [order.referenceNumber, order.datePlaced, order.isGift, order.giftFor, order.giftMessage, order.trackingNumber, order.orderStatus, order.shippingId, order.customerId, order.isSelfOrder, id], 
     (err, res) => {
       if (err) {
         console.log("error: ", err);

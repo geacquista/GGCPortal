@@ -11,16 +11,16 @@
  
    // Create a Order
    const order = new Order({
-    referenceNumber: req.bodyreferenceNumber,
-    datePlaced: req.bodydatePlaced,
-    isGift: req.bodyisGift,
-    giftFor: req.bodygiftFor,
-    giftMessage: req.bodygiftMessage,
-    trackingNumber: req.bodytrackingNumber,
-    orderStatus: req.bodyorderStatus,
-    shippingId: req.bodyshippingId,
-    customerId: req.bodycustomerId,  
-    isSelfOrder: req.bodyisSelfOrder
+    referenceNumber: req.body.referenceNumber,
+    datePlaced: moment(req.body.datePlaced).format('YYYY-MM-DD HH:mm:ss'),
+    isGift: req.body.isGift,
+    giftFor: req.body.giftFor,
+    giftMessage: req.body.giftMessage,
+    trackingNumber: req.body.trackingNumber,
+    orderStatus: req.body.orderStatus,
+    shippingId: req.body.shippingId,
+    customerId: req.body.customerId,  
+    isSelfOrder: req.body.isSelfOrder
    });
  
    // Save Order in the database
