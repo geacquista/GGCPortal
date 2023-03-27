@@ -1,7 +1,7 @@
 const mysql = require("mysql");
-const dbConfig = require("../config/db.cnfg.js");
+const dbConfig = require("../config/db.cnfg.cloud.js");
 
-var connection = mysql.createPool({
+var connection = mysql.createConnection({
   host: dbConfig.HOST,
   user: dbConfig.USER,
   password: dbConfig.PASSWORD,
