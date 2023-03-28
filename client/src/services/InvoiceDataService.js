@@ -45,8 +45,3 @@ const InvoiceDataService = {
 };
 
 export default InvoiceDataService;
-
-
-// export const selectActiveInvoices = (state) => state.quickstats.activeInvoices;		// Active invoices
-// export const selectMissingInvoices = (state) => state.quickstats.missingInvoices;	// Get missing invoices
-// export const selectUnpaidInvoices = (state) => state.quickstats.unpaidInvoices;		// Get unpaid invoices
