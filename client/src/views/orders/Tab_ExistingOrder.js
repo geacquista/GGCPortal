@@ -454,8 +454,8 @@ class ExistingOrder extends Component {
 			giftFor: "",
 			giftMessage: "",
 			isGift: 1,
-			customerId: "",
-			shippingId: "",
+			customerId: 0,
+			shippingId: 0,
 			isSelfOrder:"",
 
 		},
