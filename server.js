@@ -6,7 +6,6 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://goatsportalne-env.eba-jgwabt4g.us-east-1.elasticbeanstalk.com/",
   origin: "http://localhost:3001"
 };
 
@@ -33,7 +32,7 @@ require("./app/routes/user.routes.js")(app);
 // set port, listen for requests
 // 3001 local
 // rds 3306
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
