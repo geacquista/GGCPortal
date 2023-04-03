@@ -6,13 +6,10 @@ var express = require("express");
 var cors = require("cors");
 var app = express();
 var corsOptions = {
-<<<<<<< HEAD
-  origin: 'http://goats-portal.us-east-1.elasticbeanstalk.com'
-=======
-  origin: 'http://goats-portal.us-east-1.elasticbeanstalk.com' || 'http://localhost:3001'
->>>>>>> 6381d3cf4 (cors origin from GOATS PORTAL site)
+  origin: 'http://localhost:3001'
 };
 app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({
   extended: true
