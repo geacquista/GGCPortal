@@ -1,4 +1,5 @@
 import http from "../http-common";
+import authHeader from "./auth-header";
 
 const getAll = () => {
   return http.get("/users");
@@ -24,9 +25,22 @@ const removeAll = () => {
   return http.delete(`/users`);
 };
 
-const findByPermission = permissionType => {
-  return http.get(`/users?permissionType=${permissionType}`);
+const getPublicLogin = () => {
+  return http.get("/allLogin");
 };
+
+const getGGCUserBoard = () => {
+  return http.get("/GGCBoard", { headers: authHeader() });
+};
+
+const getFarmUserBoard = () => {
+  return http.get("/FarmBoard", { headers: authHeader() });
+};
+
+const getAdminBoard = () => {
+  return http.get("/AdminBoard", { headers: authHeader() });
+};
+
 
 const UserDataService = {
   getAll,
@@ -35,7 +49,10 @@ const UserDataService = {
   update,
   remove,
   removeAll,
-  findByPermission
+  getPublicContent: getPublicLogin,
+  getUserBoard: getGGCUserBoard,
+  getModeratorBoard: getFarmUserBoard,
+  getAdminBoard,
 };
 
 export default UserDataService;

@@ -17,6 +17,7 @@ import { retrieveCustomers } from './store/customer_slice';
 import { retrieveInvoices } from './store/invoice_slice';
 import { retrieveShippingAddresses } from './store/address_slice';
 import { retrieveOrderLines } from './store/orderline_slice';
+import AppLogin from './AppLogin';
 
 
 // For Navigation
@@ -100,7 +101,7 @@ class App extends Component {
             {displayContent === ViewIndex.SEARCH  && <Search orders={orders}/>} 
             {displayContent === ViewIndex.TEST && <AdminPanel/>} 
             {displayContent === ViewIndex.HELP && <Dashboard/>} 
-            {displayContent === ViewIndex.LOGOUT && <Dashboard/>} 
+            {displayContent === ViewIndex.LOGOUT && <AppLogin/>} 
           </header>
         </div>    
   );

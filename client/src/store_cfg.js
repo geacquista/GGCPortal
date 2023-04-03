@@ -9,6 +9,8 @@ import productSlice from './store/product_slice';
 
 // import statsSlice from './stats_slice';
 import userSlice from './store/user_slice';
+import authReducer from "./store/auth";
+import messageReducer from "./store/message";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +20,8 @@ export const store = configureStore({
     invoices: invoiceSlice,
     orderline: orderlineSlice,
     products: productSlice,
+    auth: authReducer,
+    message: messageReducer,
     // quickstats: statsSlice,
     users:userSlice,
   },

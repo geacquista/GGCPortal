@@ -8,7 +8,8 @@ body {
   flex-wrap: wrap;
   align-items: flex-start;
   margin: 0px;
-  overflow: hidden;
+  overflow: scroll;
+  scroll-behavior: smooth;
 }
 
 /* MOVE BELOW -------------------- */
