@@ -101,7 +101,7 @@ class App extends Component {
             {displayContent === ViewIndex.SEARCH  && <Search orders={orders}/>} 
             {displayContent === ViewIndex.TEST && <AdminPanel/>} 
             {displayContent === ViewIndex.HELP && <Dashboard/>} 
-            {displayContent === ViewIndex.LOGOUT && <AppLogin/>} 
+            {displayContent === ViewIndex.LOGOUT && <Dashboard/>} 
           </header>
         </div>    
   );
