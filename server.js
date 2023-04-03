@@ -6,7 +6,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: 'http://goats-portal.us-east-1.elasticbeanstalk.com' || 'http://localhost:3001'
+  origin: 'http://localhost:3001'
 };
 
 app.use(cors(corsOptions));
