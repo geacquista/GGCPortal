@@ -5,10 +5,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var express = require("express");
 var cors = require("cors");
 var app = express();
-var corsOptions = {
-  origin: 'http://localhost:3001'
-};
-app.use(cors(corsOptions));
+
+// var corsOptions = {
+//   origin: 'http://goats-portal.us-east-1.elasticbeanstalk.com' || 'http://localhost:3001'
+// };
+
+// app.use(cors(corsOptions));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({

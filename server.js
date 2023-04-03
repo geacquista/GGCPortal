@@ -5,11 +5,11 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 
-var corsOptions = {
-  origin: 'http://localhost:3001'
-};
+// var corsOptions = {
+//   origin: 'http://goats-portal.us-east-1.elasticbeanstalk.com' || 'http://localhost:3001'
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app.use(cors());
 
 app.use(express.json()); 
