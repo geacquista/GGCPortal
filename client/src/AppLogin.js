@@ -1,58 +1,75 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { Component } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import Login from "./views/aa_login/Login";
-import Register from "./views/aa_login/Register";
 import Home from "./views/aa_login/Home";
 import Profile from "./views/aa_login/Profile";
-import BoardUser from "./views/aa_login/BoardUser";
-import BoardModerator from "./views/aa_login/BoardModerator";
+import BoardGGCUser from "./views/aa_login/BoardUser";
+import BoardFarmUser from "./views/aa_login/BoardModerator";
 import BoardAdmin from "./views/aa_login/BoardAdmin";
 
 import { logout } from "./store/auth";
 
 import EventBus from "./common/EventBus";
+import Dashboard from "./views/dashboard/Dashboard";
+import { ViewIndex } from "./App";
+import MainOrderView_Tabs from "./views/orders/MainOrderView_Tabs";
+import Search from "./views/search/Search";
+import AdminPanel from "./views/admin/AdminPanel";
 
-const AppLogin = () => {
-  const [showModeratorBoard, setShowModeratorBoard] = useState(false);
-  const [showAdminBoard, setShowAdminBoard] = useState(false);
+class AppLogin extends Component {
+  constructor(props) {
+    super(props);
 
-  const { user: currentUser } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+    this.state = {
+      showFarmView: false,
+      showAdminBoard: false
+    };
 
-  const logOut = useCallback(() => {
-    dispatch(logout());
-  }, [dispatch]);
+    this.logOut = this.logOut.bind(this);
+  }
 
-  useEffect(() => {
+  componentDidMount() {
+    const { user: currentUser } = this.props.auth
+
     if (currentUser) {
-      setShowModeratorBoard(currentUser.roles.includes("ROLE_MODERATOR"));
-      setShowAdminBoard(currentUser.roles.includes("ROLE_ADMIN"));
+      this.setState({
+        showModeratorBoard: currentUser.permissionType.includes("FARM"),
+        showAdminBoard: currentUser.roles.includes("ADMIN")
+      });
     } else {
-      setShowModeratorBoard(false);
-      setShowAdminBoard(false);
+      this.setState({
+        showModeratorBoard: false,
+        showAdminBoard: false
+      });
     }
 
     EventBus.on("logout", () => {
-      logOut();
+      this.logOut();
     });
+  }
 
-    return () => {
-      EventBus.remove("logout");
-    };
-  }, [currentUser, logOut]);
+  componentWillUnmount() {
+    EventBus.remove("logout");
+  }
 
-  return (
-    <Router>
+  logOut() {
+    this.dispatch(logout());
+  }
+
+  render() {
+    const { user: currentUser } = this.props.auth;
+    const { showFarmView: showModeratorBoard, showAdminBoard } = this.state;
+
+    return (
       <div>
         <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/"} className="navbar-brand">
-            bezKoder
-          </Link>
+          
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
               <Link to={"/home"} className="nav-link">
@@ -93,7 +110,7 @@ const AppLogin = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={logOut}>
+                <a href="/login" className="nav-link" onClick={this.logOut}>
                   LogOut
                 </a>
               </li>
@@ -106,11 +123,6 @@ const AppLogin = () => {
                 </Link>
               </li>
 
-              <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
-                  Sign Up
-                </Link>
-              </li>
             </div>
           )}
         </nav>
@@ -118,18 +130,34 @@ const AppLogin = () => {
         <div className="container mt-3">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/home" element={<Dashboard />}></Route> 
             <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/user" element={<BoardUser />} />
-            <Route path="/mod" element={<BoardModerator />} />
+            <Route path="/orders" element={<MainOrderView_Tabs/>} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/admin" element={<AdminPanel />} />
+
+
+            <Route path="/user" element={<BoardGGCUser />} />
+            <Route path="/mod" element={<BoardFarmUser />} />
             <Route path="/admin" element={<BoardAdmin />} />
           </Routes>
         </div>
       </div>
-    </Router>
   );
-};
+  }
+}
 
-export default AppLogin;
+
+const mapStateToProps = (state) => {
+    return {
+      auth: state.auth,
+      orders: state.orders,
+      shippingAddresses: state.shippingAddresses,
+      customers: state.customers,
+      invoices: state.invoices,
+      orderline: state.orderline,
+      products: state.products
+    };
+  };
+export default connect(mapStateToProps)(AppLogin);

@@ -60,7 +60,7 @@ export const OrderStatus = {
 // }
 
 
-class App extends Component {
+class AppAdmin extends Component {
   constructor(props) {
     super(props);
     this.setDisplayContent = this.setDisplayContent.bind(this);
@@ -95,18 +95,17 @@ class App extends Component {
           <header className='App-header'>
 
             {/* TODO: Make sure on refresh the link is _____goatsportal.com/ ||| aka: localhost:3000/ */}
-            {/* <NavBar activeButton={displayContent} buttonOnClick={this.setDisplayContent}/> */}
-            <AppLogin></AppLogin>
-{/* 
+            <NavBar activeButton={displayContent} buttonOnClick={this.setDisplayContent}/>
             {displayContent === ViewIndex.DASHBOARD && <Dashboard orders={orders} invoices={invoices}/>} 
             {displayContent === ViewIndex.ORDERS  && <MainOrderPane/>} 
+            {/* {displayContent === ViewIndex.INVOICES  && <Invoices/>}  */}
             {displayContent === ViewIndex.SEARCH  && <Search orders={orders}/>} 
             {displayContent === ViewIndex.TEST && <AdminPanel/>} 
             {displayContent === ViewIndex.HELP && <Dashboard/>} 
-            {displayContent === ViewIndex.LOGOUT && <Login/>}  */}
+            {displayContent === ViewIndex.LOGOUT && <Login/>} 
           </header>
         </div>    
-    );
+  );
   }
 }
 
@@ -121,4 +120,4 @@ const mapStateToProps = (state) => {
     };
   };
   
-export default connect(mapStateToProps, { retrieveCustomers, retrieveOrders, retrieveShippingAddresses, retrieveProducts, retrieveInvoices, retrieveOrderLines })(App);
+export default connect(mapStateToProps, { retrieveCustomers, retrieveOrders, retrieveShippingAddresses, retrieveProducts, retrieveInvoices, retrieveOrderLines })(AppAdmin);

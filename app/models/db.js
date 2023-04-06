@@ -1,7 +1,5 @@
 const mysql = require("mysql");
 //const dbConfig = require("../config/db.cnfg.t2small.js");
-
-// const dbConfig = require("../config/db.cnfg.t3small.js");
 const dbConfig = require("../config/secured.cnfg.js");
 
 

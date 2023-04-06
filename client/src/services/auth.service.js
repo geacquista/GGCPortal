@@ -1,16 +1,8 @@
 import http from "../http-common";
 
-const register = (username, email, password) => {
-  return http.post("/signup", {
-    username,
-    email,
-    password,
-  });
-};
-
 const login = (username, password) => {
   return http
-    .post("/signin", {
+    .post("/auth/signin", {
       username,
       password,
     })
@@ -28,7 +20,6 @@ const logout = () => {
 };
 
 const authService = {
-  register,
   login,
   logout,
 };

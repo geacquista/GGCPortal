@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from "react";
-
+import React, { Component } from "react";
 import UserService from "../../services/UserDataService";
 import EventBus from "../../common/EventBus";
 
-const BoardAdmin = () => {
-  const [content, setContent] = useState("");
+class BoardAdmin extends Component {
+  constructor(props) {
+    super(props);
 
-  useEffect(() => {
+    this.state = {
+      content: "",
+    };
+  }
+
+  componentDidMount() {
     UserService.getAdminBoard().then(
       (response) => {
-        setContent(response.data);
+        this.setState({ content: response.data });
       },
       (error) => {
         const _content =
@@ -19,22 +24,24 @@ const BoardAdmin = () => {
           error.message ||
           error.toString();
 
-        setContent(_content);
+        this.setState({ content: _content });
 
         if (error.response && error.response.status === 401) {
           EventBus.dispatch("logout");
         }
       }
     );
-  }, []);
+  }
 
-  return (
-    <div className="container">
-      <header className="jumbotron">
-        <h3>{content}</h3>
-      </header>
-    </div>
-  );
-};
+  render() {
+    return (
+      <div className="container">
+        <header className="jumbotron">
+          <h3>{this.state.content}</h3>
+        </header>
+      </div>
+    );
+  }
+}
 
 export default BoardAdmin;

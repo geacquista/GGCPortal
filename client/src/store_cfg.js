@@ -10,7 +10,7 @@ import productSlice from './store/product_slice';
 // import statsSlice from './stats_slice';
 import userSlice from './store/user_slice';
 import authReducer from "./store/auth";
-import messageReducer from "./store/message";
+import messageReducer from "./store/message_slice";
 
 export const store = configureStore({
   reducer: {

@@ -34,7 +34,7 @@ User.create = (newUser, result) => {
  * @param {{*}} permissionType 
  * @param {*} result 
  */
-User.getAll = (permissionType, result) => {
+User.getAll = (permissionType, email, result) => {
     let query = "SELECT * FROM `User`";
   
     if (permissionType) {
@@ -61,6 +61,32 @@ User.getAll = (permissionType, result) => {
  */
 User.findById = (id, result) => {
   sql.query(`SELECT * FROM User WHERE userID = ${id}`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      console.log("found user: ", res[0]);
+      var data = JSON.parse(JSON.stringify(res[0]))
+
+      result(null, data);
+      return;
+    }
+
+    // not found User with the id
+    result({ kind: "not_found" }, null);
+  });
+};
+
+/**
+ * 
+ * @param {*} id 
+ * @param {*} result 
+ */
+User.findByEmail = (email, result) => {
+  sql.query(`SELECT * FROM User WHERE email = ${email}`, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);

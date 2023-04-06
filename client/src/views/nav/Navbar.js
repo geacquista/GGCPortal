@@ -15,27 +15,27 @@ const NavBarButton = ({text, icon, onClick}) => {
 			break
 		case ViewIndex.ORDERS:
 			iconPath = require('../../assets/img/order_black.svg')
-			link = 'Orders'
+			link = 'orders'
 			break
 		case ViewIndex.INVOICES:
 			iconPath = require('../../assets/img/invoice_black.svg')
-			link = 'Invoices'
+			link = 'invoices'
 			break
 		case ViewIndex.SEARCH:
 			iconPath = require('../../assets/img/search_black.svg')
-			link = 'Search'
+			link = 'search'
 			break
 		case ViewIndex.HELP:
 			iconPath = require('../../assets/img/help_black.svg')
-			link = 'Help'
+			link = 'help'
 			break
 		case ViewIndex.LOGOUT:
 			iconPath = require('../../assets/img/logout_black.svg')
-			link = 'Login'
+			link = 'login'
 			break
 		case ViewIndex.TEST:
 			iconPath = require('../../assets/img/attachment_black.svg')
-			link = 'Test'
+			link = 'admin'
 			break
 		default:
 			console.log(icon)
@@ -62,27 +62,27 @@ const NavBarButtonActive = ({text, icon, onClick}) => {
 			break
 		case ViewIndex.ORDERS:
 			iconPath = require('../../assets/img/order_white.svg')
-			link = 'Orders'
+			link = 'orders'
 			break
 		case ViewIndex.INVOICES:
 			iconPath = require('../../assets/img/invoice_white.svg')
-			link = 'Invoices'
+			link = 'invoices'
 			break
 		case ViewIndex.SEARCH:
 			iconPath = require('../../assets/img/search_white.svg')
-			link = 'Search'
+			link = 'search'
 			break
 		case ViewIndex.HELP:
 			iconPath = require('../../assets/img/help_white.svg')
-			link = 'Help'
+			link = 'help'
 			break
 		case ViewIndex.LOGOUT:
 			iconPath = require('../../assets/img/logout_white.svg')
-			link = 'Login'
+			link = 'login'
 			break
 		case ViewIndex.TEST:
 			iconPath = require('../../assets/img/attachment_white.svg')
-			link = 'Test'
+			link = 'test'
 			break
 		default:
 			console.log(icon)

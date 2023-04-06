@@ -1,110 +1,127 @@
-import React, { useState, useEffect  } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import React from "react";
+import { connect } from "react-redux";
+import { Navigate } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
 import { login } from "../../store/auth";
 import { clearMessage } from "../../store/message";
+import Profile from "./Profile";
 
-const Login = () => {
-  let navigate = useNavigate();
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false
+    };
+    this.handleLogin = this.handleLogin.bind(this);
+  }
 
-  const [loading, setLoading] = useState(false);
+  componentDidMount() {
+    this.props.dispatch(clearMessage());
+  }
 
-  const { isLoggedIn } = useSelector((state) => state.auth);
-  const { message } = useSelector((state) => state.message);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(clearMessage());
-  }, [dispatch]);
-
-  const initialValues = {
-    username: "",
-    password: "",
-  };
-
-  const validationSchema = Yup.object().shape({
-    username: Yup.string().required("This field is required!"),
-    password: Yup.string().required("This field is required!"),
-  });
-
-  const handleLogin = (formValue) => {
+  handleLogin(formValue) {
     const { username, password } = formValue;
-    setLoading(true);
-
-    dispatch(login({ username, password }))
+    this.setState({ loading: true });
+    this.props
+      .dispatch(login({ username, password }))
       .unwrap()
       .then(() => {
-        navigate("/profile");
+        this.props.history.push("/profile");
         window.location.reload();
       })
       .catch(() => {
-        setLoading(false);
+        this.setState({ loading: false });
       });
-  };
-
-  if (isLoggedIn) {
-    return <Navigate to="/profile" />;
   }
 
-  return (
-    <div className="col-md-12 login-form">
-      <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={handleLogin}
-        >
-          <Form>
-            <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <Field name="username" type="text" className="form-control" />
-              <ErrorMessage
-                name="username"
-                component="div"
-                className="alert alert-danger"
-              />
-            </div>
+  render() {
+    console.log(isLoggedIn)
+    const { isLoggedIn, message } = this.props;
 
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <Field name="password" type="password" className="form-control" />
-              <ErrorMessage
-                name="password"
-                component="div"
-                className="alert alert-danger"
-              />
-            </div>
+    if (isLoggedIn) {
+      // return <Navigate to="/profile" component={<Profile/>}/>;
+    }
 
-            <div className="form-group">
-              <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
-                {loading && (
-                  <span className="spinner-border spinner-border-sm"></span>
-                )}
-                <span>Login</span>
-              </button>
-            </div>
-          </Form>
-        </Formik>
-      </div>
+    const initialValues = {
+      username: "",
+      password: ""
+    };
 
-      {message && (
-        <div className="form-group">
-          <div className="alert alert-danger" role="alert">
-            {message}
-          </div>
+    const validationSchema = Yup.object().shape({
+      username: Yup.string().required("This field is required!"),
+      password: Yup.string().required("This field is required!")
+    });
+
+    return (
+      <div className="col-md-12 login-form">
+        <div className="card card-container">
+          <img
+            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+            alt="profile-img"
+            className="profile-img-card"
+          />
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={this.handleLogin}
+          >
+            <Form>
+              <div className="form-group">
+                <label htmlFor="username">Username</label>
+                <Field name="username" type="text" className="form-control" />
+                <ErrorMessage
+                  name="username"
+                  component="div"
+                  className="alert alert-danger"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <Field name="password" type="password" className="form-control" />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="alert alert-danger"
+                />
+              </div>
+
+              <div className="form-group">
+                <button
+                  type="submit"
+                  className="btn btn-primary btn-block"
+                  disabled={this.state.loading}
+                >
+                  {this.state.loading && (
+                    <span className="spinner-border spinner-border-sm"></span>
+                  )}
+                  <span>Login</span>
+                </button>
+              </div>
+            </Form>
+          </Formik>
         </div>
-      )}
-    </div>
-  );
-};
 
-export default Login;
+        {message && (
+          <div className="form-group">
+            <div className="alert alert-danger" role="alert">
+              {message}
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
+
+function mapStateToProps(state) {
+ 
+  return {
+    isLoggedIn: state.auth,
+    message: state.message
+  };
+}
+
+export default connect(mapStateToProps)(Login);
