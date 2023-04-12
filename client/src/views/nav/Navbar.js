@@ -35,7 +35,8 @@ export const NavBarButton = ({text, icon, onClick}) => {
 			break
 		case ViewIndex.TEST:
 			iconPath = require('../../assets/img/attachment_black.svg')
-			link = 'test'
+			link = 'admin'
+
 			break
 		default:
 			console.log(icon)
@@ -83,6 +84,7 @@ export const NavBarButtonActive = ({text, icon, onClick}) => {
 		case ViewIndex.TEST:
 			iconPath = require('../../assets/img/attachment_white.svg')
 			link = 'admin'
+
 			break
 		default:
 			console.log(icon)

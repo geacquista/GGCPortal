@@ -316,7 +316,7 @@ align-items: center;
 place-self: flex-start;
 align-content: flex-start;
 background-color: white;
-position: fixed;
+position: absolute;
 }
 
 #NavBarTop {

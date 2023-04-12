@@ -24,22 +24,23 @@ const removeAll = () => {
   return http.delete(`/users`);
 };
 
-const getPublicLogin = () => {
-  return http.get("/board/all");
-};
+// const getPublicLogin = () => {
+//   return http.get("/board/all");
+// };
 
-const getGGCUserBoard = () => {
-  return http.get("/board/ggc");
-  // return http.get("/board/ggc", { headers: authHeader() });
-};
+// const getGGCUserBoard = () => {
+//   return http.get("/board/ggc");
+//   // return http.get("/board/ggc", { headers: authHeader() });
+// };
 
-const getFarmUserBoard = () => {
-  return http.get("/board/farm");
-};
+// const getFarmUserBoard = () => {
+//   return http.get("/board/farm");
+// };
 
-const getAdminBoard = () => {
-  return http.get("/board/admin");
-};
+// const getAdminBoard = () => {
+//   return http.get("/board/admin");
+// };
+
 
 
 const UserDataService = {
@@ -48,11 +49,7 @@ const UserDataService = {
   create,
   update,
   remove,
-  removeAll,
-  getPublicContent: getPublicLogin,
-  getUserBoard: getGGCUserBoard,
-  getModeratorBoard: getFarmUserBoard,
-  getAdminBoard,
+  removeAll
 };
 
 export default UserDataService;

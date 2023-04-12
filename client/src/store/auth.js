@@ -5,7 +5,6 @@ import AuthService from "../services/auth.service";
 
 const user = null;
 
-
 export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }, thunkAPI) => {
@@ -39,7 +38,6 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   extraReducers: {
-    
     [login.fulfilled]: (state, action) => {
       state.isLoggedIn = true;
       state.user = action.payload.user;

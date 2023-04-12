@@ -1,13 +1,17 @@
-import React from "react";
+import React, { Component } from "react";
 import { Navigate } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
+import Login from "./Login";
 
-const Profile = () => {
-  const { user: currentUser } = useSelector((state) => state.auth);
+class Profile extends Component {
+  render() {
+    const { user: currentUser } = this.props;
+    console.log(currentUser)
 
-  if (!currentUser) {
-    return <Navigate to="/login" />;
-  }
+    // if (!currentUser) {
+    //   return <Navigate to="/login" component={<Login/>} />;
+    // }
+
 
   return (
     <div className="container">
@@ -33,5 +37,13 @@ const Profile = () => {
     </div>
   );
 };
+}
 
-export default Profile;
+function mapStateToProps(state) {
+  const { user } = state.auth;
+  return {
+    user,
+  };
+}
+
+export default connect(mapStateToProps)(Profile);

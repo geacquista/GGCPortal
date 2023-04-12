@@ -33,6 +33,7 @@ import HelpScreen from "./views/help/Help";
 
 
 
+
 // For Navigation
 export const ViewIndex = {
 	DASHBOARD: 1,
@@ -164,7 +165,6 @@ class App extends Component {
                 </Link>
               </li>
             )}
-
             {activeUser.userID && activeUser.permissionType===PermissionTypes.ADMIN && (
               <li className="nav-item">
                 <Link to={"/admin"} className="nav-link">
@@ -235,6 +235,7 @@ class App extends Component {
     </div>
   );
 };
+
 }
 
 const mapStateToProps = (state) => {

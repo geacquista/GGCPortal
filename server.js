@@ -33,6 +33,7 @@ require("./app/routes/user.routes.js")(app);
 require("./app/routes/board.routes.js")(app);
 require("./app/routes/login.routes.js")(app);
 
+
 // set port, listen for requests
 // 3001 local
 // rds 3306
