@@ -1,34 +1,27 @@
 import http from "../http-common";
 
-const register = (username, email, password) => {
-  return http.post("/signup", {
-    username,
-    email,
-    password,
-  });
-};
-
-const login = (username, password) => {
+const login = (email, password) => {
   return http
     .post("/signin", {
-      username,
+      email,
       password,
     })
     .then((response) => {
-      if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
-      }
+      console.log(response)
+      // if (response.data.accessToken) {
+      //   localStorage.setItem("user", JSON.stringify(response.data));
+      // }
 
       return response.data;
     });
 };
 
 const logout = () => {
-  localStorage.removeItem("user");
+  console.log("logging out")
+  // localStorage.removeItem("user");
 };
 
 const authService = {
-  register,
   login,
   logout,
 };

@@ -1,4 +1,3 @@
-import TextField from "@material-ui/core/TextField"
 import List from "./List";
 import React, { Component } from 'react'
 import { connect } from "react-redux";
@@ -35,7 +34,7 @@ class Search extends Component {
 			<div id='Search'>
 				<h1>Search Orders</h1>
 				<div className="search">
-					<TextField
+					<input
 					id="outlined-basic"
 					onChange={this.inputHandler}
 					variant="outlined"

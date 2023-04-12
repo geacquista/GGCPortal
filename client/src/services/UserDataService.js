@@ -1,5 +1,4 @@
 import http from "../http-common";
-import authHeader from "./auth-header";
 
 const getAll = () => {
   return http.get("/users");
@@ -26,19 +25,20 @@ const removeAll = () => {
 };
 
 const getPublicLogin = () => {
-  return http.get("/allLogin");
+  return http.get("/board/all");
 };
 
 const getGGCUserBoard = () => {
-  return http.get("/GGCBoard", { headers: authHeader() });
+  return http.get("/board/ggc");
+  // return http.get("/board/ggc", { headers: authHeader() });
 };
 
 const getFarmUserBoard = () => {
-  return http.get("/FarmBoard", { headers: authHeader() });
+  return http.get("/board/farm");
 };
 
 const getAdminBoard = () => {
-  return http.get("/AdminBoard", { headers: authHeader() });
+  return http.get("/board/admin");
 };
 
 

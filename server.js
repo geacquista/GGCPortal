@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to GGC Portal Server." });
 });
 
-//ROUTES GO HERE
+//API ROUTES GO HERE
 require("./app/routes/address.routes.js")(app);
 require("./app/routes/customer.routes.js")(app);
 require("./app/routes/invoice.routes.js")(app);
@@ -30,6 +30,8 @@ require("./app/routes/order.routes.js")(app);
 require("./app/routes/orderline.routes.js")(app);
 require("./app/routes/product.routes.js")(app);
 require("./app/routes/user.routes.js")(app);
+require("./app/routes/board.routes.js")(app);
+require("./app/routes/login.routes.js")(app);
 
 // set port, listen for requests
 // 3001 local

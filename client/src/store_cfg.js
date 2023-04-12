@@ -12,6 +12,12 @@ import userSlice from './store/user_slice';
 import authReducer from "./store/auth";
 import messageReducer from "./store/message";
 
+import { connectRouter, routerMiddleware } from "connected-react-router";
+import { createBrowserHistory } from "history";
+
+export const history = createBrowserHistory();
+
+
 export const store = configureStore({
   reducer: {
     orders: orderSlice,
@@ -24,6 +30,10 @@ export const store = configureStore({
     message: messageReducer,
     // quickstats: statsSlice,
     users:userSlice,
+    router: connectRouter(history),
   },
+  middleware: (getDefaultMiddleware) => 
+    getDefaultMiddleware().concat(routerMiddleware(history)),
+
   devTools: true,
 });
