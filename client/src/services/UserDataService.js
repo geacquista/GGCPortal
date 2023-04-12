@@ -24,6 +24,25 @@ const removeAll = () => {
   return http.delete(`/users`);
 };
 
+// const getPublicLogin = () => {
+//   return http.get("/board/all");
+// };
+
+// const getGGCUserBoard = () => {
+//   return http.get("/board/ggc");
+//   // return http.get("/board/ggc", { headers: authHeader() });
+// };
+
+// const getFarmUserBoard = () => {
+//   return http.get("/board/farm");
+// };
+
+// const getAdminBoard = () => {
+//   return http.get("/board/admin");
+// };
+
+
+
 const UserDataService = {
   getAll,
   get,

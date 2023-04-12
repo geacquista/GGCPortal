@@ -1,10 +1,10 @@
 import logo from '../../assets/img/ggc_logo_dropshadow.png';
-import {ViewIndex} from '../../App.js';
+import {ViewIndex} from '../../GGCApp';
 import '../../assets/style/navbar.css'
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const NavBarButton = ({text, icon, onClick}) => {
+export const NavBarButton = ({text, icon, onClick}) => {
 	let iconPath
 	let link
 
@@ -36,6 +36,7 @@ const NavBarButton = ({text, icon, onClick}) => {
 		case ViewIndex.TEST:
 			iconPath = require('../../assets/img/attachment_black.svg')
 			link = 'admin'
+
 			break
 		default:
 			console.log(icon)
@@ -51,7 +52,7 @@ const NavBarButton = ({text, icon, onClick}) => {
 	)
 }
 
-const NavBarButtonActive = ({text, icon, onClick}) => {
+export const NavBarButtonActive = ({text, icon, onClick}) => {
 	let iconPath
 	let link
 
@@ -82,7 +83,8 @@ const NavBarButtonActive = ({text, icon, onClick}) => {
 			break
 		case ViewIndex.TEST:
 			iconPath = require('../../assets/img/attachment_white.svg')
-			link = 'test'
+			link = 'admin'
+
 			break
 		default:
 			console.log(icon)
@@ -98,7 +100,7 @@ const NavBarButtonActive = ({text, icon, onClick}) => {
 	)
 }
 
-const NavBar = ({activeButton, buttonOnClick}) => {
+export const NavBar = ({activeButton, buttonOnClick}) => {
 	return(
 		<div id='NavBar'>
 			<div id='NavBarTop'>
@@ -112,6 +114,22 @@ const NavBar = ({activeButton, buttonOnClick}) => {
 			</div>
 			<div id='NavBarBottom'>
 				{activeButton === ViewIndex.HELP ? <NavBarButtonActive text='Help' icon={ViewIndex.HELP} onClick={buttonOnClick}/> : <NavBarButton text='Help' icon={ViewIndex.HELP} onClick={buttonOnClick}/>}
+				{activeButton === ViewIndex.LOGOUT ? <NavBarButtonActive text='Logout' icon={ViewIndex.LOGOUT} onClick={buttonOnClick}/> : <NavBarButton text='Logout' icon={ViewIndex.LOGOUT} onClick={buttonOnClick}/>}
+			</div>
+		</div>
+	)
+}
+
+export const NavBarTest = ({activeButton, buttonOnClick}) => {
+	return(
+		<div id='NavBar'>
+			<div id='NavBarTop'>
+				<img alt='logo' src={logo} height='200' width='200' />
+				<h2>G.O.A.T.S.</h2>
+				{activeButton === ViewIndex.DASHBOARD ? <NavBarButtonActive text='Dashboard' icon={ViewIndex.DASHBOARD} onClick={buttonOnClick}/> : <NavBarButton text='Dashboard' icon={ViewIndex.DASHBOARD} onClick={buttonOnClick}/>}
+				{activeButton === ViewIndex.TEST ? <NavBarButtonActive text='Test' icon={ViewIndex.TEST} onClick={buttonOnClick}/> : <NavBarButton text='Test' icon={ViewIndex.TEST} onClick={buttonOnClick}/>}
+			</div>
+			<div id='NavBarBottom'>
 				{activeButton === ViewIndex.LOGOUT ? <NavBarButtonActive text='Logout' icon={ViewIndex.LOGOUT} onClick={buttonOnClick}/> : <NavBarButton text='Logout' icon={ViewIndex.LOGOUT} onClick={buttonOnClick}/>}
 			</div>
 		</div>

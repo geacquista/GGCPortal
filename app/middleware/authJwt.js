@@ -1,59 +1,59 @@
-import { PermissionTypes } from "../../client/src/App.js";
-const jwt = require("jsonwebtoken");
-const config = require("../config/auth.config.js");
+// const jwt = require("jsonwebtoken");
+// const config = require("../config/auth.config.js");
+// const User = require("../models/user.model.js");
+// const { PermissionTypes } = require("../../client/src/App.js");
 
-const User = require("../models/user.model.js");
+// exports.verifyToken = function verifyToken (req, res, next) {
+//   let token = req.headers["x-access-token"];
 
-verifyToken = (req, res, next) => {
-  let token = req.headers["x-access-token"];
+//   if (!token) {
+//     return res.status(403).send({
+//       message: "No token provided!"
+//     });
+//   }
 
-  if (!token) {
-    return res.status(403).send({
-      message: "No token provided!"
-    });
-  }
+//   jwt.verify(token, config.secret, (err, decoded) => {
+//     if (err) {
+//       return res.status(401).send({
+//         message: "Unauthorized!"
+//       });
+//     }
+//     req.userId = decoded.id;
+//     next();
+//   });
+// };
 
-  jwt.verify(token, config.secret, (err, decoded) => {
-    if (err) {
-      return res.status(401).send({
-        message: "Unauthorized!"
-      });
-    }
-    req.userId = decoded.id;
-    next();
-  });
-};
+// exports.isAdmin = (req, res, next) => {ß
+//   User.findByPk(req.userId)
+//   .then(user => {
+//     if (user.permissionType === PermissionTypes.ADMIN) {
+//         next();
+//         return;
+//       }
+//   });
+// };
 
-isAdmin = (req, res, next) => {
-  User.findById(req.userID)
-  .then(user => {
-      if (user.permissionType === PermissionTypes.ADMIN) {
-        next();
-        return;
-      }
-      res.status(403).send({
-        message: "Require Admin Role!"
-      });
-      return;
-    });
-};
+// exports.isModerator = (req, res, next) => {
+//   User.findByPk(req.userId)
+//   .then(user => {
+//     if (user && user.permissionType === PermissionTypes.FARM) {
+//       next();
+//     } else {
+//       res.status(403).send('Access Denied');
+//     }
+//   });
+// };
 
-isFarmRole = (req, res, next) => {
-  User.findById(req.userId)
-  .then(user => {
-    if (user.permissionType === PermissionTypes.FARM) {
-      next();
-      return;
-    }
-    res.status(403).send({
-      message: "Require Farm Role!"
-    });
-  });
-};
-
-const authJwt = {
-  verifyToken: verifyToken,
-  isAdmin: isAdmin,
-  isFarmRole: isFarmRole,
-};
-module.exports = authJwt;
+// exports.isGGC = (req, res, next) => {
+//   User.findByPk(req.userId)
+//   .then(user => {
+//     if (user && user.permissionType === PermissionTypes.GGC) {
+//       next();
+//     } else {
+//       res.status(403).send('Access Denied');
+//     }
+//   })
+//   .catch(err => {
+//     res.status(500).send(err.message);
+//   });
+// };

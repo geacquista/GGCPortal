@@ -2,7 +2,7 @@
   "name": "ggcportal",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon --quiet server",
@@ -23,13 +23,18 @@
   "author": "niniacquista",
   "license": "ISC",
   "dependencies": {
+    "@babel/preset-react": "^7.18.6",
     "aws-chime": "git+ssh://git@github.com:aws/amazon-chime-sdk-js.git",
     "aws-sdk": "https://github.com/aws/aws-sdk-js.git",
+    "bcryptjs": "^2.4.3",
+    "bootstrap": "^5.2.3",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
     "knex": "^2.4.2",
     "mysql": "latest",
-    "mysql2": "^3.1.2"
+    "mysql2": "^3.2.0",
+    "sequelize": "^6.30.0"
   },
   "bugs": {
     "url": "https://github.com/geacquista/GGCPortal/issues"
@@ -39,9 +44,8 @@
     "@babel/cli": "^7.21.0",
     "@babel/core": "^7.21.3",
     "@babel/node": "^7.20.7",
+    "@babel/plugin-syntax-jsx": "^7.21.4",
     "@babel/preset-env": "^7.20.2",
-    "concurrently": "^7.6.0",
-    "gh-pages": "^5.0.0",
     "nodemon": "^2.0.22"
   },
   "engines": {

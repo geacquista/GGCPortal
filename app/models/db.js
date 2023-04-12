@@ -1,6 +1,10 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 //const dbConfig = require("../config/db.cnfg.t2small.js");
-const dbConfig = require("../config/secured.cnfg.js");
+
+//const dbConfig = require("../config/secured.cnfg.js");
+const dbConfig = require("../config/local.cnfig.js");
+
+
 
 
 var connection = mysql.createPool({
