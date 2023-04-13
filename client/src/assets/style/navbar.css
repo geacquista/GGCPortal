@@ -1,0 +1,33 @@
+
+.landing-page{
+    /*height: 100%;*/
+    /*justify-content: space-between;*/
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#navbar-special {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.nav-item {
+    width: 100%;
+}
+
+.branding {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand{
+    text-align: center;
+}
+
+
+
+
