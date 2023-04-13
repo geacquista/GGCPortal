@@ -26,6 +26,7 @@ import { retrieveOrderLines } from './store/orderline_slice';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
+import '../../client/src/assets/style/navbar.css';
 import "./App.css";
 import Dashboard from "./views/dashboard/Dashboard";
 import MainOrderPane from "./views/orders/MainOrderView_Tabs";
@@ -96,6 +97,7 @@ const AppComp = ({
   //   }
   // }, [location.pathname, clearMessage]);
 
+
   // useEffect(() => {
   //   if (auth.isLoggedIn && auth.user !== activeUser) {
   //     setActiveUser({
@@ -126,13 +128,12 @@ const AppComp = ({
 
     return (
       
-      <div  style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-      <nav className="navbar navbar-expand bg-light NavBar" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        
-        <img alt='logo' src={logo} height='200' width='200' />
-        <h2 className="navbar-brand">G.O.A.T.S.</h2>
-
-
+      <div className="landing-page">
+      <nav className="navbar navbar-expand bg-light NavBar" id={"navbar-special"}>
+        <div id={'branding'}>
+          <img alt='logo' src={logo} height='200' width='200' />
+          <h2 className="navbar-brand">G.O.A.T.S.</h2>
+        </div>
         <div style={{ display: 'flex', flexDirection: 'column'} }>
         
           {activeUser.userID && activeUser.permissionType ===PermissionTypes.FARM && (
@@ -177,7 +178,7 @@ const AppComp = ({
         </div>
 
         {activeUser.userID ? (
-          <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'column'}}>
+          <div className="navbar-nav ml-auto" style={{display:'flex'}}>
             <li className="nav-item">
                   <Link to={"/search"} className="nav-link">
                     Search
@@ -195,21 +196,40 @@ const AppComp = ({
               </a>
             </li>
           </div>
-           
+
           </div>
         ) : (
-          <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'column'}}>
-            <li className="nav-item">
-              <Link to={"/help"} className="nav-link">
-                Help
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/"} className="nav-link">
-                Login
-              </Link>
-            </li>
-          </div>
+            <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'column'}}>
+              <div>
+                <li className="nav-item">
+                <Link to={"/dashboard"} className="nav-link">
+                  Home
+                </Link>
+              </li>
+                <li className="nav-item">
+                  <Link to={"/orders"} className="nav-link">
+                    Orders
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={"/search"} className="nav-link">
+                    Search
+                  </Link>
+                </li>
+              </div>
+              <div>
+                <li className="nav-item">
+                  <Link to={"/help"} className="nav-link">
+                    Help
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={"/login"} className="nav-link">
+                    Login
+                  </Link>
+                </li>
+              </div>
+            </div>
         )}
       </nav>
         

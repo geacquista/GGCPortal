@@ -203,6 +203,21 @@ class App extends Component {
           ) : (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
+                <Link to={"/dashboard"} className="nav-link">
+                  Home
+                </Link>
+              </li>
+              <li>
+              <Link to={"/orders"} className="nav-link">
+                Orders
+              </Link>
+            </li>
+              <li>
+                <Link to={"/search"} className="nav-link">
+                  Search
+                </Link>
+              </li>
+              <li className="nav-item">
                 <Link to={"/help"} className="nav-link">
                   Help
                 </Link>
@@ -218,9 +233,9 @@ class App extends Component {
         
         <div className="container mt-3 ViewContainer">
           <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/home" element={<Dashboard/>} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard/>} />
+            {/*<Route path="/login" element={<Login />} />*/}
             <Route path="/profile" element={<Profile />} />
             <Route path="/user" element={<BoardUser />} />
             <Route path="/farm" element={<BoardModerator />} />
