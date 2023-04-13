@@ -231,7 +231,7 @@ class App extends Component {
           )}
         </nav>
         
-        <div className="container mt-3">
+        <div className="container mt-3 ViewContainer">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard/>} />

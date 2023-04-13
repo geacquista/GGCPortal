@@ -25,6 +25,7 @@ import { retrieveOrderLines } from './store/orderline_slice';
 
 
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import '../../client/src/assets/style/navbar.css';
 import "./App.css";
 import Dashboard from "./views/dashboard/Dashboard";
@@ -90,11 +91,12 @@ const AppComp = ({
 
   const location = useLocation();
 
-  useEffect(() => {
-    if (["/login"].includes(location.pathname)) {
-      clearMessage(); // clear message when changing location
-    }
-  }, [location.pathname, clearMessage]);
+  // useEffect(() => {
+  //   if (["/login"].includes(location.pathname)) {
+  //     clearMessage(); // clear message when changing location
+  //   }
+  // }, [location.pathname, clearMessage]);
+
 
   // useEffect(() => {
   //   if (auth.isLoggedIn && auth.user !== activeUser) {
