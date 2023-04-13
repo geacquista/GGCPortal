@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+	height: 100vh;
 }
 
 .App-logo {
@@ -14,20 +15,23 @@
 }
 
 .App-header {
-  min-height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: row;
-  justify-content:space-around ;
-  align-items: top;
+  /*justify-content:space-around ;*/
   width: 100%;
   justify-content: left;
-  float: left;
   font-size: calc(10px + 2vmin);
 }
 
 main {
   padding: 32px;
 }
+
+#root {
+	height: 100vh;
+}
+
 
 
 /*------------------ Orders ---------------------*/
@@ -57,7 +61,7 @@ main {
 	display: flex;
   max-width: 1144px;
 	overflow-y: scroll;
-  scroll-behavior:hidden;
+  scroll-behavior: smooth;
 	flex-direction: column;
 	justify-content: center;
 	background-color: White;
