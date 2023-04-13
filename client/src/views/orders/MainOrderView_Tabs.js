@@ -211,7 +211,7 @@ class MainOrderPane extends Component {
 			
 		}
 		return(
-			<div id='Orders'>	
+			<div id='Orders' >	
 				<div className="OrderTitleButton">
 					<h1 className='PageHeader'>Orders</h1> 
 					<button className='OrderActionButton' onClick={this.addNewOrder}>

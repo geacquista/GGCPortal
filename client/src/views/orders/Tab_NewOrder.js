@@ -265,7 +265,10 @@
 
 
 import edit_icon from '../../assets/img/edit_white.svg'
-import delete_icon from '../../assets/img/trash_white.svg'
+import delete_icon from '../../assets/img/trash_black.svg'
+import "../../assets/style/tab_newOrder.css"
+import ReactSwitch from 'react-switch';
+
 
 import React, { useState, Component } from 'react'
 import { connect, useDispatch, useSelector } from "react-redux";
@@ -281,78 +284,16 @@ import { retrieveProducts } from "../../store/product_slice";
 
 
 const InvoiceInfoView = ({invoiceNumber, revenue, expense, orderStatus}) => {
-	if (invoiceNumber) {
+
+	
 		return (
-			<div id='OrderView_Invoice_Details'>
-			   <table>
-				   <tr>
-					   <td><h4 style={{fontWeight: 'bold'}}>Invoice #</h4></td>
-					   <td><h4>{invoiceNumber}</h4></td>
-				   </tr>
-				   <tr>
-					   <td><h4 style={{fontWeight: 'bold'}}>Revenue</h4></td>
-					   <td><h4>{revenue}</h4></td>
-				   </tr>
-				   <tr>
-					   <td><h4 style={{fontWeight: 'bold'}}>Expense</h4></td>
-					   <td><h4>{expense}</h4></td>
-				   </tr>
-			   </table>
-		   </div> 
-	   );	
-	}
-	else {
-		return (
-			<div id='OrderView_Invoice_Details'>
-			   <div>Missing Invoice</div>
+			<div id='NewInvoiceView' className='GenericBackgroundAdd'>
+				<label className='BoxDescriptionTitle'>Invoice</label>
+			   	<div className='MissingBackground'>Invoice Generated Upon Save</div>
 		   </div> 
 	   );
 	   
-	}
-}
-
-const ProductInfoView = ({productsOrdered, numberOfFlavors, numberOfLogs}) => {
-	console.log(productsOrdered)
-	return (
-		<div id='OrderView_Products_Details'>
-		<h4 style={{fontWeight: 'bold'}}>Flavor Information</h4>
-			<div className='Row'>
-				<table>
-					<tbody>
-					<tr>
-						<th><h4 style={{fontWeight: 'bold'}}>Name</h4></th>
-						<th><h4 style={{fontWeight: 'bold'}}>SKU</h4></th>
-						<th><h4 style={{fontWeight: 'bold'}}>Quantity</h4></th>
-					</tr>
-					{productsOrdered.map((product) => (
-						<tr key={product.lineProductID&&product.lineOrderID}>
-							<td><h4>{product.name}</h4></td>
-							<td><h4>{product.lineProductID}</h4></td>
-							<td><h4>{product.qtyOrdered}</h4></td>
-						</tr>					
-					))}
-					</tbody>
-				</table>
-				<table>
-					<tbody>
-
-						<tr>
-							<th><h4 style={{fontWeight: 'bold'}}>At a Glance:</h4></th>
-						</tr>
-						<tr>
-							<td><h4 style={{fontWeight: 'bold'}}>Total Number of Logs:</h4></td>
-							<td><h4>{numberOfLogs}</h4></td>
-						</tr>
-						<tr>
-							<td><h4 style={{fontWeight: 'bold'}}>Total Number of Flavors:</h4></td>
-							<td><h4>{numberOfFlavors}</h4></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div> 
-	);	
-
+	
 }
 
 
@@ -361,12 +302,14 @@ const ProductInfoView = ({productsOrdered, numberOfFlavors, numberOfLogs}) => {
 const GeneralInfoEdit = ({referenceNumber, datePlaced, trackingNumber, orderStatus, handleChange}) => {
 
 	return(
-            <div id='OrderView_General_Details'>
-                <div className="form-group">
+            <div id='NewOrderGeneral' className='GenericBackgroundAdd'>
+				<label className='BoxDescriptionTitle' style={{alignItems:"center"}}>Order Information</label>
+                <div className="OrderViewHeaderNew_Inner">
+					
                   <label htmlFor="ref"><h4 style={{fontWeight: 'bold'}}>Reference #</h4></label>
                   <input
                     type="text"
-                    className="form-control"
+                    className="inputField"
                     id="ref"
                     required
                     defaultValue={referenceNumber}
@@ -375,11 +318,11 @@ const GeneralInfoEdit = ({referenceNumber, datePlaced, trackingNumber, orderStat
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="OrderViewHeaderNew_Inner">
                   <label htmlFor="date"><h4 style={{fontWeight: 'bold'}}>Date Placed</h4></label>
                   <input
                     type="text"
-                    className="form-control"
+                    className="inputField"
                     id="date"
                     defaultValue={datePlaced || ''}
                     onChange={handleChange}
@@ -387,11 +330,11 @@ const GeneralInfoEdit = ({referenceNumber, datePlaced, trackingNumber, orderStat
                   />
                 </div>
 
-                <div className="form-group">
+                <div className="OrderViewHeaderNew_Inner">
                   <label htmlFor="tracking"><h4 style={{fontWeight: 'bold'}}>Tracking #</h4></label>
                   <input
                     type="text"
-                    className="form-control"
+                    className="inputField"
                     id="tracking"
                     defaultValue={trackingNumber || ''}
                     onChange={handleChange}
@@ -399,17 +342,6 @@ const GeneralInfoEdit = ({referenceNumber, datePlaced, trackingNumber, orderStat
                   />
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="status"><h4 style={{fontWeight: 'bold'}}>Status</h4></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="status"
-                    defaultValue={orderStatus || ''}
-                    onChange={handleChange}
-                    name="status"
-                  />
-                </div>
             </div>
         
 	)
@@ -419,112 +351,141 @@ const GeneralInfoEdit = ({referenceNumber, datePlaced, trackingNumber, orderStat
 const CustomerInfoEdit = ({firstName, lastName, email, phoneNumber, handleChange}) => {
 
 	return (
-		<div id='OrderView_Customer_Details'>
-			<div className="form-group">
-                  <label htmlFor="first"><h4 style={{fontWeight: 'bold'}}>First Name</h4></label>
+		<div id='NewOrderCustomer' className='GenericBackgroundAdd'>
+		   <label className='BoxDescriptionTitle'>Customer Information</label>
+			
+			
+			<div className='OrderViewHeaderNew_Inner'>
+				<div className="OrderViewHeaderNew_Inner">
+					<label htmlFor="first"><h4 style={{fontWeight: 'bold'}}>First</h4></label>
+					<input
+						type="text"
+						className="inputField"
+						id="first"
+						required
+						defaultValue={firstName || ''}
+						onChange={handleChange}
+						name="first"
+						
+					/>
+				</div>
+				<div className="OrderViewHeaderNew_Inner">
+                  <label htmlFor="last"><h4 style={{fontWeight: 'bold'}}>Last</h4></label>
                   <input
                     type="text"
-                    className="form-control"
-                    id="first"
-                    required
-                    defaultValue={firstName || ''}
-                    onChange={handleChange}
-                    name="first"
-                  />
-                </div>
-				<div className="form-group">
-                  <label htmlFor="last"><h4 style={{fontWeight: 'bold'}}>Last Name</h4></label>
-                  <input
-                    type="text"
-                    className="form-control"
+                    className="inputField"
                     id="last"
                     required
                     defaultValue={lastName || ''}
                     onChange={handleChange}
                     name="last"
+
                   />
                 </div>
-				<div className="form-group">
+			</div>
+
+			<div className='OrderViewHeaderNew_Inner'>
                   <label htmlFor="email"><h4 style={{fontWeight: 'bold'}}>Email</h4></label>
                   <input
                     type="text"
-                    className="form-control"
+                    className="inputField"
                     id="email"
                     required
                     defaultValue={email || ''}
                     onChange={ handleChange}
                     name="email"
                   />
-                </div>
-				<div className="form-group">
-                  <label htmlFor="phone"><h4 style={{fontWeight: 'bold'}}>Phone Number</h4></label>
+			</div>
+			<div className='OrderViewHeaderNew_Inner'>
+                  <label htmlFor="phone"><h4 style={{fontWeight: 'bold'}}>Phone</h4></label>
                   <input
                     type="text"
-                    className="form-control"
+                    className="inputField"
                     id="phone"
                     required
                     defaultValue={phoneNumber || ''}
                     onChange={handleChange}
                     name="phone"
                   />
-                </div>
+			</div>
 		</div>
 	);	
 }
 
 const ShippingInfoEdit = ({streetAddress, city, state, zip, handleChange}) => {
 	return (
-		<div id='OrderView_Shipping_Details'>
-			<td><h4 style={{fontWeight: 'bold'}}>Street Address</h4></td>
-			<div className="form-group">
-                  <label htmlFor="streetAddress"><h4 style={{fontWeight: 'bold'}}>StreetAddress</h4></label>
+		<div id='NewOrderShipping' className='GenericBackgroundAdd'>
+			<label className='BoxDescriptionTitle' >Shipping Information</label>
+			<div className="OrderViewHeaderNew_Inner">
+                  <label htmlFor="streetAddressOne"><h4 style={{fontWeight: 'bold'}}>Street Address One</h4></label>
                   <input
                     type="text"
-                    className="form-control"
-                    id="streetAddress"
+                    className="inputField"
+                    id="streetAddressOne"
                     required
                     defaultValue={streetAddress || ''}
                     onChange={handleChange}
-                    name="streetAddress"
+                    name="streetAddressOne"
+					style={{width:"65%"}}
                   />
                 </div>
-				<div className="form-group">
+				<div className="OrderViewHeaderNew_Inner">
+                  <label htmlFor="streetAddressTwo"><h4 style={{fontWeight: 'bold'}}>Street Address Two</h4></label>
+                  <input
+                    type="text"
+                    className="inputField"
+                    id="streetAddressTwo"
+                    required
+                    defaultValue={streetAddress || ''}
+                    onChange={handleChange}
+                    name="streetAddressTwo"
+					style={{width:"65%"}}
+                  />
+                </div>
+				<div className="OrderViewHeaderNew_Inner">
+				<div className="OrderViewHeaderNew_Inner">
                   <label htmlFor="city"><h4 style={{fontWeight: 'bold'}}>City</h4></label>
                   <input
                     type="text"
-                    className="form-control"
+                    className="inputField"
                     id="city"
                     required
                     defaultValue={city || ''}
                     onChange={handleChange}
                     name="city"
+					style={{width:"85%"}}
                   />
                 </div>
-				<div className="form-group">
+				<div className="OrderViewHeaderNew_Inner">
                   <label htmlFor="state"><h4 style={{fontWeight: 'bold'}}>State</h4></label>
                   <input
                     type="text"
-                    className="form-control"
+                    className="inputField"
                     id="state"
                     required
                     defaultValue={state || ''}
                     onChange={handleChange}
                     name="state"
+					style={{width:"60%"}}
                   />
+
                 </div>
-				<div className="form-group">
+				
+
+				<div className="OrderViewHeaderNew_Inner">
                   <label htmlFor="zip"><h4 style={{fontWeight: 'bold'}}>Zip</h4></label>
                   <input
                     type="text"
-                    className="form-control"
+                    className="inputField"
                     id="zip"
                     required
                     defaultValue={zip || ''}
                     onChange={handleChange}
                     name="zip"
+					style={{width:"75%"}}
                   />
                 </div>
-
+				</div>
 				{/* <tr>
 					<td><h4 style={{fontWeight: 'bold'}}>Tracking #</h4></td>
 					<td><h4>{order.shipmentTrackingNumber}</h4></td>
@@ -540,8 +501,8 @@ const ShippingInfoEdit = ({streetAddress, city, state, zip, handleChange}) => {
 
 const ProductInfoEdit = ({productsOrdered, numberOfFlavors, numberOfLogs, handleChange}) => {
 	return (
-		<div id='OrderView_Products_Details'>
-		<h4 style={{fontWeight: 'bold'}}>Flavor Information</h4>
+		<div id='NewOrderProducts' className='GenericBackgroundAdd'>
+		<label className='BoxDescriptionTitle'>Order Details</label>
 			<div className='Row'>
 				<table>
 					<tbody>
@@ -559,22 +520,6 @@ const ProductInfoEdit = ({productsOrdered, numberOfFlavors, numberOfLogs, handle
 					))}
 					</tbody>
 				</table>
-				<table>
-					<tbody>
-
-						<tr>
-							<th><h4 style={{fontWeight: 'bold'}}>At a Glance:</h4></th>
-						</tr>
-						<tr>
-							<td><h4 style={{fontWeight: 'bold'}}>Total Number of Logs:</h4></td>
-							<td><h4>{numberOfLogs}</h4></td>
-						</tr>
-						<tr>
-							<td><h4 style={{fontWeight: 'bold'}}>Total Number of Flavors:</h4></td>
-							<td><h4>{numberOfFlavors}</h4></td>
-						</tr>
-					</tbody>
-				</table>
 			</div>
 		</div> 
 	);	
@@ -587,7 +532,11 @@ class ExistingOrder extends Component {
 	constructor(props) {
 	  super(props);
 		this.handleInputChange = this.handleInputChange.bind(this)
-		this.handleInputChangeGeneral = this.handleInputActiveOrder.bind(this)
+		this.handleTo = this.handleInputChange.bind(this)
+
+		this.handleSelfOrderChange = this.handleSelfOrderChange.bind(this)
+		this.handleIsGiftChange = this.handleIsGiftChange.bind(this)
+
 
 		this.deleteCurrOrder = this.deleteCurrOrder.bind(this)
 		this.updateViewOnly = this.updateViewOnly.bind(this)
@@ -598,14 +547,14 @@ class ExistingOrder extends Component {
 		activeOrder: {
 			referenceNumber: "",
 			datePlaced: "",
-			orderStatus: "",
+			orderStatus: "Placed",
 			trackingNumber: "",
 			giftFor: "",
 			giftMessage: "",
 			isGift: 1,
 			customerId: 0,
 			shippingId: 0,
-			isSelfOrder:"",
+			isSelfOrder:0,
 
 		},
 		activeCustomer: {
@@ -634,6 +583,8 @@ class ExistingOrder extends Component {
 		numberOfLogs: 0,
 		numberOfFlavors: 0,
 		viewOnly: true,
+		isSelfOrderToggle:false,
+		isGiftToggle:false
 	  }
 	}
 
@@ -648,6 +599,18 @@ class ExistingOrder extends Component {
 
 		console.log(this.state)
     }
+
+	handleSelfOrderChange(e) {
+		this.setState({
+			isSelfOrderToggle: !this.state.isSelfOrderToggle
+		})
+	}
+
+	handleIsGiftChange(e) {
+		this.setState({
+			isGiftToggle: !this.state.isGiftToggle
+		})
+	}
 
 	handleInputActiveOrder(e) {
         const target = e.target;
@@ -723,42 +686,46 @@ class ExistingOrder extends Component {
 		const {invoiceNumber, customerPaid, revenue, expense, invoiceStatus} = this.state.activeInvoice;
 	
 			return (
-				<div id='OrderView'>
-					<div className='Row'>
-						<div id='OrderView_Header'>
-							{/* on click EDIT, we change to edit view */}
-							<button className='OrderActionButton' onClick={this.saveEdits}>
-								<img src={edit_icon} alt='add order' style={{paddingRight: '10px'}}/>
-								<h4>Save Order</h4>
-							</button>
+				<div id='OrderViewNew'>
+					<div id='OrderViewHeaderNew' >
+						<div className='OrderViewHeaderNew_Inner'>
+							<label htmlFor="status" className='StatusBackgroundAdd'><i>Status: </i> {orderStatus}</label>
+						</div>
+						<div className='OrderViewHeaderNew_Inner'>
+
 							{/* on click CANCEL, we clear all fields*/}
-							<button className='OrderActionButton' onClick={(this.updateViewOnly)}>
-								<img src={delete_icon} alt='add order' style={{paddingRight: '10px'}}/>
+							<button className='CancelButton' onClick={(this.updateViewOnly)} style={{ flex:"wrap"}}>
+								<img src={delete_icon} alt='delete order' style={{paddingRight: '10px'}}/>
 								<h4>Cancel</h4>
 							</button>
+							{/* on click EDIT, we change to edit view */}
+							<button className='SaveNewOrderActionButton' onClick={this.saveEdits}>
+								<img src={edit_icon} alt='add order' style={{paddingRight: '10px'}}/>
+								<h4>Save Order</h4>
+							</button>	
 						</div>
 					</div>
-					<div className='Row'>
-					<div className='Column'>		
-					<GeneralInfoEdit handleChange={this.handleInputActiveOrder} referenceNumber={referenceNumber} datePlaced= {datePlaced} trackingNumber={trackingNumber} orderStatus={orderStatus}/>
-					</div>
-					<div className='Column'>		
-					<CustomerInfoEdit handleChange={this.handleInputChange} firstName={firstName} lastName={lastName} email={email} phoneNumber={phoneNumber}/>
+					<div id='MainContainerNewOrder'>
+						<div id='LeftSideNew'>
+							<GeneralInfoEdit handleChange={this.handleInputActiveOrder} referenceNumber={referenceNumber} datePlaced= {datePlaced} trackingNumber={trackingNumber} orderStatus={orderStatus}/>
+							<ProductInfoEdit handleChange={this.handleInputChange} numberOfFlavors={numberOfFlavors} numberOfLogs={numberOfLogs} productsOrdered={productsOrdered}/>
+							<InvoiceInfoView handleChange={this.handleInputChange} invoiceNumber={invoiceNumber} revenue={revenue} expense={expense} orderStatus={orderStatus}/>
+							<div className='OrderViewHeaderNew_Inner'>
+								<label>Self Order</label>
+								<ReactSwitch checked={this.state.isSelfOrderToggle} onChange={this.handleSelfOrderChange}/>
+							</div>
+						</div>
+						<div id="RightSideNew">
+							<CustomerInfoEdit handleChange={this.handleInputChange} firstName={firstName} lastName={lastName} email={email} phoneNumber={phoneNumber}/>
+							
+							<ShippingInfoEdit handleChange={this.handleInputChange} streetAddressOne={streetAddressOne} streetAddressTwo={streetAddressTwo} city={city} state={state} zip={zip}/>
+							<div className='OrderViewHeaderNew_Inner'>
+								<label>Is Gift?</label>
+								<ReactSwitch checked={this.state.isGiftToggle} onChange={this.handleIsGiftChange}/>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div className='Row'>
-					<div className='Column'>	
-						<InvoiceInfoView handleChange={this.handleInputChange} invoiceNumber={invoiceNumber} revenue={revenue} expense={expense} orderStatus={orderStatus}/>
-		
-					</div>
-					<div className='Column'>		
-					<ShippingInfoEdit handleChange={this.handleInputChange} streetAddressOne={streetAddressOne} streetAddressTwo={streetAddressTwo} city={city} state={state} zip={zip}/>
-					</div>
-				</div>
-				<div className='Row'>
-					<ProductInfoEdit handleChange={this.handleInputChange} numberOfFlavors={numberOfFlavors} numberOfLogs={numberOfLogs} productsOrdered={productsOrdered}/>
-				</div>
-			</div>
 			);
 		
 	}

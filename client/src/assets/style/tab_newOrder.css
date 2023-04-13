@@ -1,0 +1,156 @@
+.CancelButton {
+    background-color: #ffffff;
+    border: 1 black;
+	color: rgb(0, 0, 0);
+	width: fit-content;
+	height: fit-content;
+	border-radius: 12px;
+	padding: 4px;
+    margin: 8px;
+    display: flex;
+	flex-direction: row;
+	align-items: center;
+	cursor: pointer;
+	box-shadow: 1 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+
+.SaveNewOrderActionButton {
+	background-color: #C62032;
+	color: white;
+	width: fit-content;
+	height: fit-content;
+	border-radius: 12px;
+	border: none;
+	padding: 16px;
+    margin: 8px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	cursor: pointer;
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+#OrderViewNew{
+	display: flex;
+    max-width: 1144px;
+    scroll-behavior:hidden;
+	flex-direction: column;
+	justify-content: center;
+	background-color: White;
+	padding: 24px;
+}
+
+
+#OrderViewHeaderNew{
+    max-width: 1144px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.OrderViewHeaderNew_Inner{
+	height: fit-content;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+    align-items: center;
+	padding: 12px;
+	top: 0px;
+}
+
+
+#NewOrderProducts {
+	
+	display: flex;
+	border-radius: 10px;
+	flex-direction: column;
+	justify-content: space-evenly;
+
+}
+
+#NewInvoiceView {
+
+	height:  100px;
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+    justify-content: center;
+	border-radius: 10px;
+	background-color: #F3F3F3;
+	padding: 16px;
+	margin: 5px;
+}
+
+#NewOrderCustomer{
+
+	display: flex;
+	border-radius: 10px;
+	flex-direction: column;
+	justify-content: space-evenly;
+
+}
+
+#NewOrderShipping {
+   
+	display: flex;
+	border-radius: 10px;
+	flex-direction: column;
+	justify-content: space-evenly;
+
+}
+
+.GenericBackgroundAdd {
+    /* width:  fit-content;
+	height:  fit-content; */
+    border: 2px dashed #9E374C;
+    border-radius: 10px;
+	background-color: #F3F3F3;
+    padding: 12px 24px 12px 24px;
+    display: flex;
+    flex-direction: column;
+	margin: 5px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.508);
+}
+
+.StatusBackgroundAdd {
+    /* width:  fit-content;
+	height:  fit-content; */
+    border: 2px dashed #9E374C;
+    border-radius: 10px;
+	background-color: none;
+    padding: 48px;
+    padding: 4px 12px 4px 12px;
+
+	margin: 5px;
+    box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.508);
+}
+
+#MainContainerNewOrder {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#LeftSideNew {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+}
+
+#RightSideNew {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+}
+
+.MissingBackground {
+	background-color: #F6DA8D;
+	border-radius: 5px;
+    padding: 4px 8px 4px 8px;
+    margin-bottom: 24px;
+}

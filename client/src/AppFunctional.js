@@ -90,11 +90,11 @@ const AppComp = ({
 
   const location = useLocation();
 
-  useEffect(() => {
-    if (["/login"].includes(location.pathname)) {
-      clearMessage(); // clear message when changing location
-    }
-  }, [location.pathname, clearMessage]);
+  // useEffect(() => {
+  //   if (["/login"].includes(location.pathname)) {
+  //     clearMessage(); // clear message when changing location
+  //   }
+  // }, [location.pathname, clearMessage]);
 
   // useEffect(() => {
   //   if (auth.isLoggedIn && auth.user !== activeUser) {
