@@ -26,6 +26,7 @@ import { retrieveOrderLines } from './store/orderline_slice';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import '../../client/src/assets/style/navbar.css';
+import '../../client/src/assets/style/dashboard.css';
 import "./App.css";
 import Dashboard from "./views/dashboard/Dashboard";
 import MainOrderPane from "./views/orders/MainOrderView_Tabs";
@@ -127,7 +128,7 @@ const AppComp = ({
     return (
       
       <div className="landing-page">
-      <nav className="navbar navbar-expand bg-light NavBar" id={"navbar-special"}>
+      <nav className="navbar bg-light NavBar" id={"navbar-special"}>
         <div id={'branding'}>
           <img alt='logo' src={logo} height='200' width='200' />
           <h2 className="navbar-brand">G.O.A.T.S.</h2>
@@ -197,7 +198,7 @@ const AppComp = ({
 
           </div>
         ) : (
-            <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'column'}}>
+            <div className="navbar-nav" style={{display:'flex', flexDirection:'column', alignItems: 'flex-start'}}>
               <div>
                 <li className="nav-item">
                 <Link to={"/dashboard"} className="nav-link">

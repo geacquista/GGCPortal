@@ -1,0 +1,9 @@
+#dashboard{
+    display: flex;
+    justify-content: space-around;
+}
+
+#container-mt3{
+    display: flex;
+}
+
