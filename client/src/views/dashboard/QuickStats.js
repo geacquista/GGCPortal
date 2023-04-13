@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 const QuickStatsTallRegular = ({amount, label, amountColor}) => {
 	return(
 		<button className = 'QuickStatsTallRegular'>
-			<h1 style = {{color: amountColor, fontSize: '96px', letterSpacing: '0%', textAlign: 'center'}}>{amount}</h1>
+			<h1 style = {{color: amountColor, fontSize: '80px', letterSpacing: '0%', textAlign: 'center'}}>{amount}</h1>
 			<br></br>
 			<h3 style = {{color: '#252525', letterSpacing: '0%', textAlign: 'center'}}>{label}</h3>
 		</button>

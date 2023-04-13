@@ -1,0 +1,33 @@
+#dashboard{
+    display: flex;
+    justify-content: space-around;
+    margin: 5px;
+}
+
+#container-mt3{
+    display: flex;
+    width: calc(100vh - 200px);
+    margin: 10px;
+}
+
+#search-button{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    border: none;
+    background-color: #D9D9D9;
+    text-decoration-color: #8a8a8a;
+    padding: 10px;
+    margin: 10px 0 10px 0;
+    border-radius: 3px;
+
+}
+
+#addOrderDash{
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+
+}
+
