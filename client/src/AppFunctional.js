@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import logo from "./assets/img/ggc_logo_dropshadow.png";
 
-import home_logo from "./assets/img/home_black.svg"
 
 import Login from "./views/aa_login/Login";
 import Home from "./views/aa_login/Home";
