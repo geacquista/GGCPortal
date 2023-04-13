@@ -11,7 +11,6 @@ import Profile from "./views/aa_login/Profile";
 import BoardUser from "./views/aa_login/BoardUser";
 import BoardModerator from "./views/aa_login/BoardModerator";
 import BoardAdmin from "./views/aa_login/BoardAdmin";
-import GGCApp from "./GGCApp"
 
 import { logout } from "./store/auth";
 import { clearMessage } from "./store/message";
@@ -240,7 +239,6 @@ class App extends Component {
             <Route path="/user" element={<BoardUser />} />
             <Route path="/farm" element={<BoardModerator />} />
             <Route path="/admin" element={<BoardAdmin />} />
-            {/* <Route path="/GGCHome" element={<GGCApp/>}/> */}
             <Route path="/orders" element={<MainOrderPane/>}/>
             <Route path="/search" element={<Search/>}/>
             <Route path="/help" element={<HelpScreen/>}/>

@@ -24,7 +24,7 @@ app.get("/", function (req, res) {
   });
 });
 
-//ROUTES GO HERE
+//API ROUTES GO HERE
 require("./app/routes/address.routes.js")(app);
 require("./app/routes/customer.routes.js")(app);
 require("./app/routes/invoice.routes.js")(app);

@@ -11,7 +11,6 @@ import Profile from "./views/aa_login/Profile";
 import BoardUser from "./views/aa_login/BoardUser";
 import BoardModerator from "./views/aa_login/BoardModerator";
 import BoardAdmin from "./views/aa_login/BoardAdmin";
-import GGCApp from "./GGCApp"
 
 import { logout } from "./store/auth";
 import { clearMessage } from "./store/message";
@@ -127,130 +126,129 @@ const AppComp = ({
     return (
       
       <div className="landing-page">
-      <nav className="navbar navbar-expand bg-light NavBar" id={"navbar-special"}>
-        <div id={'branding'}>
-          <img alt='logo' src={logo} height='200' width='200' />
-          <h2 className="navbar-brand">G.O.A.T.S.</h2>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column'} }>
-        
-          {activeUser.userID && activeUser.permissionType ===PermissionTypes.FARM && (
-            <><li className="nav-item">
-                <Link to={"/dashboard-farm"} className="nav-link">
-                  Dashboard
-                </Link>
-              </li><li>
-                  <Link to={"/orders-farm"} className="nav-link">
-                    Orders
+        <nav className="navbar navbar-expand NavBar" id={"navbar-special"}>
+          
+          <div id='branding'>
+            <img alt='logo' src={logo} height='150' width='150' />
+            <h2 style={{paddingTop:"12px"}}>G.O.A.T.S.</h2>
+          </div>
+
+
+          <div style={{ display: 'flex', flexDirection: 'column'} }>
+          
+            {activeUser.userID && activeUser.permissionType ===PermissionTypes.FARM && (
+              <><li className="nav-item">
+                  <Link to={"/dashboard-farm"} className="nav-link">
+                    Dashboard
                   </Link>
+                </li><li>
+                    <Link to={"/orders-farm"} className="nav-link">
+                      Orders
+                    </Link>
+                  </li></>
+            )}
+            {activeUser.userID && activeUser.permissionType !==PermissionTypes.FARM && (
+                <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'column'}}>
+                    <li className="nav-item">
+                        <Link to={"/dashboard"} className="nav-link">
+                          Dashboard
+                        </Link>
+                        </li><li>
+                          <Link to={"/orders"} className="nav-link">
+                          Orders
+                        </Link>
 
-                </li></>
-          )}
+                    </li>
+                </div>
+              
+            )}
 
-         
-          {activeUser.userID && activeUser.permissionType !==PermissionTypes.FARM && (
+            {activeUser.userID && activeUser.permissionType===PermissionTypes.ADMIN && (
               <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'column'}}>
-                  <li className="nav-item">
-                      <Link to={"/dashboard"} className="nav-link">
-                        Dashboard
-                      </Link>
-                      </li><li>
-                        <Link to={"/orders"} className="nav-link">
-                        Orders
-                      </Link>
-
-                  </li>
+                <li className="nav-item">
+                  <Link to={"/admin"} className="nav-link">
+                    Admin Board
+                  </Link>
+                </li>
               </div>
-            
-          )}
+            )}
+          </div>
 
-          {activeUser.userID && activeUser.permissionType===PermissionTypes.ADMIN && (
-            <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'column'}}>
+          {activeUser.userID ? (
+            <div className="navbar-nav ml-auto" style={{display:'flex'}}>
               <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
-                </Link>
-              </li>
-            </div>
-          )}
-        </div>
-
-        {activeUser.userID ? (
-          <div className="navbar-nav ml-auto" style={{display:'flex'}}>
-            <li className="nav-item">
-                  <Link to={"/search"} className="nav-link">
-                    Search
-                  </Link>
-                </li>
-            <div className="NavBarBottom">
-            <li className="nav-item">
-                <Link to={"/help"} className="nav-link">
-                  Help
-                </Link>
-            </li>
-            <li className="nav-item">
-              <a href="/" className="nav-link" onClick={logOut}>
-                Log Out {activeUser.nickname}
-              </a>
-            </li>
-          </div>
-
-          </div>
-        ) : (
-            <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'column'}}>
-              <div>
-                <li className="nav-item">
-                <Link to={"/dashboard"} className="nav-link">
-                  Home
-                </Link>
-              </li>
-                <li className="nav-item">
-                  <Link to={"/orders"} className="nav-link">
-                    Orders
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to={"/search"} className="nav-link">
-                    Search
-                  </Link>
-                </li>
-              </div>
-              <div>
-                <li className="nav-item">
+                    <Link to={"/search"} className="nav-link">
+                      Search
+                    </Link>
+                  </li>
+              <div className="NavBarBottom">
+              <li className="nav-item">
                   <Link to={"/help"} className="nav-link">
                     Help
                   </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to={"/login"} className="nav-link">
-                    Login
+              </li>
+              <li className="nav-item">
+                <a href="/" className="nav-link" onClick={logOut}>
+                  Log Out {activeUser.nickname}
+                </a>
+              </li>
+            </div>
+
+            </div>
+          ) : (
+              <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'column'}}>
+                <div id="NavBarTop">
+                  <li className="nav-item">
+                  <Link to={"/dashboard"} className="nav-link">
+                    Home
                   </Link>
                 </li>
+                  <li className="nav-item">
+                    <Link to={"/orders"} className="nav-link">
+                      Orders
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to={"/search"} className="nav-link">
+                      Search
+                    </Link>
+                  </li>
+                </div>
+                <div id="NavBarBottom">
+                  <li className="nav-item">
+                    <Link to={"/help"} className="nav-link">
+                      Help
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to={"/"} className="nav-link">
+                      Login
+                    </Link>
+                  </li>
+                </div>
               </div>
-            </div>
-        )}
-      </nav>
+          )}
+        </nav>
         
-       <div className="container mt-3">
-        <Routes>
-          <Route path="/" element={<MainOrderPane />} />
-          <Route path="/dashboard" element={<Dashboard/>} />
-          <Route path="/orders" element={<MainOrderPane/>}/>
+        <div className="container mt-3" id="mainViewContainer">
+          <Routes>
+            <Route path="/" element={<MainOrderPane />} />
+            <Route path="/dashboard" element={<Dashboard/>} />
+            <Route path="/orders" element={<MainOrderPane/>}/>
 
-          <Route path="/dashboard-farm" element={<FarmView />} />
-          <Route path="/orders-farm" element={<FarmView />} />
+            <Route path="/dashboard-farm" element={<FarmView />} />
+            <Route path="/orders-farm" element={<FarmView />} />
 
-          <Route path="/admin" element={<AdminPanel />} />
-          <Route path="/search" element={<Search/>}/>
-          <Route path="/help" element={<HelpScreen/>}/>
+            <Route path="/admin" element={<AdminPanel />} />
+            <Route path="/search" element={<Search/>}/>
+            <Route path="/help" element={<HelpScreen/>}/>
 
-          {/* <Route path="/GGCHome" element={<GGCApp/>}/> */}
-          {/* <Route path="/login" element={<Login />} /> */}
-          {/* <Route path="/profile" element={<Profile />} /> */}
-        </Routes>
-      </div>
-
-    </div>
+            {/* <Route path="/GGCHome" element={<GGCApp/>}/> */}
+            {/* <Route path="/login" element={<Login />} /> */}
+            {/* <Route path="/profile" element={<Profile />} /> */}
+          </Routes>
+        </div>
+     </div>
   );
 };
 

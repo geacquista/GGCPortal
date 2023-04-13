@@ -136,139 +136,12 @@
 // 		recipient = order.customer.firstName + ' ' + order.customer.lastName 
 // 	}
 
-// 	var numberOfFlavors = 0
-// 	order.productsOrdered.forEach(product => numberOfFlavors++)
-
-// 	var numberOfLogs = 0
-// 	order.productsOrdered.forEach(product => numberOfLogs+= product.quantity)
-
-// 	return (
-// 		<form onSubmit={handleSubmit}>
-// 			<div id='OrderView'>
-// 				<div id='OrderView_Header'>
-//           {/**on submit i want to dispatch the addOrder action and  */}
-// 					<button onClick={handleSubmit} type="submit">Save</button>
-// 					<button>Cancel</button>
-// 				</div>
-// 				<div className='Row'>
-// 					<div className='Column'>
-// 						<div id='OrderView_General_Details'>
-// 							<table>
-// 								<tr>
-// 									<td><h4 style={{fontWeight: 'bold'}}>Reference #</h4></td>
-// 									<td><input type="text" name="referenceNumber" onChange={handleInputChange} value={inputs.referenceNumber} defaultValue={order.referenceNumber} required/></td>
-// 								</tr>
-// 								<tr>
-// 									<td><h4 style={{fontWeight: 'bold'}}>Invoice #</h4></td>
-// 									<td><input type="text" name="invoiceNumber" onChange={handleInputChange} value={inputs.invoiceNumber} defaultValue={order.invoiceNumber}/></td>
-// 								</tr>
-// 								<tr>
-// 									<td><h4 style={{fontWeight: 'bold'}}>Date Placed</h4></td>
-//                   <td><input type="date" name="datePlaced" onChange={handleInputChange} value={inputs.datePlaced} defaultValue={order.datePlaced} required/></td>
-//                   <td><h4>{order.datePlaced}</h4></td>
-// 								</tr>
-// 							</table>
-// 						</div>
-
-// 						<div id='OrderView_Customer_Details'>
-// 							<table>
-// 								<tr>
-// 									<td><h4 style={{fontWeight: 'bold'}}>First Name<br></br>Last Name</h4></td>
-// 									<td>
-// 										<input type="text" name="customer.firstName" onChange={handleInputChange} value={inputs.customer.firstName} defaultValue={order.customer.firstName} required/><br></br>
-// 										<input type="text" name="lastName" onChange={handleInputChange} value={inputs.customer.lastName} defaultValue={order.customer.lastName} required/>
-// 									</td>
-// 								</tr>
-// 								<tr>
-// 									<td><h4 style={{fontWeight: 'bold'}}>Email</h4></td>
-// 									<td><input type="email" name="email" onChange={handleInputChange} value={inputs.customer.email} defaultValue={order.customer.email} required/></td>
-// 								</tr>
-// 								<tr>
-// 									<td><h4 style={{fontWeight: 'bold'}}>Phone</h4></td>
-// 									<td><input type="tel" name="phoneNumber"onChange={handleInputChange}  value={inputs.customer.phoneNumber} defaultValue={order.customer.phoneNumber}/></td>
-// 								</tr>
-// 							</table>
-// 						</div>
-// 					</div>
-
-// 					<div id='OrderView_Shipping_Details'>
-// 						<table>
-// 							<tr>
-// 								<td><h4 style={{fontWeight: 'bold'}}>Recipient</h4></td>
-// 								{order.isGift && <td><input type="text" name="giftFor" onChange={handleInputChange} value={inputs.giftFor} defaultValue={recipient} required/></td>}
-// 								{!order.isGift && <td><h4>{recipient}</h4></td>}
-// 							</tr>
-// 							<tr>
-// 								<td><h4 style={{fontWeight: 'bold'}}>Street Address<br></br>City<br></br>State<br></br>Zipcode</h4></td>
-// 								<td>
-// 									<input type="text" name="streetAddress" onChange={handleInputChange} value={inputs.shippingAddress.streetAddress} defaultValue={order.shippingAddress.streetAddress} required/><br></br>
-// 									<input type="text" name="city" onChange={handleInputChange} value={inputs.shippingAddress.city} defaultValue={order.shippingAddress.city} required/><br></br>
-// 									<input type="text" name="state" onChange={handleInputChange} value={inputs.shippingAddress.state} defaultValue={order.shippingAddress.state} required/><br></br>
-// 									<input type="text" name="zipcode" onChange={handleInputChange} value={inputs.shippingAddress.zipCode} defaultValue={order.shippingAddress.zipCode} required/>
-// 								</td>
-// 							</tr>
-// 							<tr>
-// 								<td><h4 style={{fontWeight: 'bold'}}>Tracking #</h4></td>
-// 								<input type="text" name="shipmentTrackingNumber" onChange={handleInputChange} value={inputs.shipmentTrackingNumber} defaultValue={order.shipmentTrackingNumber}/>
-// 							</tr>
-// 							<tr>
-// 								<td><h4 style={{fontWeight: 'bold'}}>Is Gift?</h4></td>
-// 								{order.isGift && <td><input type="checkbox" onChange={handleInputChange} value={inputs.isGift} name="isGift" checked/></td>}
-// 								{!order.isGift && <td><input type="checkbox" onChange={handleInputChange} value={inputs.isGift} name="isGift"/></td>}
-// 							</tr>
-// 							<tr>
-// 								{order.isGift && order.giftMessage !== '' && <td><h4 style={{fontWeight: 'bold'}}>Gift Message</h4></td>}
-// 								{order.isGift && order.giftMessage !== '' && <td><input type="text" name="giftMessage" onChange={handleInputChange} value={inputs.giftMessage} defaultValue={order.giftMessage}/></td>}
-// 							</tr>
-// 						</table>
-// 					</div>
-// 				</div>
-
-// 				<div id='OrderView_Products_Details'>
-// 					<h4 style={{fontWeight: 'bold'}}>Flavor Information</h4>
-// 					<div className='Row'>
-// 						<table>
-// 							<tr>
-// 								<th><h4 style={{fontWeight: 'bold'}}>Name</h4></th>
-// 								<th><h4 style={{fontWeight: 'bold'}}>SKU</h4></th>
-// 								<th><h4 style={{fontWeight: 'bold'}}>Quantity</h4></th>
-// 							</tr>
-// 							{order.productsOrdered.map((product) => (
-// 								<tr>
-// 									<td><h4>{product.product.name}</h4></td>
-// 									<td><h4>{product.product.id}</h4></td>
-// 									<td><h4>{product.quantity}</h4></td>
-// 								</tr>					
-// 							))}
-// 						</table>
-// 						<table>
-// 							<tr>
-// 								<th><h4 style={{fontWeight: 'bold'}}>At a Glance:</h4></th>
-// 							</tr>
-// 							<tr>
-// 								<td><h4 style={{fontWeight: 'bold'}}>Total Number of Logs:</h4></td>
-// 								<td><h4>{numberOfLogs}</h4></td>
-// 							</tr>
-// 							<tr>
-// 								<td><h4 style={{fontWeight: 'bold'}}>Total Number of Flavors:</h4></td>
-// 								<td><h4>{numberOfFlavors}</h4></td>
-// 							</tr>
-// 						</table>
-// 					</div>
-// 				</div>
-// 			</div>
-// 		</form>
-// 	)
-// }
-
 // export default NewOrder;
 
-
+import add_icon from '../../assets/img/plus_black.svg'
 import edit_icon from '../../assets/img/edit_white.svg'
 import delete_icon from '../../assets/img/trash_black.svg'
 import "../../assets/style/tab_newOrder.css"
-import ReactSwitch from 'react-switch';
-
 
 import React, { useState, Component } from 'react'
 import { connect, useDispatch, useSelector } from "react-redux";
@@ -279,7 +152,62 @@ import {createShippingAddress} from '../../store/address_slice'
 import { createCustomer } from '../../store/customer_slice';
 import { createOrderLine } from "../../store/orderline_slice";
 import { retrieveProducts } from "../../store/product_slice";
+import Dropdown  from './orderview_components/Dropdown';
+import FlavorSelector from './orderview_components/FlavorSelector';
 
+const stateOptions = [
+	{value: "alabama", label: "AL"},
+	{value: "alaska", label: "AK"},
+	{value: "arizona", label: "AZ"},
+	{value: "arkansas", label: "AR"},
+	{value: "california", label: "CA"},
+	{value: "colorado", label: "CO"},
+	{value: "connecticut", label: "CT"},
+	{value: "delaware", label: "DE"},
+	{value: "florida", label: "FL"},
+	{value: "georgia", label: "GA"},
+	{value: "hawaii", label: "HI"},
+	{value: "idaho", label: "ID"},
+	{value: "illinois", label: "IL"},
+	{value: "indiana", label: "IN"},
+	{value: "iowa", label: "IA"},
+	{value: "kansas", label: "KS"},
+	{value: "kentucky", label: "KY"},
+	{value: "louisiana", label: "LA"},
+	{value: "maine", label: "ME"},
+	{value: "maryland", label: "MD"},
+	{value: "massachusetts", label: "MA"},
+	{value: "michigan", label: "MI"},
+	{value: "minnesota", label: "MN"},
+	{value: "mississippi", label: "MS"},
+	{value: "missouri", label: "MO"},
+	{value: "montana", label: "MT"},
+	{value: "nebraska", label: "NE"},
+	{value: "nevada", label: "NV"},
+	{value: "new hampshire", label: "NH"},
+	{value: "new jersey", label: "NJ"},
+	{value: "new mexico", label: "NM"},
+	{value: "new york", label: "NY"},
+	{value: "north carolina", label: "NC"},
+	{value: "north dakota", label: "ND"},
+	{value: "ohio", label: "OH"},
+	{value: "oklahoma", label: "OK"},
+	{value: "oregon", label: "OR"},
+	{value: "pennsylvania", label: "PA"},
+	{value: "rhode island", label: "RI"},
+	{value: "south carolina", label: "SC"},
+	{value: "south dakota", label: "SD"},
+	{value: "tennessee", label: "TN"},
+	{value: "texas", label: "TX"},
+	{value: "utah", label: "UT"},
+	{value: "vermont", label: "VT"},
+	{value: "virginia", label: "VA"},
+	{value: "washington", label: "WA"},
+	{value: "west virginia", label: "WV"},
+	{value: "wisconsin", label: "WI"},
+	{value: "wyoming", label: "WY"}
+	];
+		
 // ------------------------------ VIEW --------------------------------- //
 
 
@@ -306,7 +234,7 @@ const GeneralInfoEdit = ({referenceNumber, datePlaced, trackingNumber, orderStat
 				<label className='BoxDescriptionTitle' style={{alignItems:"center"}}>Order Information</label>
                 <div className="OrderViewHeaderNew_Inner">
 					
-                  <label htmlFor="ref"><h4 style={{fontWeight: 'bold'}}>Reference #</h4></label>
+                  <label htmlFor="ref"><h4 style={{fontWeight: 'bold'}}>Reference #<span className="required">	*</span></h4></label>
                   <input
                     type="text"
                     className="inputField"
@@ -319,7 +247,7 @@ const GeneralInfoEdit = ({referenceNumber, datePlaced, trackingNumber, orderStat
                 </div>
 
                 <div className="OrderViewHeaderNew_Inner">
-                  <label htmlFor="date"><h4 style={{fontWeight: 'bold'}}>Date Placed</h4></label>
+                  <label htmlFor="date"><h4 style={{fontWeight: 'bold'}}>Date Placed<span className="required">	*</span></h4></label>
                   <input
                     type="text"
                     className="inputField"
@@ -355,9 +283,9 @@ const CustomerInfoEdit = ({firstName, lastName, email, phoneNumber, handleChange
 		   <label className='BoxDescriptionTitle'>Customer Information</label>
 			
 			
-			<div className='OrderViewHeaderNew_Inner'>
+			<div className='CustomerNameView_Layout'>
 				<div className="OrderViewHeaderNew_Inner">
-					<label htmlFor="first"><h4 style={{fontWeight: 'bold'}}>First</h4></label>
+					<label htmlFor="first"><h4 style={{fontWeight: 'bold', paddingRight:'1vw'}}>First <span className="required">	*</span>	</h4></label>
 					<input
 						type="text"
 						className="inputField"
@@ -366,11 +294,11 @@ const CustomerInfoEdit = ({firstName, lastName, email, phoneNumber, handleChange
 						defaultValue={firstName || ''}
 						onChange={handleChange}
 						name="first"
-						
+						style={{marginRight:'2vw'}}
 					/>
 				</div>
 				<div className="OrderViewHeaderNew_Inner">
-                  <label htmlFor="last"><h4 style={{fontWeight: 'bold'}}>Last</h4></label>
+                  <label htmlFor="last"><h4 style={{fontWeight: 'bold'}}>Last <span className="required">	*</span></h4></label>
                   <input
                     type="text"
                     className="inputField"
@@ -379,13 +307,12 @@ const CustomerInfoEdit = ({firstName, lastName, email, phoneNumber, handleChange
                     defaultValue={lastName || ''}
                     onChange={handleChange}
                     name="last"
-
                   />
                 </div>
 			</div>
 
 			<div className='OrderViewHeaderNew_Inner'>
-                  <label htmlFor="email"><h4 style={{fontWeight: 'bold'}}>Email</h4></label>
+                  <label htmlFor="email"><h4 style={{fontWeight: 'bold'}}>Email <span className="required">	*</span></h4></label>
                   <input
                     type="text"
                     className="inputField"
@@ -394,10 +321,11 @@ const CustomerInfoEdit = ({firstName, lastName, email, phoneNumber, handleChange
                     defaultValue={email || ''}
                     onChange={ handleChange}
                     name="email"
+					style={{width:"85%"}}
                   />
 			</div>
 			<div className='OrderViewHeaderNew_Inner'>
-                  <label htmlFor="phone"><h4 style={{fontWeight: 'bold'}}>Phone</h4></label>
+                  <label htmlFor="phone"><h4 style={{fontWeight: 'bold'}}>Phone <span className="required">	*</span></h4></label>
                   <input
                     type="text"
                     className="inputField"
@@ -406,6 +334,7 @@ const CustomerInfoEdit = ({firstName, lastName, email, phoneNumber, handleChange
                     defaultValue={phoneNumber || ''}
                     onChange={handleChange}
                     name="phone"
+					style={{width:"85%"}}
                   />
 			</div>
 		</div>
@@ -417,7 +346,7 @@ const ShippingInfoEdit = ({streetAddress, city, state, zip, handleChange}) => {
 		<div id='NewOrderShipping' className='GenericBackgroundAdd'>
 			<label className='BoxDescriptionTitle' >Shipping Information</label>
 			<div className="OrderViewHeaderNew_Inner">
-                  <label htmlFor="streetAddressOne"><h4 style={{fontWeight: 'bold'}}>Street Address One</h4></label>
+                  <label htmlFor="streetAddressOne"><h4 style={{fontWeight: 'bold'}}>Street Address One <span className="required">	*</span></h4></label>
                   <input
                     type="text"
                     className="inputField"
@@ -443,49 +372,48 @@ const ShippingInfoEdit = ({streetAddress, city, state, zip, handleChange}) => {
                   />
                 </div>
 				<div className="OrderViewHeaderNew_Inner">
-				<div className="OrderViewHeaderNew_Inner">
-                  <label htmlFor="city"><h4 style={{fontWeight: 'bold'}}>City</h4></label>
-                  <input
-                    type="text"
-                    className="inputField"
-                    id="city"
-                    required
-                    defaultValue={city || ''}
-                    onChange={handleChange}
-                    name="city"
-					style={{width:"85%"}}
-                  />
-                </div>
-				<div className="OrderViewHeaderNew_Inner">
-                  <label htmlFor="state"><h4 style={{fontWeight: 'bold'}}>State</h4></label>
-                  <input
-                    type="text"
-                    className="inputField"
-                    id="state"
-                    required
-                    defaultValue={state || ''}
-                    onChange={handleChange}
-                    name="state"
-					style={{width:"60%"}}
-                  />
+					<div className="OrderViewHeaderNew_Inner">
+					<label htmlFor="city"><h4 style={{fontWeight: 'bold'}}>City <span className="required">	*</span></h4></label>
+					<input
+						type="text"
+						className="inputField"
+						id="city"
+						required
+						defaultValue={city || ''}
+						onChange={handleChange}
+						name="city"
+						style={{width:"75%"}}
+					/>
+					</div>
+					<div className="OrderViewHeaderNew_Inner">
+						<label htmlFor="state"><h4 style={{fontWeight: 'bold'}}>State <span className="required">	*</span></h4></label>
+							<select className="dropdown" value={state} onChange={handleChange}>
+								<option value="">--Select--</option>
+								{stateOptions.map((option) => (
+									<option key={option.value} value={option.value}>
+									{option.label}
+									</option>
+								))}
+								</select>
 
-                </div>
+					</div>
+
+					<div className="OrderViewHeaderNew_Inner">
+                  		<label htmlFor="zip"><h4 style={{fontWeight: 'bold'}}>Zip <span className="required">	*</span></h4></label>
+							<input
+								type="text"
+								className="inputField"
+								id="zip"
+								required
+								defaultValue={zip || ''}
+								onChange={handleChange}
+								name="zip"
+								style={{width:"100%"}}
+							/>
+						</div>
 				
-
-				<div className="OrderViewHeaderNew_Inner">
-                  <label htmlFor="zip"><h4 style={{fontWeight: 'bold'}}>Zip</h4></label>
-                  <input
-                    type="text"
-                    className="inputField"
-                    id="zip"
-                    required
-                    defaultValue={zip || ''}
-                    onChange={handleChange}
-                    name="zip"
-					style={{width:"75%"}}
-                  />
-                </div>
 				</div>
+				
 				{/* <tr>
 					<td><h4 style={{fontWeight: 'bold'}}>Tracking #</h4></td>
 					<td><h4>{order.shipmentTrackingNumber}</h4></td>
@@ -499,36 +427,48 @@ const ShippingInfoEdit = ({streetAddress, city, state, zip, handleChange}) => {
 }
 
 
-const ProductInfoEdit = ({productsOrdered, numberOfFlavors, numberOfLogs, handleChange}) => {
+const ProductInfoEdit = ({ handleAddNewFlavor}) => {
+	const [flavors, setFlavors] = useState([{ quantity: 0, flavor: 'Plain' }]);
+
+	const handleFlavorChange = (index, quantity, flavor) => {
+	  const newFlavors = [...flavors];
+	  newFlavors[index] = { quantity, flavor };
+	  setFlavors(newFlavors);
+	};
+  
+	const handleAddFlavor = () => {
+	  const newFlavors = [...flavors, { quantity: 0, flavor: 'Plain' }];
+	  setFlavors(newFlavors);
+	};
+  
+	const handleRemoveFlavor = (index) => {
+	  const newFlavors = flavors.filter((flavor, i) => i !== index);
+	  setFlavors(newFlavors);
+	};
+  
 	return (
-		<div id='NewOrderProducts' className='GenericBackgroundAdd'>
-		<label className='BoxDescriptionTitle'>Order Details</label>
-			<div className='Row'>
-				<table>
-					<tbody>
-					<tr>
-						<th><h4 style={{fontWeight: 'bold'}}>Name</h4></th>
-						<th><h4 style={{fontWeight: 'bold'}}>SKU</h4></th>
-						<th><h4 style={{fontWeight: 'bold'}}>Quantity</h4></th>
-					</tr>
-					{productsOrdered.map((product) => (
-						<tr key={product.lineProductID&&product.lineOrderID}>
-							<td><h4>{product.name}</h4></td>
-							<td><h4>{product.lineProductID}</h4></td>
-							<td><h4>{product.qtyOrdered}</h4></td>
-						</tr>					
-					))}
-					</tbody>
-				</table>
-			</div>
-		</div> 
-	);	
+	  <div id="NewOrderProducts" className="GenericBackgroundAdd">
+		<label className="BoxDescriptionTitle">Order Details</label>
+		{flavors.map((flavor, index) => (
+		  <FlavorSelector
+			key={index}
+			quantity={flavor.quantity}
+			flavor={flavor.flavor}
+			onChange={(quantity, flavor) => handleFlavorChange(index, quantity, flavor)}
+			onRemove={() => handleRemoveFlavor(index)}
+		  />
+		))}
+		<button className='CenterEvenAlignFlexRow addFlavorButton' onClick={handleAddFlavor}>
+			<img src={add_icon} alt='add order' style={{paddingRight: '10px'}}/>
+			Add Flavor
+		</button>
+	  </div>
+	);
 
 }
-
 // ------------------------------ CLASS STARTS HERE --------------------------------- //
 
-class ExistingOrder extends Component {
+class NewOrder extends Component {
 	constructor(props) {
 	  super(props);
 		this.handleInputChange = this.handleInputChange.bind(this)
@@ -601,6 +541,7 @@ class ExistingOrder extends Component {
     }
 
 	handleSelfOrderChange(e) {
+		console.log("clicking")
 		this.setState({
 			isSelfOrderToggle: !this.state.isSelfOrderToggle
 		})
@@ -682,9 +623,11 @@ class ExistingOrder extends Component {
 		const {streetAddressOne,streetAddressTwo, city, state, zip} = this.state.activeAddress;
 
 		const {numberOfFlavors, numberOfLogs, productsOrdered} = this.state;
+		const {products} = this.state;
 
 		const {invoiceNumber, customerPaid, revenue, expense, invoiceStatus} = this.state.activeInvoice;
 	
+		const {isGiftToggle, isSelfOrderToggle} = this.state;
 			return (
 				<div id='OrderViewNew'>
 					<div id='OrderViewHeaderNew' >
@@ -710,19 +653,31 @@ class ExistingOrder extends Component {
 							<GeneralInfoEdit handleChange={this.handleInputActiveOrder} referenceNumber={referenceNumber} datePlaced= {datePlaced} trackingNumber={trackingNumber} orderStatus={orderStatus}/>
 							<ProductInfoEdit handleChange={this.handleInputChange} numberOfFlavors={numberOfFlavors} numberOfLogs={numberOfLogs} productsOrdered={productsOrdered}/>
 							<InvoiceInfoView handleChange={this.handleInputChange} invoiceNumber={invoiceNumber} revenue={revenue} expense={expense} orderStatus={orderStatus}/>
-							<div className='OrderViewHeaderNew_Inner'>
-								<label>Self Order</label>
-								<ReactSwitch checked={this.state.isSelfOrderToggle} onChange={this.handleSelfOrderChange}/>
+							
+							<div className='ToggleWrapper'>
+								<div className='OrderViewHeaderNew_Inner'>
+									<label className='BoxDescriptionTitle'>Self Order</label>
+									<div className="switch">
+										<input type="checkbox" id="toggle" checked={isSelfOrderToggle} onChange={this.handleSelfOrderChange} />
+										<label></label>
+									</div>
+								</div>
+								<div className='OrderViewHeaderNew_Inner'>
+									<label className='BoxDescriptionTitle'>Is Gift?</label>
+									<div className="switch">
+										<input type="checkbox" id="toggle" checked={isGiftToggle} onChange={this.handleIsGiftChange} />
+										<label></label>
+									</div>
+								</div>
 							</div>
+							
+							
 						</div>
 						<div id="RightSideNew">
 							<CustomerInfoEdit handleChange={this.handleInputChange} firstName={firstName} lastName={lastName} email={email} phoneNumber={phoneNumber}/>
 							
 							<ShippingInfoEdit handleChange={this.handleInputChange} streetAddressOne={streetAddressOne} streetAddressTwo={streetAddressTwo} city={city} state={state} zip={zip}/>
-							<div className='OrderViewHeaderNew_Inner'>
-								<label>Is Gift?</label>
-								<ReactSwitch checked={this.state.isGiftToggle} onChange={this.handleIsGiftChange}/>
-							</div>
+
 						</div>
 					</div>
 				</div>
@@ -741,5 +696,5 @@ class ExistingOrder extends Component {
 	};
   };
   
-export default connect(mapStateToProps, { createOrder, createCustomer, createOrderLine, createShippingAddress, createOrderLine })(ExistingOrder);
+export default connect(mapStateToProps, { createOrder, createCustomer, createOrderLine, createShippingAddress, createOrderLine })(NewOrder);
 

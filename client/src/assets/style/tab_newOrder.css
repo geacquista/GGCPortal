@@ -33,8 +33,7 @@
 
 #OrderViewNew{
 	display: flex;
-    max-width: 1144px;
-    scroll-behavior:hidden;
+    width: 100%;
 	flex-direction: column;
 	justify-content: center;
 	background-color: White;
@@ -56,8 +55,7 @@
 	flex-direction: row;
 	justify-content: space-between;
     align-items: center;
-	padding: 12px;
-	top: 0px;
+	padding-bottom: 12px;
 }
 
 
@@ -72,15 +70,10 @@
 
 #NewInvoiceView {
 
-	height:  100px;
 	display: flex;
 	flex-direction: column;
     align-items: center;
-    justify-content: center;
-	border-radius: 10px;
-	background-color: #F3F3F3;
-	padding: 16px;
-	margin: 5px;
+
 }
 
 #NewOrderCustomer{
@@ -107,11 +100,11 @@
     border: 2px dashed #9E374C;
     border-radius: 10px;
 	background-color: #F3F3F3;
-    padding: 12px 24px 12px 24px;
+    padding: 8px 18px 8px 18px;
     display: flex;
     flex-direction: column;
 	margin: 5px;
-    margin-bottom: 24px;
+    margin-bottom: 18px;
     box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.508);
 }
 
@@ -135,14 +128,14 @@
 }
 
 #LeftSideNew {
-    width: 40%;
+    width: 45%;
     display: flex;
     flex-direction: column;
     padding: 8px;
 }
 
 #RightSideNew {
-    width: 60%;
+    width: 55%;
     display: flex;
     flex-direction: column;
     padding: 8px;
@@ -154,3 +147,80 @@
     padding: 4px 8px 4px 8px;
     margin-bottom: 24px;
 }
+
+.ToggleWrapper {
+	border: 2px solid black;
+    border-radius: 10px;
+	background-color: none;
+    padding: 4px 12px 4px 12px;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	margin: 5px;
+    box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.508);
+}
+
+.switch {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.switch input[type="checkbox"] {
+	display: none;
+  }
+  
+  .switch label {
+	width: 40px;
+	height: 20px;
+	border-radius: 15px;
+	background-color: gray;
+	position: relative;
+	cursor: pointer;
+	transition: background-color 0.2s;
+  }
+  
+  .switch label:after {
+	content: '';
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background-color: white;
+	position: absolute;
+	top: 2px;
+	left: 2px;
+	transition: left 0.2s;
+  }
+  
+  .switch input[type="checkbox"]:checked + label {
+	background-color: green;
+  }
+  
+  .switch input[type="checkbox"]:checked + label:after {
+	left: 22px;
+  }
+  
+  .switch label:hover {
+	background-color: lightgray;
+  }
+  
+  .switch label:hover:after {
+	left: 20px;
+  }
+  
+  .switch label:active {
+	background-color: darkgray;
+  }
+  
+  .switch label:active:after {
+	left: 20px;
+  }
+
+  .addFlavorButton {
+	padding: 2px 8px 2px 8px;
+
+	font-size: 16px;
+	font-weight: 600;
+	margin: 5px;
+    box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.508);
+  }
