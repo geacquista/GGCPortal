@@ -13,6 +13,13 @@
   }
 }
 
+
+
+@font-face {
+	font-family: Carrois;
+	src: url(assets/fonts/CarroisGothicSC-Regular.ttf);
+  }
+
 .App-header {
   min-height: 100vh;
   display: flex;
@@ -30,21 +37,27 @@ main {
 }
 
 
-/*------------------ Orders ---------------------*/
-
-#Orders {
+/*------------------ Elements Right of Nav ---------------------*/
+.ViewContainer {
 	text-align: left;
 	display: flex;
 	flex-direction: column;
 	align-content: flex-start;
 	justify-content: flex-start;
-	padding-left: 60px;
-  
+	padding: 48px;
+	scroll-behavior:hidden;
+
+}
+
+
+/*------------------ Orders ---------------------*/
+
+#Orders {
+	
 }
 
 #OrdersDisplay {
-  height: 100vh;
-	text-align: left;
+  height: fit-content;
 	display: flex;
 	flex-direction: column;
 	align-content: flex-start;
@@ -56,12 +69,11 @@ main {
 	
 	display: flex;
   max-width: 1144px;
-	overflow-y: scroll;
   scroll-behavior:hidden;
 	flex-direction: column;
 	justify-content: center;
 	background-color: White;
-	padding: 10px;
+	padding: 60px;
 }
 
 #OrderView_Header{
@@ -72,9 +84,9 @@ main {
 	justify-content: left;
 	background-color: White;
 	padding: 10px;
-	position: sticky;
 	top: 0px;
 }
+
 
 #OrderView_General{
 	width:  382px;
@@ -256,12 +268,6 @@ main {
     font-weight: bold;
 }
 
-#OrderView_Header {
-	display: flex;
-	padding: 8px;
-	flex-direction: row;
-}
-
 /*------------------ Navbar ---------------------*/
 @font-face {
   font-family: Roboto;
@@ -327,9 +333,6 @@ margin-top: 40px;
   margin-top: auto;
 }
 
-
-
-
 #AdminPanel {
   text-align: left;
 	display: flex;
@@ -338,9 +341,6 @@ margin-top: 40px;
 	justify-content: flex-start;
 	padding-left: 60px;
 }
-
-
-
 
 #Search {
 	text-align: left;
@@ -353,4 +353,18 @@ margin-top: 40px;
 
 .search {
     width: 75%;
+}
+
+.BoxDescriptionTitle {
+	font-family: Carrois;
+	font-size: 28px;
+	text-align: center;
+}
+
+.inputField {
+	background-color: #ffffff;
+	border:none;
+	border-radius: 12px;
+	padding:6px;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2);
 }

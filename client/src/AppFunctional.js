@@ -25,6 +25,7 @@ import { retrieveOrderLines } from './store/orderline_slice';
 
 
 import "bootstrap/dist/css/bootstrap.min.css";
+
 import "./App.css";
 import Dashboard from "./views/dashboard/Dashboard";
 import MainOrderPane from "./views/orders/MainOrderView_Tabs";
@@ -89,29 +90,29 @@ const AppComp = ({
 
   const location = useLocation();
 
-  useEffect(() => {
-    if (["/login"].includes(location.pathname)) {
-      clearMessage(); // clear message when changing location
-    }
-  }, [location.pathname, clearMessage]);
+  // useEffect(() => {
+  //   if (["/login"].includes(location.pathname)) {
+  //     clearMessage(); // clear message when changing location
+  //   }
+  // }, [location.pathname, clearMessage]);
 
-  useEffect(() => {
-    if (auth.isLoggedIn && auth.user !== activeUser) {
-      setActiveUser({
-        userID: auth.user.userID,
-        email: auth.user.email,
-        nickname: auth.user.nickname,
-        permissionType: auth.user.permissionType
-      });
-    } else if (!auth.isLoggedIn && activeUser !== null) {
-      setActiveUser({
-        userID: null,
-        email: "",
-        nickname: "",
-        permissionType: PermissionTypes.LOGGEDOUT
-      });
-    }
-  }, [auth.isLoggedIn, auth.user, activeUser]);
+  // useEffect(() => {
+  //   if (auth.isLoggedIn && auth.user !== activeUser) {
+  //     setActiveUser({
+  //       userID: auth.user.userID,
+  //       email: auth.user.email,
+  //       nickname: auth.user.nickname,
+  //       permissionType: auth.user.permissionType
+  //     });
+  //   } else if (!auth.isLoggedIn && activeUser !== null) {
+  //     setActiveUser({
+  //       userID: null,
+  //       email: "",
+  //       nickname: "",
+  //       permissionType: PermissionTypes.LOGGEDOUT
+  //     });
+  //   }
+  // }, [auth.isLoggedIn, auth.user, activeUser]);
 
   const logOut = () => {
     logout();
