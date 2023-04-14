@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import "../../../assets/style/dropdown.css"
 
 class Dropdown extends Component {
@@ -16,6 +17,7 @@ class Dropdown extends Component {
 
   render() {
     const { options } = this.props;
+    console.log(options)
     const { selectedOption } = this.state;
 
     return (
@@ -31,4 +33,10 @@ class Dropdown extends Component {
   }
 }
 
-export default Dropdown;
+const mapStateToProps = (state) => {
+  return {
+		products: state.products
+	};
+};
+  
+export default connect(mapStateToProps, {  })(Dropdown);

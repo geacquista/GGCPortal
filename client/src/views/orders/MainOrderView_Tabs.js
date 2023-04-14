@@ -25,16 +25,22 @@ const ViewType = {
 	NEW_ORDER: 4
 }
 
-export const OrderDisplayColumn = ({title, orders, orderCardOnClick, products}) => {
+export const OrderDisplayColumn = ({title, orders, orderCardOnClick, products, customers, invoices, orderline, shippingAddresses}) => {
 
 	return(
 		<ul className='OrderDisplayColumn'>
 			<li key={title} style={{position: 'sticky', top: '0px'}}><div className='OrderDisplayColumnTitle'><h3 style={{padding: '0px', margin: '0px'}}>{title}</h3></div></li>
-
 			{orders.map((order) => {
+
+				const filteredCustomer = customers.filter(customer => customer.customerID === order.customerId)[0]
+				const filteredAddress = shippingAddresses.filter(address => address.shippingID === order.shippingId)[0]
+				const filteredInvoice= invoices.filter(invoice => invoice.orderID === order.orderID)[0]
+				const filteredLine = orderline.filter(line => line.lineOrderID === order.orderID)
+
 				return (
-				<li><OrderCard key={order.orderID} order={order} color='#90E0C9' orderCardOnClick={orderCardOnClick}  /></li>
-			)})}
+					
+					<li><OrderCard key={order.orderID} order={order} customer={filteredCustomer} address={filteredAddress} invoice={filteredInvoice} orderline={filteredLine} color='#90E0C9' orderCardOnClick={orderCardOnClick}  /></li>
+				)})}
 		</ul>
 	)
 }

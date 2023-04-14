@@ -8,9 +8,9 @@ import { OrderDisplayColumn } from "./MainOrderView_Tabs";
 const ActiveOrders = ({orders, orderCardOnClick, products, customers, shippingAddresses,invoices, orderline}) => {
 	return (
 		<div id='OrderDisplayColumns'>
-			<OrderDisplayColumn key= {'Placed'} title='Placed' orders={orders.filter(order => order.orderStatus === "Placed")}  orderCardOnClick={orderCardOnClick} products={products}/>
-			<OrderDisplayColumn key= {'Processed'} title='Processed' orders={orders.filter(order => order.orderStatus === 'Processed')} orderCardOnClick={orderCardOnClick} products={products} />
-			<OrderDisplayColumn key= {'Shipped'} title='Shipped' orders={orders.filter(order => order.orderStatus === 'Shipped')} orderCardOnClick={orderCardOnClick} products={products}/>
+			<OrderDisplayColumn style={{borderRight:"2px"}} key= {'Placed'} title='Placed' orders={orders.filter(order => order.orderStatus === "Placed")} customers={customers} shippingAddresses={shippingAddresses} invoices={invoices} orderline={orderline}  orderCardOnClick={orderCardOnClick} products={products}/>
+			<OrderDisplayColumn key= {'Processed'} title='Processed' orders={orders.filter(order => order.orderStatus === 'Processed')} customers={customers}  shippingAddresses={shippingAddresses} invoices={invoices} orderline={orderline}  orderCardOnClick={orderCardOnClick} products={products} />
+			<OrderDisplayColumn key= {'Shipped'} title='Shipped' orders={orders.filter(order => order.orderStatus === 'Shipped')} customers={customers}  shippingAddresses={shippingAddresses} invoices={invoices} orderline={orderline}  orderCardOnClick={orderCardOnClick} products={products}/>
 		</div>
 	)
 }
@@ -32,7 +32,7 @@ class ActiveOrdersTab extends Component {
 		return(
 			<div id='ActiveOrders'>	
 				<div id='OrdersDisplay' style={{display: 'flex', displayDirection: 'column'}}>
-					<ActiveOrders orders={currentActiveOrders} products={products} shippingAddresses={orderline} customers={customers} invoices={invoices} orderline={orderline} orderCardOnClick={this.props.orderCardOnClick}/>
+					<ActiveOrders orders={currentActiveOrders} products={products} shippingAddresses={shippingAddresses} customers={customers} invoices={invoices} orderline={orderline} orderCardOnClick={this.props.orderCardOnClick}/>
 				</div>
 			</div>
 		);

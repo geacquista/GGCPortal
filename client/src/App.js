@@ -159,14 +159,14 @@ class App extends Component {
           
             {activeUser.userID && activeUser.permissionType ===PermissionTypes.FARM && (
               <li className="nav-item">
-                <Link to={"/farm"} className="nav-link">
+                <Link to={"/farm"} className="NavBarButton">
                   Farm Board
                 </Link>
               </li>
             )}
             {activeUser.userID && activeUser.permissionType===PermissionTypes.ADMIN && (
               <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
+                <Link to={"/admin"} className="NavBarButton">
                   Admin Board
                 </Link>
               </li>
@@ -175,11 +175,11 @@ class App extends Component {
             {activeUser.userID && (
               <li className="nav-item">
                 <li className="nav-item">
-                  <Link to={"/home"} className="nav-link">
+                  <Link to={"/home"} className="NavBarButton">
                     Home
                   </Link>
                 </li>
-                <Link to={"/user"} className="nav-link">
+                <Link to={"/user"} className="NavBarButton">
                   User
                 </Link>
               </li>
@@ -189,12 +189,12 @@ class App extends Component {
           {activeUser.userID ? (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
+                <Link to={"/profile"} className="NavBarButton">
                   {activeUser.nickname}
                 </Link>
               </li>
               <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={this.logOut}>
+                <a href="/login" className="NavBarButton" onClick={this.logOut}>
                   Log Out
                 </a>
               </li>
@@ -202,27 +202,27 @@ class App extends Component {
           ) : (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <Link to={"/dashboard"} className="nav-link">
+                <Link to={"/dashboard"} className="NavBarButton">
                   Home
                 </Link>
               </li>
               <li>
-              <Link to={"/orders"} className="nav-link">
+              <Link to={"/orders"} className="NavBarButton">
                 Orders
               </Link>
             </li>
               <li>
-                <Link to={"/search"} className="nav-link">
+                <Link to={"/search"} className="NavBarButtonActive">
                   Search
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={"/help"} className="nav-link">
+                <Link to={"/help"} className="NavBarButton">
                   Help
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
+                <Link to={"/login"} className="NavBarButtonActive">
                   Login
                 </Link>
               </li>
@@ -232,11 +232,11 @@ class App extends Component {
         
         <div className="container mt-3 ViewContainer">
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/login" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard/>} />
             {/*<Route path="/login" element={<Login />} />*/}
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/user" element={<BoardUser />} />
+            {/* <Route path="/profile" element={<Profile />} /> */}
+            {/* <Route path="/user" element={<BoardUser />} /> */}
             <Route path="/farm" element={<BoardModerator />} />
             <Route path="/admin" element={<BoardAdmin />} />
             <Route path="/orders" element={<MainOrderPane/>}/>

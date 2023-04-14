@@ -3,7 +3,13 @@ import { connect } from "react-redux";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import logo from "./assets/img/ggc_logo_dropshadow.png";
 
-import home_logo from "./assets/img/home_black.svg"
+import home_icon from "./assets/img/home_black.svg";
+import order_icon from "./assets/img/order_black.svg";
+import search_icon from "./assets/img/search_black.svg";
+
+import logout_icon from "./assets/img/logout_black.svg";
+import help_icon from "./assets/img/help_black.svg";
+import profile_icon from "./assets/img/user_black.svg";
 
 import Login from "./views/aa_login/Login";
 import Home from "./views/aa_login/Home";
@@ -90,7 +96,7 @@ const AppComp = ({
   const location = useLocation();
 
   // useEffect(() => {
-  //   if (["/login"].includes(location.pathname)) {
+  //   if (["/"].includes(location.pathname)) {
   //     clearMessage(); // clear message when changing location
   //   }
   // }, [location.pathname, clearMessage]);
@@ -137,25 +143,39 @@ const AppComp = ({
           <div style={{ display: 'flex', flexDirection: 'column'} }>
           
             {activeUser.userID && activeUser.permissionType ===PermissionTypes.FARM && (
-              <><li className="nav-item">
+              <div className="NavBarButton">
                   <Link to={"/dashboard-farm"} className="nav-link">
-                    Dashboard
+                    <button className='NavBarButton' >
+                            <img src={home_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                            <h4>Dashboard</h4>
+                      </button>
+
                   </Link>
-                </li><li>
                     <Link to={"/orders-farm"} className="nav-link">
-                      Orders
+                      
+                       <button className='NavBarButton' >
+                          <img src={order_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                          <h4>Orders</h4>
+                        </button>
                     </Link>
-                  </li></>
+                  </div>
             )}
             {activeUser.userID && activeUser.permissionType !==PermissionTypes.FARM && (
                 <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'column'}}>
-                    <li className="nav-item">
+                    <li className="NavBarButton">
                         <Link to={"/dashboard"} className="nav-link">
-                          Dashboard
+                        <button className='NavBarButton' >
+                            <img src={home_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                            <h4>Dashboard</h4>
+                          </button>
                         </Link>
                         </li><li>
                           <Link to={"/orders"} className="nav-link">
-                          Orders
+                          <button className='NavBarButton' >
+                            <img src={order_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                            <h4>Orders</h4>
+                          </button>
+                          
                         </Link>
 
                     </li>
@@ -165,9 +185,12 @@ const AppComp = ({
 
             {activeUser.userID && activeUser.permissionType===PermissionTypes.ADMIN && (
               <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'column'}}>
-                <li className="nav-item">
+                <li className="NavBarButton">
                   <Link to={"/admin"} className="nav-link">
-                    Admin Board
+                   <button className='NavBarButton' >
+                      <img src={profile_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                      <h4>Admin Board</h4>
+                    </button>
                   </Link>
                 </li>
               </div>
@@ -175,56 +198,64 @@ const AppComp = ({
           </div>
 
           {activeUser.userID ? (
-            <div className="navbar-nav ml-auto" style={{display:'flex'}}>
-              <li className="nav-item">
+            <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'row'}}>
                     <Link to={"/search"} className="nav-link">
-                      Search
+                      <button className='NavBarButton' >
+                            <img src={search_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                            <h4>Search</h4>
+                        </button>
                     </Link>
-                  </li>
-              <div className="NavBarBottom">
-              <li className="nav-item">
                   <Link to={"/help"} className="nav-link">
-                    Help
+                    <button className='NavBarButton' >
+                      <img src={help_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                      <h4>Help</h4>
+                    </button>
                   </Link>
-              </li>
-              <li className="nav-item">
                 <a href="/" className="nav-link" onClick={logOut}>
-                  Log Out {activeUser.nickname}
+                  <button className='NavBarButton' >
+                      <img src={logout_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                      <h4> Log Out {activeUser.nickname}</h4>
+                    </button>
                 </a>
-              </li>
-            </div>
 
             </div>
           ) : (
-              <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'column'}}>
+              <div className="navbar-nav" id={"nav-main-content"} style={{display:'flex', flexDirection:'column'}}>
                 <div id="NavBarTop">
-                  <li className="nav-item">
                   <Link to={"/dashboard"} className="nav-link">
-                    Home
+                    <button className='NavBarButton' >
+                      <img src={home_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                      <h4>Dashboard</h4>
+                    </button>
                   </Link>
-                </li>
-                  <li className="nav-item">
                     <Link to={"/orders"} className="nav-link">
-                      Orders
+                    <button className='NavBarButton' >
+                      <img src={order_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                      <h4>Orders</h4>
+                    </button>
+                      
                     </Link>
-                  </li>
-                  <li className="nav-item">
                     <Link to={"/search"} className="nav-link">
-                      Search
+                    <button className='NavBarButton' >
+                      <img src={search_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                      <h4>Search</h4>
+                    </button>
                     </Link>
-                  </li>
                 </div>
-                <div id="NavBarBottom">
-                  <li className="nav-item">
+                <div id="NavBarBottom" className="OrderViewHeaderCol_Inner">
                     <Link to={"/help"} className="nav-link">
-                      Help
+                    <button className='NavBarButton' >
+                      <img src={help_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                      <h4>Help</h4>
+                    </button>
+                      
                     </Link>
-                  </li>
-                  <li className="nav-item">
                     <Link to={"/"} className="nav-link">
-                      Login
+                    <button className='NavBarButton' >
+                      <img src={logout_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                      <h4>Login</h4>
+                    </button>
                     </Link>
-                  </li>
                 </div>
               </div>
           )}
@@ -232,7 +263,7 @@ const AppComp = ({
         
         <div className="container mt-3" id="mainViewContainer">
           <Routes>
-            <Route path="/" element={<MainOrderPane />} />
+            <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard/>} />
             <Route path="/orders" element={<MainOrderPane/>}/>
 
@@ -244,7 +275,7 @@ const AppComp = ({
             <Route path="/help" element={<HelpScreen/>}/>
 
             {/* <Route path="/GGCHome" element={<GGCApp/>}/> */}
-            {/* <Route path="/login" element={<Login />} /> */}
+            {/* <Route path="/" element={<Login />} /> */}
             {/* <Route path="/profile" element={<Profile />} /> */}
           </Routes>
         </div>

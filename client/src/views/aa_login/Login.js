@@ -46,7 +46,7 @@ class Login extends Component {
 
     console.log(loggedIn)
 
-    if (loggedIn) {
+    if ( loggedIn&& !error) {
       return <Navigate to="/dashboard"/>;
     }
 

@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import "../../../assets/style/dropdown.css"
 
-function FlavorSelector({onChange, onRemove}) {
+function FlavorSelector({onChange, onRemove, products}) {
   const [flavor, setFlavor] = useState('chocolate');
   const [quantity, setQuantity] = useState(1);
   //get these from props.products
   const [flavorOptions, setFlavorOptions] = useState([
-    'Plain',
-    'Fiery Fig',
-    'Herb Garlic',
+    ...products
   ]);
 
   const handleFlavorChange = (event) => {

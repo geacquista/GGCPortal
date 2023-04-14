@@ -1,2 +1,2 @@
 orderID,referenceNumber,datePlaced,isGift,giftFor,giftMessage,trackingNumber,orderStatus,shippingId,customerId,isSelfOrder
-1,7185142,"2023-01-17 00:00:00",1,"Elisa Danner",ily,NULL,Shipped,479,1,0
+1,7185142,"2023-01-17 00:00:00",1,"Elisa Danner",ily,NULL,Shipped,1,1,0
