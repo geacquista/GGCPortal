@@ -12,7 +12,8 @@
    // Create a Order
    const order = new Order({
     referenceNumber: req.body.referenceNumber,
-    datePlaced: moment(req.body.datePlaced).format('YYYY-MM-DD HH:mm:ss'),
+    datePlaced: req.body.datePlaced,
+    // datePlaced: moment(req.body.datePlaced).format('YYYY-MM-DD HH:mm:ss'),
     isGift: req.body.isGift,
     giftFor: req.body.giftFor,
     giftMessage: req.body.giftMessage,

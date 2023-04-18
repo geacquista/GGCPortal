@@ -15,8 +15,8 @@ import OrderLineDataService from "../services/OrderLineDataService";
 
 export const createOrderLine = createAsyncThunk(
   "orderline/create",
-  async ({ lineOrderID, lineProductID, qty}) => {
-    const res = await OrderLineDataService.create({lineOrderID, lineProductID, qty});
+  async ({ lineOrderID, lineProductID, qtyOrdered}) => {
+    const res = await OrderLineDataService.create({lineOrderID, lineProductID, qtyOrdered});
     return res.data;
   }
 );

@@ -102,7 +102,7 @@ Order.findById = (id, result) => {
 Order.updateById = (id, order, result) => {
   sql.query(
     "UPDATE Order SET referenceNumber = ?, datePlaced = ?, isGift = ?, giftFor = ?, giftMessage = ?, trackingNumber = ?, orderStatus = ?, shippingId = ?, customerId = ?, isSelfOrder = ? WHERE orderID = ?",
-    [order.referenceNumber, order.datePlaced, order.isGift, order.giftFor, order.giftMessage, order.trackingNumber, order.orderStatus, parseToInt(order.shippingId), parseToInt(order.customerId), order.isSelfOrder, id], 
+    [order.referenceNumber, order.datePlaced, order.isGift, order.giftFor, order.giftMessage, order.trackingNumber, order.orderStatus, order.shippingId,order.customerId, order.isSelfOrder, id], 
     (err, res) => {
       if (err) {
         console.log("error: ", err);

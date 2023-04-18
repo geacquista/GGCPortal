@@ -6,7 +6,7 @@ const Customer = function(customer) {
   this.lastName = customer.lastName;
   this.phoneNumber = customer.phoneNumber;
   this.email = customer.email;
-  this.customerShippingID = customer.shippingID;
+  this.customerShippingId = customer.customerShippingId;
 };
 
 
@@ -35,9 +35,9 @@ const Customer = function(customer) {
 Customer.createWithAddress = (newCustomer, result) => {
 
   // could change query formatting here to be consistent throughout
-  var query = "INSERT INTO `Customer` (`firstName`, `lastName`, `phoneNumber`, `email`, `customerShippingId) VALUES (?,?,?,?,?);"
+  var query = "INSERT INTO `Customer` (`firstName`, `lastName`, `phoneNumber`, `email`, `customerShippingId`) VALUES (?,?,?,?,?);"
   sql.query(query,
-    [newCustomer.firstName, newCustomer.lastName, newCustomer.phoneNumber, newCustomer.email, newCustomerShippingID.customerShippingId], function (err, res) {
+    [newCustomer.firstName, newCustomer.lastName, newCustomer.phoneNumber, newCustomer.email, newCustomer.customerShippingId], function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -104,8 +104,8 @@ Customer.findById = (id, result) => {
  */
 Customer.updateById = (id, customer, result) => {
   sql.query(
-    "UPDATE Customer SET email = ?, password = ?, nickname = ?, permissionType = ? WHERE customerID = ?",
-    [customer.email, customer.password, customer.nickname, this.permissionType, id],
+    "UPDATE Customer SET firstName = ?, lastName = ?, email = ?, phoneNumber = ? WHERE customerID = ?",
+    [customer.firstName, customer.lastName, customer.email, customer.phoneNumber, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

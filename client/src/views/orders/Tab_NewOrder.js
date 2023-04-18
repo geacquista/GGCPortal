@@ -1,271 +1,7 @@
-// import React, { useState } from 'react'
-// import { useDispatch, useSelector } from "react-redux";
-
-// const useOrderForm = (order) => {
-
-//   const dispatch = useDispatch();
-// 	const [inputs, setInputs] = useState(order)
-// 	/* const [newOrder, setOrder] = useState(order) */
-
-//   const ordersAmount = useSelector((state) => state.orders.length);
-
-
-// 	const handleSubmit = (event) => {
-// 		if(event) {
-// 			event.preventDefault()
-// 			dispatch(
-//         // addOrder({
-//         //   id: ordersAmount + 1,
-//         //   referenceNumber: order.referenceNumber,
-//         //   invoiceNumber: order.invoiceNumber,
-//         //   status: order.status,
-//         //   datePlaced: '',
-//         //   revenue: 0,
-//         //   isSelfOrder: true,
-//         //   isGift: false,
-//         //   giftFor: '',
-//         //   giftMessage: '',
-//         //   shipmentTrackingNumber: '',
-//         //   customer: {
-//         //     id: {},
-//         //     email: 'gr-ggcexec@wpi.edu',
-//         //     firstName: 'Gompei\'s',
-//         //     lastName: 'Goat-Cheese',
-//         //     phoneNumber: '',
-        
-//         //   },
-//         //   productsOrdered: [{
-//         //     id: '1',
-//         //     quantity: 3,
-//         //     product: {
-//         //       id: 'jPL6',
-//         //       name: 'plain',
-//         //       productDescription: 'A six oz log of plain goat cheese',
-//         //     }	
-//         //   }],
-//         //   shippingAddress: {
-//         //     id: '1',
-//         //     firstName: 'Gompei\'s',
-//         //     lastName: 'Goat-Cheese',
-//         //     streetAddress: '100 Institute Road\nMailbox #',
-//         //     city: 'Worcester',
-//         //     state: 'MA',
-//         //     zipCode: '01609',
-//         //   },
-//         //   invoice: {
-//         //     id: '1',
-//         //     invoiceNumber: '',
-//         //     expense: 0,
-//         //     isPaid: false,
-//         //   },
-//         // })
-//       );
-// 		}
-// 	}
-// 	const handleInputChange = (event) => {
-// 		event.persist()
-// 		setInputs(inputs => ({...inputs, [event.target.name]: event.target.value}))
-// 	}
-// 	return {
-// 		handleSubmit,
-// 		handleInputChange,
-// 		inputs
-// 	};
-// }
-
-// //orderFunction = createOrder
-
-// export const NewOrder = ({orderFunction}) => {
-
-//   //ON SAVE: update the view to readonly (so it should be able to close)
-// 	// orderFunction = addOrder
-
-//   // Creating an empty order
-//   const order = {
-//     id: {},
-//     referenceNumber: '',
-//     invoiceNumber: '',
-//     status: 'PLACED',
-//     datePlaced: '',
-//     revenue: 0,
-//     isSelfOrder: true,
-//     isGift: false,
-//     giftFor: '',
-//     giftMessage: '',
-//     shipmentTrackingNumber: '',
-//     customer: {
-//       id: {},
-//       email: 'gr-ggcexec@wpi.edu',
-//       firstName: 'Gompei\'s',
-//       lastName: 'Goat-Cheese',
-//       phoneNumber: '',
-  
-//     },
-//     productsOrdered: [{
-//       id: '1',
-//       quantity: 3,
-//       product: {
-//         id: 'jPL6',
-//         name: 'plain',
-//         productDescription: 'A six oz log of plain goat cheese',
-//       }	
-//     }],
-//     shippingAddress: {
-//       id: '1',
-//       firstName: 'Gompei\'s',
-//       lastName: 'Goat-Cheese',
-//       streetAddress: '100 Institute Road\nMailbox #',
-//       city: 'Worcester',
-//       state: 'MA',
-//       zipCode: '01609',
-//     },
-//     invoice: {
-//       id: '1',
-//       invoiceNumber: '',
-//       expense: 0,
-//       isPaid: false,
-//     },
-//   };
-// 	const {inputs, handleInputChange, handleSubmit} = useOrderForm(order)
-  
-// 	let recipient
-// 	if(order.isGift){
-// 		recipient = order.giftFor
-
-// 	} else{
-// 		recipient = order.customer.firstName + ' ' + order.customer.lastName 
-// 	}
-
-// 	var numberOfFlavors = 0
-// 	order.productsOrdered.forEach(product => numberOfFlavors++)
-
-// 	var numberOfLogs = 0
-// 	order.productsOrdered.forEach(product => numberOfLogs+= product.quantity)
-
-// 	return (
-// 		<form onSubmit={handleSubmit}>
-// 			<div id='OrderView'>
-// 				<div id='OrderView_Header'>
-//           {/**on submit i want to dispatch the addOrder action and  */}
-// 					<button onClick={handleSubmit} type="submit">Save</button>
-// 					<button>Cancel</button>
-// 				</div>
-// 				<div className='Row'>
-// 					<div className='Column'>
-// 						<div id='OrderView_General_Details'>
-// 							<table>
-// 								<tr>
-// 									<td><h4 style={{fontWeight: 'bold'}}>Reference #</h4></td>
-// 									<td><input type="text" name="referenceNumber" onChange={handleInputChange} value={inputs.referenceNumber} defaultValue={order.referenceNumber} required/></td>
-// 								</tr>
-// 								<tr>
-// 									<td><h4 style={{fontWeight: 'bold'}}>Invoice #</h4></td>
-// 									<td><input type="text" name="invoiceNumber" onChange={handleInputChange} value={inputs.invoiceNumber} defaultValue={order.invoiceNumber}/></td>
-// 								</tr>
-// 								<tr>
-// 									<td><h4 style={{fontWeight: 'bold'}}>Date Placed</h4></td>
-//                   <td><input type="date" name="datePlaced" onChange={handleInputChange} value={inputs.datePlaced} defaultValue={order.datePlaced} required/></td>
-//                   <td><h4>{order.datePlaced}</h4></td>
-// 								</tr>
-// 							</table>
-// 						</div>
-
-// 						<div id='OrderView_Customer_Details'>
-// 							<table>
-// 								<tr>
-// 									<td><h4 style={{fontWeight: 'bold'}}>First Name<br></br>Last Name</h4></td>
-// 									<td>
-// 										<input type="text" name="customer.firstName" onChange={handleInputChange} value={inputs.customer.firstName} defaultValue={order.customer.firstName} required/><br></br>
-// 										<input type="text" name="lastName" onChange={handleInputChange} value={inputs.customer.lastName} defaultValue={order.customer.lastName} required/>
-// 									</td>
-// 								</tr>
-// 								<tr>
-// 									<td><h4 style={{fontWeight: 'bold'}}>Email</h4></td>
-// 									<td><input type="email" name="email" onChange={handleInputChange} value={inputs.customer.email} defaultValue={order.customer.email} required/></td>
-// 								</tr>
-// 								<tr>
-// 									<td><h4 style={{fontWeight: 'bold'}}>Phone</h4></td>
-// 									<td><input type="tel" name="phoneNumber"onChange={handleInputChange}  value={inputs.customer.phoneNumber} defaultValue={order.customer.phoneNumber}/></td>
-// 								</tr>
-// 							</table>
-// 						</div>
-// 					</div>
-
-// 					<div id='OrderView_Shipping_Details'>
-// 						<table>
-// 							<tr>
-// 								<td><h4 style={{fontWeight: 'bold'}}>Recipient</h4></td>
-// 								{order.isGift && <td><input type="text" name="giftFor" onChange={handleInputChange} value={inputs.giftFor} defaultValue={recipient} required/></td>}
-// 								{!order.isGift && <td><h4>{recipient}</h4></td>}
-// 							</tr>
-// 							<tr>
-// 								<td><h4 style={{fontWeight: 'bold'}}>Street Address<br></br>City<br></br>State<br></br>Zipcode</h4></td>
-// 								<td>
-// 									<input type="text" name="streetAddress" onChange={handleInputChange} value={inputs.shippingAddress.streetAddress} defaultValue={order.shippingAddress.streetAddress} required/><br></br>
-// 									<input type="text" name="city" onChange={handleInputChange} value={inputs.shippingAddress.city} defaultValue={order.shippingAddress.city} required/><br></br>
-// 									<input type="text" name="state" onChange={handleInputChange} value={inputs.shippingAddress.state} defaultValue={order.shippingAddress.state} required/><br></br>
-// 									<input type="text" name="zipcode" onChange={handleInputChange} value={inputs.shippingAddress.zipCode} defaultValue={order.shippingAddress.zipCode} required/>
-// 								</td>
-// 							</tr>
-// 							<tr>
-// 								<td><h4 style={{fontWeight: 'bold'}}>Tracking #</h4></td>
-// 								<input type="text" name="shipmentTrackingNumber" onChange={handleInputChange} value={inputs.shipmentTrackingNumber} defaultValue={order.shipmentTrackingNumber}/>
-// 							</tr>
-// 							<tr>
-// 								<td><h4 style={{fontWeight: 'bold'}}>Is Gift?</h4></td>
-// 								{order.isGift && <td><input type="checkbox" onChange={handleInputChange} value={inputs.isGift} name="isGift" checked/></td>}
-// 								{!order.isGift && <td><input type="checkbox" onChange={handleInputChange} value={inputs.isGift} name="isGift"/></td>}
-// 							</tr>
-// 							<tr>
-// 								{order.isGift && order.giftMessage !== '' && <td><h4 style={{fontWeight: 'bold'}}>Gift Message</h4></td>}
-// 								{order.isGift && order.giftMessage !== '' && <td><input type="text" name="giftMessage" onChange={handleInputChange} value={inputs.giftMessage} defaultValue={order.giftMessage}/></td>}
-// 							</tr>
-// 						</table>
-// 					</div>
-// 				</div>
-
-// 				<div id='OrderView_Products_Details'>
-// 					<h4 style={{fontWeight: 'bold'}}>Flavor Information</h4>
-// 					<div className='Row'>
-// 						<table>
-// 							<tr>
-// 								<th><h4 style={{fontWeight: 'bold'}}>Name</h4></th>
-// 								<th><h4 style={{fontWeight: 'bold'}}>SKU</h4></th>
-// 								<th><h4 style={{fontWeight: 'bold'}}>Quantity</h4></th>
-// 							</tr>
-// 							{order.productsOrdered.map((product) => (
-// 								<tr>
-// 									<td><h4>{product.product.name}</h4></td>
-// 									<td><h4>{product.product.id}</h4></td>
-// 									<td><h4>{product.quantity}</h4></td>
-// 								</tr>					
-// 							))}
-// 						</table>
-// 						<table>
-// 							<tr>
-// 								<th><h4 style={{fontWeight: 'bold'}}>At a Glance:</h4></th>
-// 							</tr>
-// 							<tr>
-// 								<td><h4 style={{fontWeight: 'bold'}}>Total Number of Logs:</h4></td>
-// 								<td><h4>{numberOfLogs}</h4></td>
-// 							</tr>
-// 							<tr>
-// 								<td><h4 style={{fontWeight: 'bold'}}>Total Number of Flavors:</h4></td>
-// 								<td><h4>{numberOfFlavors}</h4></td>
-// 							</tr>
-// 						</table>
-// 					</div>
-// 				</div>
-// 			</div>
-// 		</form>
-// 	)
-// }
-
-// export default NewOrder;
-
-
+import add_icon from '../../assets/img/plus_black.svg'
 import edit_icon from '../../assets/img/edit_white.svg'
-import delete_icon from '../../assets/img/trash_white.svg'
+import delete_icon from '../../assets/img/trash_black.svg'
+import "../../assets/style/tab_newOrder.css"
 
 import React, { useState, Component } from 'react'
 import { connect, useDispatch, useSelector } from "react-redux";
@@ -273,339 +9,28 @@ import moment from 'moment';
 
 import { createOrder } from '../../store/order_slice'
 import {createShippingAddress} from '../../store/address_slice'
-import { createCustomer } from '../../store/customer_slice';
+import { createCustomer, createCustomerWithAddress, updateCustomer } from '../../store/customer_slice';
 import { createOrderLine } from "../../store/orderline_slice";
-import { retrieveProducts } from "../../store/product_slice";
+import { updateInvoice } from '../../store/invoice_slice' ;
+import {stateOptions} from '../../assets/util/dropdown.constants'
+import FlavorSelector from './orderview_components/FlavorSelector'
+import { filteredList } from '../../assets/util/functions'
+		
+// ------------------------------ INVOICE VIEW : NEW ORDER --------------------------------- //
 
-// ------------------------------ VIEW --------------------------------- //
-
-
-const InvoiceInfoView = ({invoiceNumber, revenue, expense, orderStatus}) => {
-	if (invoiceNumber) {
-		return (
-			<div id='OrderView_Invoice_Details'>
-			   <table>
-				   <tr>
-					   <td><h4 style={{fontWeight: 'bold'}}>Invoice #</h4></td>
-					   <td><h4>{invoiceNumber}</h4></td>
-				   </tr>
-				   <tr>
-					   <td><h4 style={{fontWeight: 'bold'}}>Revenue</h4></td>
-					   <td><h4>{revenue}</h4></td>
-				   </tr>
-				   <tr>
-					   <td><h4 style={{fontWeight: 'bold'}}>Expense</h4></td>
-					   <td><h4>{expense}</h4></td>
-				   </tr>
-			   </table>
-		   </div> 
-	   );	
-	}
-	else {
-		return (
-			<div id='OrderView_Invoice_Details'>
-			   <div>Missing Invoice</div>
-		   </div> 
-	   );
-	   
-	}
-}
-
-const ProductInfoView = ({productsOrdered, numberOfFlavors, numberOfLogs}) => {
-	console.log(productsOrdered)
-	return (
-		<div id='OrderView_Products_Details'>
-		<h4 style={{fontWeight: 'bold'}}>Flavor Information</h4>
-			<div className='Row'>
-				<table>
-					<tbody>
-					<tr>
-						<th><h4 style={{fontWeight: 'bold'}}>Name</h4></th>
-						<th><h4 style={{fontWeight: 'bold'}}>SKU</h4></th>
-						<th><h4 style={{fontWeight: 'bold'}}>Quantity</h4></th>
-					</tr>
-					{productsOrdered.map((product) => (
-						<tr key={product.lineProductID&&product.lineOrderID}>
-							<td><h4>{product.name}</h4></td>
-							<td><h4>{product.lineProductID}</h4></td>
-							<td><h4>{product.qtyOrdered}</h4></td>
-						</tr>					
-					))}
-					</tbody>
-				</table>
-				<table>
-					<tbody>
-
-						<tr>
-							<th><h4 style={{fontWeight: 'bold'}}>At a Glance:</h4></th>
-						</tr>
-						<tr>
-							<td><h4 style={{fontWeight: 'bold'}}>Total Number of Logs:</h4></td>
-							<td><h4>{numberOfLogs}</h4></td>
-						</tr>
-						<tr>
-							<td><h4 style={{fontWeight: 'bold'}}>Total Number of Flavors:</h4></td>
-							<td><h4>{numberOfFlavors}</h4></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div> 
-	);	
-
-}
-
-
-// ------------------------------ ORDER DETAILS: EDIT --------------------------------- //
-
-const GeneralInfoEdit = ({referenceNumber, datePlaced, trackingNumber, orderStatus, handleChange}) => {
-
-	return(
-            <div id='OrderView_General_Details'>
-                <div className="form-group">
-                  <label htmlFor="ref"><h4 style={{fontWeight: 'bold'}}>Reference #</h4></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="ref"
-                    required
-                    defaultValue={referenceNumber}
-                    onChange={handleChange}
-                    name="ref"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="date"><h4 style={{fontWeight: 'bold'}}>Date Placed</h4></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="date"
-                    defaultValue={datePlaced || ''}
-                    onChange={handleChange}
-                    name="date"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="tracking"><h4 style={{fontWeight: 'bold'}}>Tracking #</h4></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="tracking"
-                    defaultValue={trackingNumber || ''}
-                    onChange={handleChange}
-                    name="trackingNumber"
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="status"><h4 style={{fontWeight: 'bold'}}>Status</h4></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="status"
-                    defaultValue={orderStatus || ''}
-                    onChange={handleChange}
-                    name="status"
-                  />
-                </div>
-            </div>
-        
-	)
-}
-
-
-const CustomerInfoEdit = ({firstName, lastName, email, phoneNumber, handleChange}) => {
-
-	return (
-		<div id='OrderView_Customer_Details'>
-			<div className="form-group">
-                  <label htmlFor="first"><h4 style={{fontWeight: 'bold'}}>First Name</h4></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="first"
-                    required
-                    defaultValue={firstName || ''}
-                    onChange={handleChange}
-                    name="first"
-                  />
-                </div>
-				<div className="form-group">
-                  <label htmlFor="last"><h4 style={{fontWeight: 'bold'}}>Last Name</h4></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="last"
-                    required
-                    defaultValue={lastName || ''}
-                    onChange={handleChange}
-                    name="last"
-                  />
-                </div>
-				<div className="form-group">
-                  <label htmlFor="email"><h4 style={{fontWeight: 'bold'}}>Email</h4></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="email"
-                    required
-                    defaultValue={email || ''}
-                    onChange={ handleChange}
-                    name="email"
-                  />
-                </div>
-				<div className="form-group">
-                  <label htmlFor="phone"><h4 style={{fontWeight: 'bold'}}>Phone Number</h4></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="phone"
-                    required
-                    defaultValue={phoneNumber || ''}
-                    onChange={handleChange}
-                    name="phone"
-                  />
-                </div>
-		</div>
-	);	
-}
-
-const ShippingInfoEdit = ({streetAddress, city, state, zip, handleChange}) => {
-	return (
-		<div id='OrderView_Shipping_Details'>
-			<td><h4 style={{fontWeight: 'bold'}}>Street Address</h4></td>
-			<div className="form-group">
-                  <label htmlFor="streetAddress"><h4 style={{fontWeight: 'bold'}}>StreetAddress</h4></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="streetAddress"
-                    required
-                    defaultValue={streetAddress || ''}
-                    onChange={handleChange}
-                    name="streetAddress"
-                  />
-                </div>
-				<div className="form-group">
-                  <label htmlFor="city"><h4 style={{fontWeight: 'bold'}}>City</h4></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="city"
-                    required
-                    defaultValue={city || ''}
-                    onChange={handleChange}
-                    name="city"
-                  />
-                </div>
-				<div className="form-group">
-                  <label htmlFor="state"><h4 style={{fontWeight: 'bold'}}>State</h4></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="state"
-                    required
-                    defaultValue={state || ''}
-                    onChange={handleChange}
-                    name="state"
-                  />
-                </div>
-				<div className="form-group">
-                  <label htmlFor="zip"><h4 style={{fontWeight: 'bold'}}>Zip</h4></label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="zip"
-                    required
-                    defaultValue={zip || ''}
-                    onChange={handleChange}
-                    name="zip"
-                  />
-                </div>
-
-				{/* <tr>
-					<td><h4 style={{fontWeight: 'bold'}}>Tracking #</h4></td>
-					<td><h4>{order.shipmentTrackingNumber}</h4></td>
-				</tr> */}
-				{/* <tr>
-					{order.isGift && order.giftMessage !== '' && <td><h4 style={{fontWeight: 'bold'}}>Gift Message</h4></td>}
-					{order.isGift && order.giftMessage !== '' && <td><h4>{order.giftMessage}</h4></td>}
-				</tr> */}
-	</div>
-	)
-}
-
-
-const ProductInfoEdit = ({productsOrdered, numberOfFlavors, numberOfLogs, handleChange}) => {
-	return (
-		<div id='OrderView_Products_Details'>
-		<h4 style={{fontWeight: 'bold'}}>Flavor Information</h4>
-			<div className='Row'>
-				<table>
-					<tbody>
-					<tr>
-						<th><h4 style={{fontWeight: 'bold'}}>Name</h4></th>
-						<th><h4 style={{fontWeight: 'bold'}}>SKU</h4></th>
-						<th><h4 style={{fontWeight: 'bold'}}>Quantity</h4></th>
-					</tr>
-					{productsOrdered.map((product) => (
-						<tr key={product.lineProductID&&product.lineOrderID}>
-							<td><h4>{product.name}</h4></td>
-							<td><h4>{product.lineProductID}</h4></td>
-							<td><h4>{product.qtyOrdered}</h4></td>
-						</tr>					
-					))}
-					</tbody>
-				</table>
-				<table>
-					<tbody>
-
-						<tr>
-							<th><h4 style={{fontWeight: 'bold'}}>At a Glance:</h4></th>
-						</tr>
-						<tr>
-							<td><h4 style={{fontWeight: 'bold'}}>Total Number of Logs:</h4></td>
-							<td><h4>{numberOfLogs}</h4></td>
-						</tr>
-						<tr>
-							<td><h4 style={{fontWeight: 'bold'}}>Total Number of Flavors:</h4></td>
-							<td><h4>{numberOfFlavors}</h4></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div> 
-	);	
-
-}
-
-// ------------------------------ CLASS STARTS HERE --------------------------------- //
-
-class ExistingOrder extends Component {
-	constructor(props) {
-	  super(props);
-		this.handleInputChange = this.handleInputChange.bind(this)
-		this.handleInputChangeGeneral = this.handleInputActiveOrder.bind(this)
-
-		this.deleteCurrOrder = this.deleteCurrOrder.bind(this)
-		this.updateViewOnly = this.updateViewOnly.bind(this)
-		this.saveEdits = this.saveEdits.bind(this)
-
-	  this.state = {
-		orderID: -1,
+const default_state = {
+	orderID: -1,
 		activeOrder: {
 			referenceNumber: "",
 			datePlaced: "",
-			orderStatus: "",
+			orderStatus: "Placed",
 			trackingNumber: "",
 			giftFor: "",
 			giftMessage: "",
-			isGift: 1,
+			isGift: 0,
 			customerId: 0,
 			shippingId: 0,
-			isSelfOrder:"",
+			isSelfOrder:0,
 
 		},
 		activeCustomer: {
@@ -626,28 +51,345 @@ class ExistingOrder extends Component {
 			customerPaid:0,
 			revenue: 0,
 			expense: 0,
-			invoiceStatus: "",
+			invoiceStatus: "Missing",
 		},
 		productsOrdered: [
-			
+			{ quantity: 1, flavor: 'Plain' },
 		],
 		numberOfLogs: 0,
 		numberOfFlavors: 0,
-		viewOnly: true,
-	  }
+		viewOnly: false,
+		isSelfOrderToggle:false,
+		isGiftToggle:false
+}
+
+// ------------------------------ CLASS STARTS HERE --------------------------------- //
+
+class NewOrder extends Component {
+	constructor(props) {
+	  super(props);
+
+	  	// Form edit handlers
+		this.handleInputActiveOrder = this.handleInputActiveOrder.bind(this);
+		this.handleInputActiveCustomer = this.handleInputActiveCustomer.bind(this);
+		this.handleInputActiveAddress = this.handleInputActiveAddress.bind(this);
+
+		this.handleFlavorChange = this.handleFlavorChange.bind(this);
+		this.handleAddFlavor = this.handleAddFlavor.bind(this);
+		this.handleRemoveFlavor = this.handleRemoveFlavor.bind(this);
+
+		this.handleCustomerPaid = this.handleCustomerPaid.bind(this);
+		
+
+		// Toggle handlers
+		this.handleSelfOrderChange = this.handleSelfOrderChange.bind(this)
+		this.handleIsGiftChange = this.handleIsGiftChange.bind(this)
+
+
+		// Operations
+		this.deleteCurrOrder = this.deleteCurrOrder.bind(this)
+		this.submitOrder = this.submitOrder.bind(this)
+
+		this.refreshState = this.refreshState.bind(this)
+
+		// Set default state
+	  	this.state = default_state
 	}
 
-    handleInputChange(e) {
-        const target = e.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
+	// NOT WORKING
+	refreshState() {
+		this.setState({
+			...default_state
+		})
+	}
 
-        this.setState({
-        [name]: value
-        });
+	// RENDERING COMPONENTS
+	renderFlavorSelectors = () => {
+		return this.state.productsOrdered.map((flavor, index) => (
+		  <FlavorSelector
+			key={index}
+			quantity={flavor.quantity}
+			flavor={flavor.flavor}
+			onChange={(quantity, flavor) => this.handleFlavorChange(index, quantity, flavor)}
+			onRemove={() => this.handleRemoveFlavor(index)}
+			products={this.props.products}
+		  />
+		));
+	  };
 
-		console.log(this.state)
-    }
+	 renderInvoiceView = () => {
+		return (
+			<div id='NewInvoiceView' className='GenericBackgroundAdd'>
+				<label className='BoxDescriptionTitle'>Invoice</label>
+			   	<div className='MissingBackground'>
+					Invoice Generated Upon Save
+				</div>
+				<div className="OrderViewHeaderNew_Inner">
+					
+                  <label htmlFor="customerPaid"><h4 style={{fontWeight: 'bold'}}><i>Internal Use Only:</i>  Customer Paid</h4></label>
+                  <input
+                    type="decimal"
+                    className="inputField"
+                    id="customerPaid"
+                    required
+                    value={this.state.customerPaid}
+                    onChange={this.handleCustomerPaid}
+                    name="customerPaid"
+                  />
+                </div>
+		   </div> 
+	   );
+	 } 
+
+	 renderGeneralInfoEdit = () => {
+		return(
+            <div id='NewOrderGeneral' className='GenericBackgroundAdd'>
+				<label className='BoxDescriptionTitle' style={{alignItems:"center"}}>Order Information</label>
+                <div className="OrderViewHeaderNew_Inner">
+					
+                  <label htmlFor="referenceNumber"><h4 style={{fontWeight: 'bold'}}>Reference #<span className="required">	*</span></h4></label>
+                  <input
+                    type="text"
+                    className="inputField"
+                    id="referenceNumber"
+                    required
+                    value={this.state.activeOrder.referenceNumber}
+                    onChange={this.handleInputActiveOrder}
+                    name="referenceNumber"
+                  />
+                </div>
+
+                <div className="OrderViewHeaderNew_Inner">
+                  <label htmlFor="datePlaced"><h4 style={{fontWeight: 'bold'}}>Date Placed<span className="required">	*</span></h4></label>
+                  <input
+                    type="date"
+                    className="inputField"
+                    id="datePlaced"
+                    value={this.state.activeOrder.datePlaced || ''}
+                    onChange={this.handleInputActiveOrder}
+                    name="datePlaced"
+                  />
+                </div>
+
+                <div className="OrderViewHeaderNew_Inner">
+                  <label htmlFor="trackingNumber"><h4 style={{fontWeight: 'bold'}}>Tracking #</h4></label>
+				    <input
+                    type="text"
+                    className="inputField"
+                    id="trackingNumber"
+                    value={this.state.activeOrder.trackingNumber || ''}
+                    name="trackingNumber"
+					style={{ boxShadow:"none"}}
+					disabled
+                  />
+                </div>
+
+            </div>
+        
+	)
+	 }
+
+	renderCustomerInfoEdit = () => {
+		const {firstName, lastName, email, phoneNumber } = this.state.activeCustomer;
+		const handleChange = this.handleInputActiveCustomer
+		return (
+			<div id='NewOrderCustomer' className='GenericBackgroundAdd'>
+				<label className='BoxDescriptionTitle'>
+				{!this.state.isSelfOrderToggle ? (
+					"Customer Information"
+					) : (
+						"Pickup Information"
+					)
+
+				}
+				</label>
+				<div className='CustomerNameView_Layout'>
+					<div className="OrderViewHeaderNew_Inner">
+						<label htmlFor="firstName"><h4 style={{fontWeight: 'bold', paddingRight:'1vw'}}>First <span className="required">	*</span>	</h4></label>
+						<input
+							type="text"
+							className="inputField"
+							id="firstName"
+							required
+							value={firstName || ''}
+							onChange={handleChange}
+							name="firstName"
+							style={{marginRight:'2vw'}}
+						/>
+					</div>
+					<div className="OrderViewHeaderNew_Inner">
+					  <label htmlFor="lastName"><h4 style={{fontWeight: 'bold'}}>Last <span className="required">	*</span></h4></label>
+					  <input
+						type="text"
+						className="inputField"
+						id="lastName"
+						required
+						value={lastName || ''}
+						onChange={handleChange}
+						name="lastName"
+					  />
+					</div>
+				</div>
+	
+				<div className='OrderViewHeaderNew_Inner'>
+					  <label htmlFor="email"><h4 style={{fontWeight: 'bold'}}>Email <span className="required">	*</span></h4></label>
+					  <input
+						type="text"
+						className="inputField"
+						id="email"
+						required
+						value={email || ''}
+						onChange={ handleChange}
+						name="email"
+						style={{width:"85%"}}
+					  />
+				</div>
+				<div className='OrderViewHeaderNew_Inner'>
+					  <label htmlFor="phoneNumber"><h4 style={{fontWeight: 'bold'}}>Phone <span className="required">	*</span></h4></label>
+					  <input
+						type="text"
+						className="inputField"
+						id="phoneNumber"
+						required
+						value={phoneNumber || ''}
+						onChange={handleChange}
+						name="phoneNumber"
+						style={{width:"85%"}}
+					  />
+				</div>
+			</div>
+		)
+	}
+
+	renderGiftEditInfo = ()  => {
+		const {giftFor, giftMessage} = this.state.activeOrder;
+		const handleChange = this.handleInputActiveOrder;
+
+		return (
+			<div id='NewOrderCustomer' className='GenericBackgroundAdd'>
+				<label className='BoxDescriptionTitle'>Gift Information</label>		
+				<div className="OrderViewHeaderNew_Inner">
+						<label htmlFor="giftFor"><h4 style={{fontWeight: 'bold'}}>Gift For <span className="required">	*</span>	</h4></label>
+						<input
+							type="text"
+							className="inputField"
+							id="giftFor"
+							required
+							value={giftFor || ''}
+							onChange={handleChange}
+							name="giftFor"
+						/>
+					</div>
+					<div className="OrderViewHeaderNew_Inner">
+					  <label htmlFor="giftMessage"><h4 style={{fontWeight: 'bold'}}>Gift Message <span className="required">	*</span></h4></label>
+					  <input
+						type="textarea" rows="4" cols="50"
+						className="inputField"
+						id="giftMessage"
+						required
+						value={giftMessage || ''}
+						onChange={handleChange}
+						name="giftMessage"
+					  />
+					</div>
+			</div>
+		);
+	}
+	
+	renderShippingEditInfo = () => {
+		const {streetAddressOne, streetAddressTwo, city, state, zip} = this.state.activeAddress;
+		const handleChange = this.handleInputActiveAddress;
+		return (
+			<div id='NewOrderShipping' className='GenericBackgroundAdd'>
+				<label className='BoxDescriptionTitle' >Shipping Information</label>
+				<div className="OrderViewHeaderNew_Inner">
+					  <label htmlFor="streetAddressOne"><h4 style={{fontWeight: 'bold'}}>Street Address One <span className="required">	*</span></h4></label>
+					  <input
+						type="text"
+						className="inputField"
+						id="streetAddressOne"
+						required
+						value={streetAddressOne || ''}
+						onChange={handleChange}
+						name="streetAddressOne"
+						style={{width:"65%"}}
+					  />
+					</div>
+					<div className="OrderViewHeaderNew_Inner">
+					  <label htmlFor="streetAddressTwo"><h4 style={{fontWeight: 'bold'}}>Street Address Two</h4></label>
+					  <input
+						type="text"
+						className="inputField"
+						id="streetAddressTwo"
+						required
+						value={streetAddressTwo || ''}
+						onChange={handleChange}
+						name="streetAddressTwo"
+						style={{width:"65%"}}
+					  />
+					</div>
+					<div className="OrderViewHeaderNew_Inner">
+						<div className="OrderViewHeaderNew_Inner">
+						<label htmlFor="city"><h4 style={{fontWeight: 'bold'}}>City <span className="required">	*</span></h4></label>
+						<input
+							type="text"
+							className="inputField"
+							id="city"
+							required
+							value={city || ''}
+							onChange={handleChange}
+							name="city"
+							style={{width:"75%"}}
+						/>
+						</div>
+						<div className="OrderViewHeaderNew_Inner">
+							<label htmlFor="state"><h4 style={{fontWeight: 'bold'}}>State <span className="required">	*</span></h4></label>
+								<select className="dropdown" value={state} onChange={handleChange} name="state">
+									<option value="">--Select--</option>
+									{stateOptions.map((option) => (
+										<option key={option.value} value={option.value}>
+										{option.label}
+										</option>
+									))}
+									</select>
+						</div>
+						<div className="OrderViewHeaderNew_Inner">
+							  <label htmlFor="zip"><h4 style={{fontWeight: 'bold'}}>Zip <span className="required">	*</span></h4></label>
+								<input
+									type="text"
+									className="inputField"
+									id="zip"
+									required
+									value={zip || ''}
+									onChange={handleChange}
+									name="zip"
+									style={{width:"100%"}}
+								/>
+							</div>
+					</div>
+		</div>
+		)
+	}
+	
+
+
+	//------ HANDLERS --------//
+	handleFlavorChange(index, quantity, flavor) {
+		const newFlavors = [...this.state.productsOrdered];
+		newFlavors[index] = { quantity, flavor };
+		this.setState({ productsOrdered: newFlavors });
+	}
+	
+	handleAddFlavor() {
+	const newFlavors = [...this.state.productsOrdered, { quantity: 1, flavor: 'jPL5' }];
+	this.setState({ productsOrdered: newFlavors });
+	}
+
+	handleRemoveFlavor(index) {
+	const newFlavors = this.state.productsOrdered.filter((flavor, i) => i !== index);
+	this.setState({ productsOrdered: newFlavors });
+	}
+
 
 	handleInputActiveOrder(e) {
         const target = e.target;
@@ -660,43 +402,196 @@ class ExistingOrder extends Component {
 				[name]: value
 			}
         });
-
-		console.log(this.state)
     }
 
-	// componentDidMount() {
-	// 	const {orderID, activeOrder, activeAddress, activeCustomer, activeInvoice, productsOrdered, numberOfFlavors, numberOfLogs} = this.props.order
-	// 	this.setState({
-	// 		orderID: parseInt(orderID),
-	// 		activeOrder: activeOrder,
-	// 		activeAddress: activeAddress,
-	// 		activeCustomer: activeCustomer,
-	// 		activeInvoice: activeInvoice,
-	// 		productsOrdered: productsOrdered,
-	// 		numberOfFlavors: numberOfFlavors,
-	// 		numberOfLogs: numberOfLogs
-	// 	})
-	// }
+	handleInputActiveCustomer(e) {
+        const target = e.target;
+        const value = target.value;
+        const name = target.name;
 
-	updateViewOnly() {
+        this.setState({
+			activeCustomer: {
+				...this.state.activeCustomer,
+				[name]: value
+			}
+        });
+
+    }
+
+	handleInputActiveAddress(e) {
+        const target = e.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+			activeAddress: {
+				...this.state.activeAddress,
+				[name]: value
+			}
+        });
+
+    }
+
+	// Toggles
+	handleSelfOrderChange(e) {
 		this.setState({
-			viewOnly: !this.state.viewOnly
+			...this.state,
+			isSelfOrderToggle: !this.state.isSelfOrderToggle,
+			activeOrder: {
+				...this.state.activeOrder,
+				isSelfOrder: this.state.isSelfOrderToggle ? 0 : 1
+			},
+			activeAddress: {
+				shippingId: 1
+			},
+		})
+	}
+	
+	handleIsGiftChange(e) {
+		this.setState({
+			...this.state,
+			isGiftToggle: !this.state.isGiftToggle,
+			activeOrder: {
+				...this.state.activeOrder,
+				isGift: this.state.isGiftToggle ? 0 : 1,
+				giftFor:'',
+				giftMessage: '',
+			},
+		})
+	}
+	
+	// Invoice add-new
+	handleCustomerPaid(e) {
+		this.setState({
+			activeInvoice: {
+				...this.state.activeInvoice,
+				customerPaid: e.target.value
+			}
 		})
 	}
 
-	saveEdits() {
-		console.log(this.state.activeOrder)
 
+	//------- CRUD ------//
 
-		this.props
-		.updateOrder({ id: parseInt(this.state.orderID), data: this.state.activeOrder })
-		.then((reponse) => {
-		  console.log(reponse);
-		  
-		})
-		.catch((e) => {
-		  console.log(e);
-		});	}
+	// Good luck to the next person who has to look at this code
+	async submitOrder() {
+		const {activeAddress, activeCustomer, isGiftToggle} = this.state;
+
+		try {
+			const addressExists = filteredList({
+				list: this.props.shippingAddresses,
+				activeObject: activeAddress,
+				fieldsToCheck: ["streetAddressOne", "streetAddressTwo", "city", "state", "zip"],
+			});
+	
+			if (addressExists) {
+				this.setState({
+					...this.state,
+					activeOrder: {
+						...this.state.activeOrder,
+						shippingId: addressExists.shippingID
+					}
+				});
+			} else {
+				const {streetAddressOne, streetAddressTwo, city, state, zip} = this.state.activeAddress;
+				//create an address and get the new shippingId
+				const data = await this.props.createShippingAddress({streetAddressOne, streetAddressTwo, city, state, zip});
+				this.setState({
+					...this.state,
+					activeOrder: {
+						...this.state.activeOrder,
+						shippingId: data.payload.shippingID
+					}
+				});
+				
+			}
+	
+			const customerExists = filteredList({
+				list: this.props.customers,
+				activeObject: activeCustomer,
+				fieldsToCheck: ["email"],
+			});
+	
+			if (customerExists) {
+			// take the customerId that exists and dont do anything to it
+				this.setState({
+					...this.state,
+					activeOrder: {
+						...this.state.activeOrder,
+						customerId: customerExists.customerID
+					}
+				})
+				// WEIRD CASE: if it exists, and addresses are not the same, update it in the backend
+				if (!isGiftToggle && customerExists.customerShippingId !== this.state.activeOrder.shippingId) {
+					// update the customer's most recent shipping address
+					await this.props.updateCustomer({ id: this.state.activeOrder.customerId, data: this.state.activeCustomer });
+				}
+	
+			} else {
+
+				const {firstName, lastName, email, phoneNumber} = this.state.activeCustomer;
+				const customerShippingId = this.state.activeOrder.shippingId;
+
+				if (isGiftToggle) {
+					//add the customer without an address mapped to it				
+					const data = await this.props.createCustomer({firstName, lastName, email, phoneNumber});
+					this.setState({
+						...this.state,
+						activeOrder: {
+							...this.state.activeOrder,
+							customerId: data.payload.customerID
+						}
+					});
+				} else {
+					// just adding the customer mapped to the address
+					const data = await this.props.createCustomerWithAddress({firstName, lastName, email, phoneNumber, customerShippingId});
+					this.setState({
+						...this.state,
+						activeOrder: {
+							...this.state.activeOrder,
+							customerId: data.payload.customerID
+						}
+					});
+				}
+				
+			} 
+	
+			console.log(this.state.activeOrder)
+			const { referenceNumber, datePlaced, isGift, giftFor, giftMessage, trackingNumber, orderStatus, shippingId, customerId, isSelfOrder } = this.state.activeOrder;
+	
+			// add the order and get orderID
+			const orderData = await this.props.createOrder({ referenceNumber, datePlaced, isGift, giftFor, giftMessage, trackingNumber, orderStatus, shippingId, customerId, isSelfOrder });
+			
+			this.setState({
+				...this.state,
+				orderID: orderData.payload.orderID
+			});
+
+			const {orderID, activeInvoice, productsOrdered} = this.state;
+
+			if(activeInvoice.customerPaid > 0) {
+				const data = await this.props.updateInvoice({ id: orderID, data: activeInvoice });
+			}
+
+			//iterate through my list of productsOrdered, for each add orderline (newOrderID, sku, quantity)
+
+			productsOrdered.forEach(async (product) => {
+				const lineOrderID = this.state.orderID;
+				const lineProductID = product.flavor;
+				const qtyOrdered = product.quantity;
+			  
+				await this.props.createOrderLine({ lineOrderID, lineProductID, qtyOrdered });
+			  });			  
+
+			
+		} catch (error) {
+
+			//TODO render an im sorry message
+			console.log(error)
+		}
+
+		this.refreshState()
+	}
 
 	deleteCurrOrder(id, event) {
 		this.props
@@ -710,57 +605,71 @@ class ExistingOrder extends Component {
 	}
   
 	render() {
-
 		const {order, activeTabId} = this.props;
 		const {viewOnly} = this.state;
 
 		const {referenceNumber, datePlaced, orderStatus, trackingNumber, giftFor, giftMessage, isGift} = this.state.activeOrder;
-		const {firstName, lastName, email, phoneNumber } = this.state.activeCustomer;
 		const {streetAddressOne,streetAddressTwo, city, state, zip} = this.state.activeAddress;
-
-		const {numberOfFlavors, numberOfLogs, productsOrdered} = this.state;
-
-		const {invoiceNumber, customerPaid, revenue, expense, invoiceStatus} = this.state.activeInvoice;
 	
+		const {isGiftToggle, isSelfOrderToggle} = this.state;
+
 			return (
-				<div id='OrderView'>
-					<div className='Row'>
-						<div id='OrderView_Header'>
-							{/* on click EDIT, we change to edit view */}
-							<button className='OrderActionButton' onClick={this.saveEdits}>
-								<img src={edit_icon} alt='add order' style={{paddingRight: '10px'}}/>
-								<h4>Save Order</h4>
-							</button>
+				<div id='OrderViewNew'>
+					<div id='OrderViewHeaderNew' >
+						<div className='ToggleWrapper'>
+							<div className='OrderViewHeaderNew_Inner'>
+								<label className='BoxDescriptionTitle'>Self Order</label>
+								<label className="switch">
+									<input type="checkbox" id="self_order_toggle" checked={isSelfOrderToggle} onChange={this.handleSelfOrderChange} />
+									<span className="slider round"></span>
+								</label>
+							</div>
+							<div className='OrderViewHeaderNew_Inner'>
+								<label className='BoxDescriptionTitle'>Is Gift?</label>
+								<label className="switch">
+									<input type="checkbox" id="is_gift_toggle" checked={isGiftToggle} onChange={this.handleIsGiftChange} />
+									<span className="slider round"></span>
+								</label>
+							</div>
+						</div>
+						<div className='OrderViewHeaderNew_Inner'>
+							<label htmlFor="status" className='StatusBackgroundAdd'><i>Status: </i> {orderStatus}</label>
+						</div>
+						<div className='OrderViewHeaderNew_Inner'>
 							{/* on click CANCEL, we clear all fields*/}
-							<button className='OrderActionButton' onClick={(this.updateViewOnly)}>
-								<img src={delete_icon} alt='add order' style={{paddingRight: '10px'}}/>
+							<button className='CancelButton' onClick={(this.refreshState)} style={{ flex:"wrap"}}>
+								<img src={delete_icon} alt='delete order' style={{paddingRight: '10px'}}/>
 								<h4>Cancel</h4>
 							</button>
+							{/* on click EDIT, we change to edit view */}
+							<button className='SaveNewOrderActionButton' onClick={this.submitOrder}>
+								<img src={edit_icon} alt='add order' style={{paddingRight: '10px'}}/>
+								<h4>Save Order</h4>
+							</button>	
 						</div>
 					</div>
-					<div className='Row'>
-					<div className='Column'>		
-					<GeneralInfoEdit handleChange={this.handleInputActiveOrder} referenceNumber={referenceNumber} datePlaced= {datePlaced} trackingNumber={trackingNumber} orderStatus={orderStatus}/>
-					</div>
-					<div className='Column'>		
-					<CustomerInfoEdit handleChange={this.handleInputChange} firstName={firstName} lastName={lastName} email={email} phoneNumber={phoneNumber}/>
+					<div className='MainContainer'>
+						<div id='LeftSideNew'>
+							{this.renderGeneralInfoEdit()}
+							<div id="NewOrderProducts" className="GenericBackgroundAdd">
+								<label className="BoxDescriptionTitle">Order Details</label>
+								{this.renderFlavorSelectors()}
+								<button className='CenterEvenAlignFlexRow addFlavorButton' onClick={this.handleAddFlavor}>
+									<img src={add_icon} alt='add order' style={{paddingRight: '10px'}}/>
+									Add Flavor
+								</button>
+							</div>
+							{this.renderInvoiceView()}
+							
+						</div>
+						<div id="RightSideNew">
+							{this.renderCustomerInfoEdit()}
+							{!this.state.isSelfOrderToggle && this.renderShippingEditInfo()}
+							{this.state.isGiftToggle && this.renderGiftEditInfo()}
+						</div>
 					</div>
 				</div>
-				<div className='Row'>
-					<div className='Column'>	
-						<InvoiceInfoView handleChange={this.handleInputChange} invoiceNumber={invoiceNumber} revenue={revenue} expense={expense} orderStatus={orderStatus}/>
-		
-					</div>
-					<div className='Column'>		
-					<ShippingInfoEdit handleChange={this.handleInputChange} streetAddressOne={streetAddressOne} streetAddressTwo={streetAddressTwo} city={city} state={state} zip={zip}/>
-					</div>
-				</div>
-				<div className='Row'>
-					<ProductInfoEdit handleChange={this.handleInputChange} numberOfFlavors={numberOfFlavors} numberOfLogs={numberOfLogs} productsOrdered={productsOrdered}/>
-				</div>
-			</div>
 			);
-		
 	}
   }
   // Mapping only the parts of the redux store that we want to work with on this component
@@ -774,5 +683,5 @@ class ExistingOrder extends Component {
 	};
   };
   
-export default connect(mapStateToProps, { createOrder, createCustomer, createOrderLine, createShippingAddress, createOrderLine })(ExistingOrder);
+export default connect(mapStateToProps, { createOrder, createCustomer, createCustomerWithAddress, updateCustomer, updateInvoice, createShippingAddress, createOrderLine })(NewOrder);
 

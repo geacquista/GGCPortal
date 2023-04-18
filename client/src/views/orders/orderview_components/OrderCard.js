@@ -6,12 +6,6 @@ class OrderCard extends Component {
 	constructor(props) {
 	  super(props);
 
-	  this.getShippingInfo = this.getShippingInfo.bind(this);
-	  this.getCustomerData = this.getCustomerData.bind(this);
-	  this.getInvoiceData = this.getInvoiceData.bind(this);
-	  this.findOrderLinesByID = this.findOrderLinesByID.bind(this);
-
-
 	this.state = {
 		orderID: -1,
 		activeOrder: {
@@ -61,7 +55,32 @@ class OrderCard extends Component {
 
 
 	componentDidMount() {
-		const {orderID, referenceNumber, datePlaced, orderStatus, trackingNumber, giftFor, giftMessage, isGift, customerId, shippingId, isSelfOrder} = this.props.order
+		const {orderID, referenceNumber, datePlaced, orderStatus, trackingNumber, giftFor, giftMessage, isGift, customerId, shippingId, isSelfOrder} = this.props.order;
+		const {streetAddressOne, streetAddressTwo, city, state, zip} = this.props.address;
+		const {firstName, lastName, email, phoneNumber} = this.props.customer;
+		const {invoiceNumber, customerPaid, revenue, expense, invoiceStatus} = this.props.invoice;
+		const {products, orderline} = this.props
+		
+		let i = 0;
+		let logs = 0;
+		let flavors = orderline.length;
+
+		const productList = [];
+		while (i < flavors) {
+			const {name} = products.filter(product => product.sku === orderline[i].lineProductID)[0]
+			const newProduct = {
+				lineOrderID: orderline[i].lineOrderID,
+				lineProductID: orderline[i].lineProductID,
+				qtyOrdered: orderline[i].qtyOrdered,
+				name: name
+			}
+			productList.push(newProduct)
+			
+			logs+= orderline[i].qtyOrdered;
+			i++;
+
+		}
+
 		this.setState({
 			orderID: parseInt(orderID),
 			activeOrder: {
@@ -72,103 +91,38 @@ class OrderCard extends Component {
 				giftFor: giftFor,
 				giftMessage: giftMessage,
 				isGift: isGift,
-				customerId: customerId,
-				shippingId: shippingId,
+				customerId: (customerId),
+				shippingId: (shippingId),
 				isSelfOrder: isSelfOrder,
-			}
-		})
-		this.getShippingInfo(shippingId, customerId);
-
-
-	}
-
-	getShippingInfo(shippingId, customerId) {
-		const filteredAddress = this.props.shippingAddresses.find(address => address.shippingID === shippingId)
-		const {streetAddressOne, streetAddressTwo, city, state, zip} = filteredAddress;
-
-		this.setState({
+			},
 			activeAddress: {
 				streetAddressOne: streetAddressOne,
 				streetAddressTwo: streetAddressTwo,
 				city: city,
 				state: state,
 				zip: zip,
-			}
-		});
-		this.getCustomerData(customerId);
-		
-	}
-
-	getCustomerData(customerId) {
-		const filteredCustomer = this.props.customers.find(customer => customer.customerID === customerId)
-		const {firstName, lastName, email, phoneNumber} = filteredCustomer;
-		
-		this.setState({
+			},
 			activeCustomer: {
 				firstName: firstName,
 				lastName: lastName,
 				email: email,
 				phoneNumber: phoneNumber,
-			} 
-		});
-		this.findOrderLinesByID();
-	
-	}
-
-	findOrderLinesByID() {
-		const {orderID} = this.props.order
-		const {products, orderline} = this.props
-
-		const filteredOrderLines = orderline.filter(line => line.lineOrderID === orderID)
-		
-		let i = 0;
-		let logs = 0;
-		let flavors = filteredOrderLines.length;
-
-		const productList = [];
-		while (i < flavors) {
-			const {name} = products.filter(product => product.sku === filteredOrderLines[i].lineProductID)[0]
-			const newProduct = {
-				lineOrderID: filteredOrderLines[i].lineOrderID,
-				lineProductID: filteredOrderLines[i].lineProductID,
-				qtyOrdered: filteredOrderLines[i].qtyOrdered,
-				name: name
-			}
-			productList.push(newProduct)
-			
-			logs+= filteredOrderLines[i].qtyOrdered;
-			i++;
-
-		}
-
-		this.setState({
+			} ,
+			activeInvoice: {
+				invoiceNumber: invoiceNumber || "NA",
+				customerPaid: customerPaid,
+				revenue: revenue,
+				expense: expense,
+				invoiceStatus: invoiceStatus,
+			},
 			productsOrdered: productList,
 			numberOfLogs: logs,
 			numberOfFlavors: flavors
-		});
-
-		this.getInvoiceData(orderID);
-		
-	}
-
-
-	getInvoiceData(id) {
-		const {invoices} = this.props
-		console.log(id)
-		console.log(invoices)
-
-		const filteredInvoice = invoices.find(invoice => invoice.orderID === id)		
-		this.setState({
-			activeInvoice: {
-				invoiceNumber: filteredInvoice.invoiceNumber || "NA",
-				customerPaid: filteredInvoice.customerPaid,
-				revenue: filteredInvoice.revenue,
-				expense: filteredInvoice.expense,
-				isPaid: filteredInvoice.isPaid,
-			}
-		});
 			
+		})
 	}
+
+
 
 	render() {
 		const {color} = this.props;
@@ -209,10 +163,6 @@ class OrderCard extends Component {
   // Mapping only the parts of the redux store that we want to work with on this component
   const mapStateToProps = (state) => {	
 	return {
-		shippingAddresses: state.shippingAddresses,
-		customers: state.customers,
-		invoices: state.invoices,
-		orderline: state.orderline,
 		products: state.products
 	};
   };

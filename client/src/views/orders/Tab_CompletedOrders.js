@@ -8,10 +8,10 @@ import { OrderDisplayColumn } from "./MainOrderView_Tabs";
 
 
 // Completed Orders Tab
-const CompletedOrders = ({orders, orderCardOnClick, products}) => {
+const CompletedOrders = ({orders, orderCardOnClick, products, shippingAddresses, invoices, orderline, customers}) => {
 	return (
 		<div id='OrderDisplayColumns' style={{display: 'flex', displayDirection: 'column'}}>
-			<OrderDisplayColumn title='Completed' orders={orders} orderCardOnClick={orderCardOnClick} products={products} />
+			<OrderDisplayColumn title='Completed' orders={orders} customers={customers} shippingAddresses={shippingAddresses} invoices={invoices} orderline={orderline} orderCardOnClick={orderCardOnClick} products={products} />
 		</div>
 	)
 }
@@ -28,14 +28,14 @@ class CompletedOrdersTab extends Component {
 	}
   
 	render() {
-		const {orders, products} = this.props;
+		const {orders, products, shippingAddresses, customers, orderline, invoices} = this.props;
 		
 		const currentCompletedOrders = orders.filter(order => (order.orderStatus === "Complete"));
 
 		return(
 			<div id='CompletedOrders'>	
 				<div id='OrdersDisplay' style={{display: 'flex', displayDirection: 'column'}}>
-					<CompletedOrders products={products} orders={currentCompletedOrders} orderCardOnClick={this.props.orderCardOnClick}/>
+					<CompletedOrders orders={currentCompletedOrders} products={products} shippingAddresses={shippingAddresses} customers={customers} invoices={invoices} orderline={orderline} orderCardOnClick={this.props.orderCardOnClick}/>
 				</div>
 			</div>		
 		);
@@ -47,7 +47,12 @@ class CompletedOrdersTab extends Component {
   // Mapping only the parts of the redux store that we want to work with on this component
   const mapStateToProps = (state) => {
 	return {
-	  orders: state.orders,
+	 	orders: state.orders,
+	 	shippingAddresses: state.shippingAddresses,
+		customers: state.customers,
+		invoices: state.invoices,
+		orderline: state.orderline,
+		products: state.products
 	};
   };
   

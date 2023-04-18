@@ -5,8 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux';
 import { store } from './store_cfg'; // provides the data
-import App from './App'; // launches the components 
-import AppComp from './AppFunctional'
+import App from './App'
 import reportWebVitals from './reportWebVitals';
 import './index.css'; 
 import { BrowserRouter } from 'react-router-dom';
@@ -15,7 +14,7 @@ import { BrowserRouter } from 'react-router-dom';
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <AppComp />
+      <App />
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')

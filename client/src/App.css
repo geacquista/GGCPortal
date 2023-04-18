@@ -14,6 +14,13 @@
   }
 }
 
+
+
+@font-face {
+	font-family: Carrois;
+	src: url(assets/fonts/CarroisGothicSC-Regular.ttf);
+  }
+
 .App-header {
   height: 100%;
   display: flex;
@@ -34,21 +41,27 @@ main {
 
 
 
-/*------------------ Orders ---------------------*/
-
-#Orders {
+/*------------------ Elements Right of Nav ---------------------*/
+.ViewContainer {
 	text-align: left;
 	display: flex;
 	flex-direction: column;
 	align-content: flex-start;
 	justify-content: flex-start;
-	padding-left: 60px;
-  
+	padding: 48px;
+	scroll-behavior:hidden;
+
+}
+
+
+/*------------------ Orders ---------------------*/
+
+#Orders {
+	width: fit-content;
 }
 
 #OrdersDisplay {
-  height: 100vh;
-	text-align: left;
+  height: fit-content;
 	display: flex;
 	flex-direction: column;
 	align-content: flex-start;
@@ -59,13 +72,13 @@ main {
 #OrderView{
 	
 	display: flex;
-  max-width: 1144px;
-	overflow-y: scroll;
-  scroll-behavior: smooth;
+    width: 100%;
+	/* overflow-y: scroll; */
+  /* scroll-behavior: smooth; */
+  scroll-behavior:hidden;
 	flex-direction: column;
 	justify-content: center;
 	background-color: White;
-	padding: 10px;
 }
 
 #OrderView_Header{
@@ -76,9 +89,9 @@ main {
 	justify-content: left;
 	background-color: White;
 	padding: 10px;
-	position: sticky;
 	top: 0px;
 }
+
 
 #OrderView_General{
 	width:  382px;
@@ -176,6 +189,7 @@ main {
 	height: 70vh;
 	flex-direction: row;
 	justify-content: flex-start;
+	width: fit-content;
 }
 
 .OrderDisplayColumn {
@@ -226,7 +240,7 @@ main {
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	box-shadow: 2px 0px 15px #D5D5D5;
+	box-shadow: 2px 0px 8px #2c2c2c;
 	margin-bottom: 14px;
 }
 
@@ -235,6 +249,7 @@ main {
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+	width: 100%;
 }
 
 .OrderActionButton {
@@ -260,77 +275,6 @@ main {
     font-weight: bold;
 }
 
-#OrderView_Header {
-	display: flex;
-	padding: 8px;
-	flex-direction: row;
-}
-
-/*------------------ Navbar ---------------------*/
-@font-face {
-  font-family: Roboto;
-  src: url('./assets/fonts/Roboto-Regular.ttf');
-}
-
-.NavBarButton {
-height: 58px;
-width: 100%;
-padding: 25px;
-  font-family: Roboto;
-display: flex;
-size: 24px;
-flex-direction: row;
-justify-content: flex-start;
-align-items: center;
-  border: none;
-background-color: White;
-  border-radius: 5px;
-}
-
-.NavBarButton:hover {
-background-color: #D5D5D5;
-  font-size: large;
-  cursor: pointer;
-}
-
-.NavBarButtonActive {
-height: 58px;
-width: 275px;
-padding: 25px;
-display: flex;
-flex-direction: row;
-justify-content: flex-start;
-align-items: center;
-border: none;
-color: White;
-  cursor: pointer;
-background-color: #C62032;
-}
-
-.NavBarIcon {
-width: fit-content;
-}
-
-#NavBar {
-height: 100vh;
-width: 275px;
-display: flex;
-flex-direction: column;
-align-items: center;
-place-self: flex-start;
-align-content: flex-start;
-background-color: white;
-position: absolute;
-}
-
-#NavBarTop {
-margin-top: 40px;
-}
-
-#NavBarBottom {
-  margin-top: auto;
-}
-
 
 
 
@@ -343,9 +287,6 @@ margin-top: 40px;
 	padding-left: 60px;
 }
 
-
-
-
 #Search {
 	text-align: left;
 	flex: 1 1 auto;
@@ -357,4 +298,60 @@ margin-top: 40px;
 
 .search {
     width: 75%;
+}
+
+.BoxDescriptionTitle {
+	font-family: Carrois;
+	font-size: 28px;
+	text-align: center;
+	padding: 8px;
+}
+
+.inputField {
+	background-color: #ffffff;
+	border:none;
+	border-radius: 12px;
+	padding:6px;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.2);
+}
+
+#mainViewContainer {
+	padding-left: 335px;
+	padding-top: 45px;
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+	align-content: flex-start;
+	justify-content: flex-start;
+}
+
+
+.CenterAlignFlexRow{
+	height: fit-content;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+    align-items: center;
+	padding: 5px;
+}
+
+.CenterEvenAlignFlexRow{
+	height: fit-content;
+	display: flex;
+	flex-direction: row;
+	background-color: #D5D5D5;
+	justify-content: center;
+    align-items: center;
+	padding: 4px;
+	
+}
+
+.required {
+	color:#C62032
+}
+
+.CustomerNameView_Layout {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
 }

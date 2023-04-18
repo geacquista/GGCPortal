@@ -22,8 +22,8 @@ import OrderDataService from "../services/OrderDataService";
  */
 export const createOrder = createAsyncThunk(
   "orders/create",
-  async ({ datePlaced, isGift, giftFor, giftMessage, trackingNumber, orderStatusId, shippingId, customerId, referenceNumber, isSelfOrder }) => {
-    const res = await OrderDataService.create({ datePlaced, isGift, giftFor, giftMessage, trackingNumber, orderStatusId, shippingId, customerId, referenceNumber, isSelfOrder });
+  async ({ referenceNumber, datePlaced, isGift, giftFor, giftMessage, trackingNumber, orderStatus, shippingId, customerId, isSelfOrder }) => {
+    const res = await OrderDataService.create({ referenceNumber, datePlaced, isGift, giftFor, giftMessage, trackingNumber, orderStatus, shippingId, customerId, isSelfOrder });
     return res.data;
   }
 );

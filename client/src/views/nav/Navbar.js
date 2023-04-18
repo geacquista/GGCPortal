@@ -1,5 +1,5 @@
 import logo from '../../assets/img/ggc_logo_dropshadow.png';
-import {ViewIndex} from '../../GGCApp';
+import {ViewIndex} from '../../App';
 import '../../assets/style/navbar.css'
 import React from 'react';
 import { Link } from 'react-router-dom';

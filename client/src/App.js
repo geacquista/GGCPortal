@@ -1,9 +1,15 @@
-import React, { Component } from "react";
+import React, { useState,useEffect } from "react";
 import { connect } from "react-redux";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import logo from "./assets/img/ggc_logo_dropshadow.png";
 
-import home_logo from "./assets/img/home_black.svg"
+import home_icon from "./assets/img/home_black.svg";
+import order_icon from "./assets/img/order_black.svg";
+import search_icon from "./assets/img/search_black.svg";
+
+import logout_icon from "./assets/img/logout_black.svg";
+import help_icon from "./assets/img/help_black.svg";
+import profile_icon from "./assets/img/user_black.svg";
 
 import Login from "./views/aa_login/Login";
 import Home from "./views/aa_login/Home";
@@ -11,7 +17,6 @@ import Profile from "./views/aa_login/Profile";
 import BoardUser from "./views/aa_login/BoardUser";
 import BoardModerator from "./views/aa_login/BoardModerator";
 import BoardAdmin from "./views/aa_login/BoardAdmin";
-import GGCApp from "./GGCApp"
 
 import { logout } from "./store/auth";
 import { clearMessage } from "./store/message";
@@ -25,12 +30,14 @@ import { retrieveOrderLines } from './store/orderline_slice';
 
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import '../../client/src/assets/style/navbar.css';
 import "./App.css";
 import Dashboard from "./views/dashboard/Dashboard";
 import MainOrderPane from "./views/orders/MainOrderView_Tabs";
 import Search from "./views/search/Search";
 import HelpScreen from "./views/help/Help";
-
+import FarmView from "./views/farm_view/farm_view";
+import AdminPanel from "./views/admin/AdminPanel";
 
 
 
@@ -66,197 +73,219 @@ export const OrderStatus = {
   ARCHIVE: "Archive"
 } 
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+const App = ({ 
+  auth, 
+  orders, 
+  invoices, 
+  products, 
+  customers, 
+  shippingAddresses, 
+  orderline, 
+  clearMessage, 
+  logout 
+}) => {
+  const [showFarmBoard, setShowFarmBoard] = useState(false);
+  const [showAdminBoard, setShowAdminBoard] = useState(false);
+  const [activeUser, setActiveUser] = useState({
+    userID: null,
+    email: "",
+    nickname: "",
+    permissionType: PermissionTypes.LOGGEDOUT
+  });
 
-    this.logOut = this.logOut.bind(this);
+  const location = useLocation();
 
-    this.state = {
-      
-      showFarmBoard: false,
-      showAdminBoard: false,
+  // useEffect(() => {
+  //   if (["/"].includes(location.pathname)) {
+  //     clearMessage(); // clear message when changing location
+  //   }
+  // }, [location.pathname, clearMessage]);
 
-      activeUser: {
-        userID: null,
-        email: "",
-        nickname: "",
-        permissionType: PermissionTypes.LOGGEDOUT
-      }
-    };
-  }
+  // useEffect(() => {
+  //   if (auth.isLoggedIn && auth.user !== activeUser) {
+  //     setActiveUser({
+  //       userID: auth.user.userID,
+  //       email: auth.user.email,
+  //       nickname: auth.user.nickname,
+  //       permissionType: auth.user.permissionType
+  //     });
+  //   } else if (!auth.isLoggedIn && activeUser !== null) {
+  //     setActiveUser({
+  //       userID: null,
+  //       email: "",
+  //       nickname: "",
+  //       permissionType: PermissionTypes.LOGGEDOUT
+  //     });
+  //   }
+  // }, [auth.isLoggedIn, auth.user, activeUser]);
 
-  componentDidMount() {
-    const {location, auth} = this.props;
-
-    if (["/login"].includes(location.pathname)) {
-      this.props.clearMessage(); // clear message when changing location
-    }
-    
-  }
-
-  logOut() {
-    this.props.logout();
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    const { auth } = this.props;
-    const { activeUser } = this.state;
-  
-    return auth.isLoggedIn !== nextProps.auth.isLoggedIn ||
-           auth.user !== nextProps.auth.user ||
-           activeUser !== nextState.activeUser;
-  }
-
-
-  componentDidUpdate(prevProps, prevState) {
-    const { auth } = this.props;
-    console.log(auth)
-    console.log(auth.isLoggedIn)
-
-    if (auth.isLoggedIn && auth.user !== prevState.activeUser) {
-      this.setState({
-        activeUser: {
-          userID: auth.user.userID,
-          email: auth.user.email,
-          nickname: auth.user.nickname,
-          permissionType: auth.user.permissionType
-        }
-      });
-    } else if (!auth.isLoggedIn && prevState.activeUser !== null) {
-      this.setState({
-        activeUser: {
-          userID: null,
-          email: "",
-          nickname: "",
-          permissionType: PermissionTypes.LOGGEDOUT
-        }
-      });
-    }
-    else {
-      console.log("No state change")
-    }
-  }
-
-  render() {
-    const {orders, invoices, products, customers, shippingAddresses, orderline} = this.props;
-
-    const { showFarmBoard, showAdminBoard } = this.state;
-    const { user } = this.props.auth;
-    const {activeUser} = this.state;
-    console.log(this.props)
-
+  const logOut = () => {
+    logout();
+    setActiveUser({
+      userID: null,
+      email: "",
+      nickname: "",
+      permissionType: PermissionTypes.LOGGEDOUT
+    });
+  };
 
     return (
       
-        <div  style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-        <nav className="navbar navbar-expand bg-light" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <div className="landing-page">
+        <nav className="navbar navbar-expand NavBar" id={"navbar-special"}>
           
-          <Link to={"/"} className="navbar-brand">
-            <img alt='logo' src={logo} height='200' width='200' />
-            <h2>G.O.A.T.S.</h2>
-          </Link>
-          <div className="NavBarTop" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' } }>
+          <div id='branding'>
+            <img alt='logo' src={logo} height='150' width='150' />
+            <h2 style={{paddingTop:"12px"}}>G.O.A.T.S.</h2>
+          </div>
+
+
+          <div style={{ display: 'flex', flexDirection: 'column'} }>
           
             {activeUser.userID && activeUser.permissionType ===PermissionTypes.FARM && (
-              <li className="nav-item">
-                <Link to={"/farm"} className="nav-link">
-                  Farm Board
-                </Link>
-              </li>
+              <div className="NavBarButton">
+                  <Link to={"/dashboard-farm"} className="nav-link">
+                    <button className='NavBarButton' >
+                            <img src={home_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                            <h4>Dashboard</h4>
+                      </button>
+
+                  </Link>
+                    <Link to={"/orders-farm"} className="nav-link">
+                      
+                       <button className='NavBarButton' >
+                          <img src={order_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                          <h4>Orders</h4>
+                        </button>
+                    </Link>
+                  </div>
             )}
-            {activeUser.userID && activeUser.permissionType===PermissionTypes.ADMIN && (
-              <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
-                </Link>
-              </li>
+            {activeUser.userID && activeUser.permissionType !==PermissionTypes.FARM && (
+                <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'column'}}>
+                    <li className="NavBarButton">
+                        <Link to={"/dashboard"} className="nav-link">
+                        <button className='NavBarButton' >
+                            <img src={home_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                            <h4>Dashboard</h4>
+                          </button>
+                        </Link>
+                        </li><li>
+                          <Link to={"/orders"} className="nav-link">
+                          <button className='NavBarButton' >
+                            <img src={order_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                            <h4>Orders</h4>
+                          </button>
+                          
+                        </Link>
+
+                    </li>
+                </div>
+              
             )}
 
-            {activeUser.userID && (
-              <li className="nav-item">
-                <li className="nav-item">
-                  <Link to={"/home"} className="nav-link">
-                    Home
+            {activeUser.userID && activeUser.permissionType===PermissionTypes.ADMIN && (
+              <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'column'}}>
+                <li className="NavBarButton">
+                  <Link to={"/admin"} className="nav-link">
+                   <button className='NavBarButton' >
+                      <img src={profile_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                      <h4>Admin Board</h4>
+                    </button>
                   </Link>
                 </li>
-                <Link to={"/user"} className="nav-link">
-                  User
-                </Link>
-              </li>
+              </div>
             )}
           </div>
 
           {activeUser.userID ? (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
-                  {activeUser.nickname}
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={this.logOut}>
-                  Log Out
+            <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'row'}}>
+                    <Link to={"/search"} className="nav-link">
+                      <button className='NavBarButton' >
+                            <img src={search_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                            <h4>Search</h4>
+                        </button>
+                    </Link>
+                  <Link to={"/help"} className="nav-link">
+                    <button className='NavBarButton' >
+                      <img src={help_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                      <h4>Help</h4>
+                    </button>
+                  </Link>
+                <a href="/" className="nav-link" onClick={logOut}>
+                  <button className='NavBarButton' >
+                      <img src={logout_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                      <h4> Log Out {activeUser.nickname}</h4>
+                    </button>
                 </a>
-              </li>
+
             </div>
           ) : (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/dashboard"} className="nav-link">
-                  Home
-                </Link>
-              </li>
-              <li>
-              <Link to={"/orders"} className="nav-link">
-                Orders
-              </Link>
-            </li>
-              <li>
-                <Link to={"/search"} className="nav-link">
-                  Search
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"/help"} className="nav-link">
-                  Help
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
-                  Login
-                </Link>
-              </li>
-            </div>
+              <div className="navbar-nav" id={"nav-main-content"} style={{display:'flex', flexDirection:'column'}}>
+                <div id="NavBarTop">
+                  <Link to={"/dashboard"} className="nav-link">
+                    <button className='NavBarButton' >
+                      <img src={home_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                      <h4>Dashboard</h4>
+                    </button>
+                  </Link>
+                    <Link to={"/orders"} className="nav-link">
+                    <button className='NavBarButton' >
+                      <img src={order_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                      <h4>Orders</h4>
+                    </button>
+                      
+                    </Link>
+                    <Link to={"/search"} className="nav-link">
+                    <button className='NavBarButton' >
+                      <img src={search_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                      <h4>Search</h4>
+                    </button>
+                    </Link>
+                </div>
+                <div id="NavBarBottom" className="OrderViewHeaderCol_Inner">
+                    <Link to={"/help"} className="nav-link">
+                    <button className='NavBarButton' >
+                      <img src={help_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                      <h4>Help</h4>
+                    </button>
+                      
+                    </Link>
+                    <Link to={"/"} className="nav-link">
+                    <button className='NavBarButton' >
+                      <img src={logout_icon} alt='nav' style={{paddingRight: '10px'}}/>
+                      <h4>Login</h4>
+                    </button>
+                    </Link>
+                </div>
+              </div>
           )}
         </nav>
         
-        <div className="container mt-3">
+        <div className="container mt-3" id="mainViewContainer">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/dashboard" element={<Dashboard/>} />
-            {/*<Route path="/login" element={<Login />} />*/}
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/user" element={<BoardUser />} />
-            <Route path="/farm" element={<BoardModerator />} />
-            <Route path="/admin" element={<BoardAdmin />} />
-            {/* <Route path="/GGCHome" element={<GGCApp/>}/> */}
             <Route path="/orders" element={<MainOrderPane/>}/>
+
+            <Route path="/dashboard-farm" element={<FarmView />} />
+            <Route path="/orders-farm" element={<FarmView />} />
+
+            <Route path="/admin" element={<AdminPanel />} />
             <Route path="/search" element={<Search/>}/>
             <Route path="/help" element={<HelpScreen/>}/>
+
+            {/* <Route path="/GGCHome" element={<GGCApp/>}/> */}
+            {/* <Route path="/" element={<Login />} /> */}
+            {/* <Route path="/profile" element={<Profile />} /> */}
           </Routes>
         </div>
-
-    </div>
+     </div>
   );
 };
-
-}
 
 const mapStateToProps = (state) => {
     return {
       users: state.users,
-     
       auth: state.auth,
       location: state.router.location
     };
