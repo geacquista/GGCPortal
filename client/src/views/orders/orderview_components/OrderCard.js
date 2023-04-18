@@ -55,7 +55,6 @@ class OrderCard extends Component {
 
 
 	componentDidMount() {
-		console.log(this.props)
 		const {orderID, referenceNumber, datePlaced, orderStatus, trackingNumber, giftFor, giftMessage, isGift, customerId, shippingId, isSelfOrder} = this.props.order;
 		const {streetAddressOne, streetAddressTwo, city, state, zip} = this.props.address;
 		const {firstName, lastName, email, phoneNumber} = this.props.customer;

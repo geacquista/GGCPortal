@@ -11,7 +11,6 @@ const get = id => {
 const create = data => {
   return http.post("/customers", data);
 };
-
 const createCustomerWithAddress = data => {
   return http.post("/customers", data);
 };

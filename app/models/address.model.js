@@ -17,7 +17,7 @@ const ShippingAddress = function(shipping_address) {
  ShippingAddress.create = (newShippingAddress, result) => {
 
   // could change query formatting here to be consistent throughout
-  var query = "INSERT INTO `ShippingAddress` (`streetAddressOne`, `streetAddressTwo`, `state`, `city`, `zip`) VALUES (?,?,?,?,?,?);"
+  var query = "INSERT INTO `ShippingAddress` (`streetAddressOne`, `streetAddressTwo`, `state`, `city`, `zip`) VALUES (?,?,?,?,?);"
   sql.query(query,
     [newShippingAddress.streetAddressOne,newShippingAddress.streetAddressTwo, newShippingAddress.state, newShippingAddress.city, newShippingAddress.zip], 
     function (err, res) {

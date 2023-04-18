@@ -185,7 +185,6 @@
 }
 
 .ToggleWrapper {
-	border: 2px solid black;
     border-radius: 10px;
 	background-color: none;
     padding: 12px;
@@ -199,61 +198,70 @@
 }
 
 .switch {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-}
-
-.switch input[type="checkbox"] {
-	display: none;
-  }
-  
-  .switch label {
-	width: 40px;
-	height: 20px;
-	border-radius: 15px;
-	background-color: gray;
 	position: relative;
-	cursor: pointer;
-	transition: background-color 0.2s;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
   }
   
-  .switch label:after {
-	content: '';
-	width: 16px;
-	height: 16px;
-	border-radius: 50%;
-	background-color: white;
+  .switch input { 
+	opacity: 0;
+	width: 0;
+	height: 0;
+  }
+  
+  .slider {
 	position: absolute;
-	top: 2px;
-	left: 2px;
-	transition: left 0.2s;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
   }
   
-  .switch input[type="checkbox"]:checked + label {
-	background-color: green;
-  }
-  
-  .switch input[type="checkbox"]:checked + label:after {
-	left: 22px;
-  }
-  
-  .switch label:hover {
-	background-color: lightgray;
-  }
-  
-  .switch label:hover:after {
-	left: 20px;
-  }
-  
-  .switch label:active {
-	background-color: darkgray;
-  }
-  
-  .switch label:active:after {
-	left: 20px;
+  .slider:before {
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
   }
 
+  .slider:hover{
+	box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.508);
+	-webkit-transition: .4s;
+	transition: .4s;
+  }  
+  
+  input:checked + .slider {
+	background-color: #C62032;
+  }
+  
+  input:focus + .slider {
+	box-shadow: 0 0 1px #C62032;
+  }
+  
+  input:checked + .slider:before {
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+	border-radius: 34px;
+  }
+  
+  .slider.round:before {
+	border-radius: 50%;
+  }
   .addFlavorButton {
 	padding: 2px 8px 2px 8px;
 

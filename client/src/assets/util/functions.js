@@ -6,3 +6,11 @@ export function createStringArray(arr, prop) {
     }
     return result;
  }
+
+ export function filteredList({ list, activeObject, fieldsToCheck }) {
+   return list.find((item) => {
+     return fieldsToCheck.every((field) => {
+       return item[field] === activeObject[field];
+     });
+   });
+ } 

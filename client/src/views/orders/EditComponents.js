@@ -3,7 +3,7 @@ import add_icon from '../../assets/img/plus_black.svg'
 
 import FlavorSelector from './orderview_components/FlavorSelector';
 import { createStringArray } from '../../assets/util/functions'
-import {stateOptions} from '../../assets/util/dropdown.constants'
+import {flavorOptions, stateOptions} from '../../assets/util/dropdown.constants'
 
 // ------------------------------ EDIT --------------------------------- //
 
@@ -14,39 +14,40 @@ export const GeneralInfoEdit = ({referenceNumber, datePlaced, trackingNumber, or
 				<label className='BoxDescriptionTitle' style={{alignItems:"center"}}>Order Information</label>
                 <div className="OrderViewHeaderNew_Inner">
 					
-                  <label htmlFor="ref"><h4 style={{fontWeight: 'bold'}}>Reference #<span className="required">	*</span></h4></label>
+                  <label htmlFor="referenceNumber"><h4 style={{fontWeight: 'bold'}}>Reference #<span className="required">	*</span></h4></label>
                   <input
                     type="text"
                     className="inputField"
-                    id="ref"
+                    id="referenceNumber"
                     required
-                    defaultValue={referenceNumber}
+                    value={referenceNumber}
                     onChange={handleChange}
-                    name="ref"
+                    name="referenceNumber"
                   />
                 </div>
 
                 <div className="OrderViewHeaderNew_Inner">
-                  <label htmlFor="date"><h4 style={{fontWeight: 'bold'}}>Date Placed<span className="required">	*</span></h4></label>
+                  <label htmlFor="datePlaced"><h4 style={{fontWeight: 'bold'}}>Date Placed<span className="required">	*</span></h4></label>
                   <input
-                    type="text"
+                    type="date"
                     className="inputField"
-                    id="date"
-                    defaultValue={datePlaced || ''}
+                    id="datePlaced"
+                    value={datePlaced || ''}
                     onChange={handleChange}
-                    name="date"
+                    name="datePlaced"
                   />
                 </div>
 
                 <div className="OrderViewHeaderNew_Inner">
-                  <label htmlFor="tracking"><h4 style={{fontWeight: 'bold'}}>Tracking #</h4></label>
-                  <input
+                  <label htmlFor="trackingNumber"><h4 style={{fontWeight: 'bold'}}>Tracking #</h4></label>
+				    <input
                     type="text"
                     className="inputField"
-                    id="tracking"
-                    defaultValue={trackingNumber || ''}
-                    onChange={handleChange}
+                    id="trackingNumber"
+                    value={trackingNumber || ''}
                     name="trackingNumber"
+					style={{ boxShadow:"none"}}
+					disabled
                   />
                 </div>
 
@@ -55,71 +56,39 @@ export const GeneralInfoEdit = ({referenceNumber, datePlaced, trackingNumber, or
 	)
 }
 
-export const CustomerInfoEdit = ({firstName, lastName, email, phoneNumber, handleChange}) => {
+export const GiftInfoEdit = ({handleChange, giftFor, giftMessage}) => {
 
 	return (
 		<div id='NewOrderCustomer' className='GenericBackgroundAdd'>
-		   <label className='BoxDescriptionTitle'>Customer Information</label>
-			
-			
-			<div className='CustomerNameView_Layout'>
-				<div className="OrderViewHeaderNew_Inner">
-					<label htmlFor="first"><h4 style={{fontWeight: 'bold', paddingRight:'1vw'}}>First <span className="required">	*</span>	</h4></label>
+			<label className='BoxDescriptionTitle'>Gift Information</label>		
+			<div className="OrderViewHeaderNew_Inner">
+					<label htmlFor="giftFor"><h4 style={{fontWeight: 'bold', paddingRight:'1vw'}}>First <span className="required">	*</span>	</h4></label>
 					<input
 						type="text"
 						className="inputField"
-						id="first"
+						id="giftFor"
 						required
-						defaultValue={firstName || ''}
+						value={giftFor || ''}
 						onChange={handleChange}
-						name="first"
+						name="giftFor"
 						style={{marginRight:'2vw'}}
 					/>
 				</div>
 				<div className="OrderViewHeaderNew_Inner">
-                  <label htmlFor="last"><h4 style={{fontWeight: 'bold'}}>Last <span className="required">	*</span></h4></label>
+                  <label htmlFor="giftMessage"><h4 style={{fontWeight: 'bold'}}>Last <span className="required">	*</span></h4></label>
                   <input
-                    type="text"
+                    type="textarea" rows="4" cols="50"
                     className="inputField"
-                    id="last"
+                    id="giftMessage"
                     required
-                    defaultValue={lastName || ''}
+                    value={giftMessage || ''}
                     onChange={handleChange}
-                    name="last"
+                    name="giftMessage"
                   />
                 </div>
-			</div>
-
-			<div className='OrderViewHeaderNew_Inner'>
-                  <label htmlFor="email"><h4 style={{fontWeight: 'bold'}}>Email <span className="required">	*</span></h4></label>
-                  <input
-                    type="text"
-                    className="inputField"
-                    id="email"
-                    required
-                    defaultValue={email || ''}
-                    onChange={ handleChange}
-                    name="email"
-					style={{width:"85%"}}
-                  />
-			</div>
-			<div className='OrderViewHeaderNew_Inner'>
-                  <label htmlFor="phone"><h4 style={{fontWeight: 'bold'}}>Phone <span className="required">	*</span></h4></label>
-                  <input
-                    type="text"
-                    className="inputField"
-                    id="phone"
-                    required
-                    defaultValue={phoneNumber || ''}
-                    onChange={handleChange}
-                    name="phone"
-					style={{width:"85%"}}
-                  />
-			</div>
 		</div>
-	);	
+	);
 }
-
 export const ShippingInfoEdit = ({streetAddress, city, state, zip, handleChange}) => {
 	return (
 		<div id='NewOrderShipping' className='GenericBackgroundAdd'>
@@ -131,7 +100,7 @@ export const ShippingInfoEdit = ({streetAddress, city, state, zip, handleChange}
                     className="inputField"
                     id="streetAddressOne"
                     required
-                    defaultValue={streetAddress || ''}
+                    value={streetAddress || ''}
                     onChange={handleChange}
                     name="streetAddressOne"
 					style={{width:"65%"}}
@@ -144,7 +113,7 @@ export const ShippingInfoEdit = ({streetAddress, city, state, zip, handleChange}
                     className="inputField"
                     id="streetAddressTwo"
                     required
-                    defaultValue={streetAddress || ''}
+                    value={streetAddress || ''}
                     onChange={handleChange}
                     name="streetAddressTwo"
 					style={{width:"65%"}}
@@ -158,7 +127,7 @@ export const ShippingInfoEdit = ({streetAddress, city, state, zip, handleChange}
 						className="inputField"
 						id="city"
 						required
-						defaultValue={city || ''}
+						value={city || ''}
 						onChange={handleChange}
 						name="city"
 						style={{width:"75%"}}
@@ -166,7 +135,7 @@ export const ShippingInfoEdit = ({streetAddress, city, state, zip, handleChange}
 					</div>
 					<div className="OrderViewHeaderNew_Inner">
 						<label htmlFor="state"><h4 style={{fontWeight: 'bold'}}>State <span className="required">	*</span></h4></label>
-							<select className="dropdown" value={state} onChange={handleChange}>
+							<select className="dropdown" value={state} onChange={handleChange} name="state">
 								<option value="">--Select--</option>
 								{stateOptions.map((option) => (
 									<option key={option.value} value={option.value}>
@@ -174,9 +143,7 @@ export const ShippingInfoEdit = ({streetAddress, city, state, zip, handleChange}
 									</option>
 								))}
 								</select>
-
 					</div>
-
 					<div className="OrderViewHeaderNew_Inner">
                   		<label htmlFor="zip"><h4 style={{fontWeight: 'bold'}}>Zip <span className="required">	*</span></h4></label>
 							<input
@@ -184,60 +151,118 @@ export const ShippingInfoEdit = ({streetAddress, city, state, zip, handleChange}
 								className="inputField"
 								id="zip"
 								required
-								defaultValue={zip || ''}
+								value={zip || ''}
 								onChange={handleChange}
 								name="zip"
 								style={{width:"100%"}}
 							/>
 						</div>
-				
 				</div>
-				
-				{/* <tr>
-					<td><h4 style={{fontWeight: 'bold'}}>Tracking #</h4></td>
-					<td><h4>{order.shipmentTrackingNumber}</h4></td>
-				</tr> */}
-				{/* <tr>
-					{order.isGift && order.giftMessage !== '' && <td><h4 style={{fontWeight: 'bold'}}>Gift Message</h4></td>}
-					{order.isGift && order.giftMessage !== '' && <td><h4>{order.giftMessage}</h4></td>}
-				</tr> */}
 	</div>
 	)
 }
 
-export const ProductInfoEdit = ({ handleAddNewFlavor, products}) => {
-	const [flavors, setFlavors] = useState([{ quantity: 0, flavor: 'Plain' }]);
+export const CustomerInfoEdit = ({firstName, lastName, email, phoneNumber, handleChange}) => {
 
-	const handleFlavorChange = (index, quantity, flavor) => {
-	  const newFlavors = [...flavors];
-	  newFlavors[index] = { quantity, flavor };
-	  setFlavors(newFlavors);
-	};
+	return (
+		<div id='NewOrderCustomer' className='GenericBackgroundAdd'>
+		   <label className='BoxDescriptionTitle'>Customer Information</label>		
+			<div className='CustomerNameView_Layout'>
+				<div className="OrderViewHeaderNew_Inner">
+					<label htmlFor="firstName"><h4 style={{fontWeight: 'bold', paddingRight:'1vw'}}>First <span className="required">	*</span>	</h4></label>
+					<input
+						type="text"
+						className="inputField"
+						id="firstName"
+						required
+						value={firstName || ''}
+						onChange={handleChange}
+						name="firstName"
+						style={{marginRight:'2vw'}}
+					/>
+				</div>
+				<div className="OrderViewHeaderNew_Inner">
+                  <label htmlFor="lastName"><h4 style={{fontWeight: 'bold'}}>Last <span className="required">	*</span></h4></label>
+                  <input
+                    type="text"
+                    className="inputField"
+                    id="lastName"
+                    required
+                    value={lastName || ''}
+                    onChange={handleChange}
+                    name="lastName"
+                  />
+                </div>
+			</div>
+
+			<div className='OrderViewHeaderNew_Inner'>
+                  <label htmlFor="email"><h4 style={{fontWeight: 'bold'}}>Email <span className="required">	*</span></h4></label>
+                  <input
+                    type="text"
+                    className="inputField"
+                    id="email"
+                    required
+                    value={email || ''}
+                    onChange={ handleChange}
+                    name="email"
+					style={{width:"85%"}}
+                  />
+			</div>
+			<div className='OrderViewHeaderNew_Inner'>
+                  <label htmlFor="phoneNumber"><h4 style={{fontWeight: 'bold'}}>Phone <span className="required">	*</span></h4></label>
+                  <input
+                    type="text"
+                    className="inputField"
+                    id="phoneNumber"
+                    required
+                    value={phoneNumber || ''}
+                    onChange={handleChange}
+                    name="phoneNumber"
+					style={{width:"85%"}}
+                  />
+			</div>
+		</div>
+	);	
+}
+
+
+
+export const ProductInfoEdit = ({ handleAddNewFlavor, handleRemoveFlavor, handleFlavorChange, products, productsOrdered}) => {
+	console.log(products)
+	// const [flavors, setFlavors] = useState([{ quantity: 0, flavor: 'Plain' }]);
+
+	// const handleFlavorChange = (index, quantity, flavor) => {
+	//   const newFlavors = [...flavors];
+	//   newFlavors[index] = { quantity, flavor };
+	//   setFlavors(newFlavors);
+	// };
   
-	const handleAddFlavor = () => {
-	  const newFlavors = [...flavors, { quantity: 0, flavor: 'Plain' }];
-	  setFlavors(newFlavors);
-	};
+	// const handleAddFlavor = () => {
+	//   const newFlavors = [...flavors, { quantity: 0, flavor: 'Plain' }];
+	//   setFlavors(newFlavors);
+	// };
   
-	const handleRemoveFlavor = (index) => {
-	  const newFlavors = flavors.filter((flavor, i) => i !== index);
-	  setFlavors(newFlavors);
-	};
+	// const handleRemoveFlavor = (index) => {
+	//   const newFlavors = flavors.filter((flavor, i) => i !== index);
+	//   setFlavors(newFlavors);
+	// };
 
 	return (
 	  <div id="NewOrderProducts" className="GenericBackgroundAdd">
 		<label className="BoxDescriptionTitle">Order Details</label>
-		{flavors.map((flavor, index) => (
+		{productsOrdered.map((flavor, index) => (
 		  <FlavorSelector
 			key={index}
 			quantity={flavor.quantity}
 			flavor={flavor.flavor}
 			onChange={(quantity, flavor) => handleFlavorChange(index, quantity, flavor)}
 			onRemove={() => handleRemoveFlavor(index)}
-			products={createStringArray(products, "name")}
+			// products={createStringArray(products, "name")}
+			products={flavorOptions}
+
 		  />
 		))}
-		<button className='CenterEvenAlignFlexRow addFlavorButton' onClick={handleAddFlavor}>
+		<button className='CenterEvenAlignFlexRow addFlavorButton' onClick={handleAddNewFlavor}>
 			<img src={add_icon} alt='add order' style={{paddingRight: '10px'}}/>
 			Add Flavor
 		</button>

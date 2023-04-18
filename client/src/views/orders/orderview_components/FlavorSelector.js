@@ -1,21 +1,36 @@
 import React, { useState } from 'react';
 import "../../../assets/style/dropdown.css"
 
-function FlavorSelector({onChange, onRemove, products}) {
-  const [flavor, setFlavor] = useState('chocolate');
+import { createStringArray } from '../../../assets/util/functions'
+
+
+function FlavorSelector({flavor, onChange, onRemove, products}) {
+  const products_named = createStringArray(products, "name");
+  const products_keyed = createStringArray(products, "sku");
+
   const [quantity, setQuantity] = useState(1);
-  //get these from props.products
+
   const [flavorOptions, setFlavorOptions] = useState([
-    ...products
+      ...products_named
   ]);
 
-  const handleFlavorChange = (event) => {
-    setFlavor(event.target.value);
-  };
+  const [keyOptions, setKeyOptions] = useState([
+    ...products_keyed
+]);
 
-  const handleQuantityChange = (event) => {
-    setQuantity(event.target.value);
-  };
+
+  
+
+  
+
+
+  // const handleFlavorChange = (event) => {
+  //   setFlavor(event.target.value);
+  // };
+
+  // const handleQuantityChange = (event) => {
+  //   setQuantity(event.target.value);
+  // };
 
   const handleIncreaseQuantity = () => {
     setQuantity(quantity + 1);
@@ -27,9 +42,9 @@ function FlavorSelector({onChange, onRemove, products}) {
     }
   };
 
-  const handleRemoveClick = () => {
-    onRemove();
-  };
+  // const handleRemoveClick = () => {
+  //   onRemove();
+  // };
 
 
   return (
@@ -42,15 +57,15 @@ function FlavorSelector({onChange, onRemove, products}) {
         </div>
         <div className=' quantity-selector'>
             <label htmlFor="flavor-dropdown"><h4 style={{fontWeight: 'bold'}}>Flavor:</h4></label>
-            <select className="dropdown" value={flavor} onChange={handleFlavorChange}>
-                {flavorOptions.map((flavorOption) => (
-                <option key={flavorOption} value={flavorOption}>
-                    {flavorOption}
+            <select className="dropdown" value={flavor} onChange={(e) => onChange(quantity, e.target.value)}>
+                {products.map((product) => (
+                <option key={product.sku} value={product.sku}>
+                    {product.name}
                 </option>
                 ))}
             </select>
         </div>
-        <button onClick={handleRemoveClick}>Remove</button>
+        <button onClick={onRemove}>Remove</button>
       </div>
       
   );

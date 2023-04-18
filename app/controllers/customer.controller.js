@@ -8,25 +8,40 @@ exports.create = (req, res) => {
       message: "Content can not be empty!"
     });
   }
-
   // Create a Customer
   const customer = new Customer({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     phoneNumber: req.body.phoneNumber,
     email: req.body.email,
-    customerShippingId: req.body.customerShippingId // note that this will be null unless admin
+    customerShippingId: req.body.customerShippingId
   });
 
+  console.log(req.body)
+  console.log(customer)
+
   // Save Customer in the database
-  Customer.create(customer, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the Customer."
-      });
-    else res.send(data);
-  });
+  if (!req.body.customerShippingId) {
+    // customer without an address
+    Customer.create(customer, (err, data) => {
+      if (err)
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while creating the Customer."
+        });
+      else res.send(data);
+    });
+  } else {
+    Customer.createWithAddress(customer, (err, data) => {
+      if (err)
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while creating the Customer."
+        });
+      else res.send(data);
+    });
+  }
+  
 };
 
 /**

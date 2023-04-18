@@ -20,52 +20,13 @@ import FlavorSelector from './orderview_components/FlavorSelector';
 import {stateOptions, flavorOptions} from '../../assets/util/dropdown.constants'
 import { createStringArray } from '../../assets/util/functions';
 import { CustomerInfoEdit, GeneralInfoEdit, ProductInfoEdit, ShippingInfoEdit } from './EditComponents'
+import e from 'cors'
 
 
 // ------------------------------ ORDER DETAILS: VIEW --------------------------------- //
 
 const GeneralInfoView = ({referenceNumber, datePlaced, trackingNumber, isGift, orderStatus, giftFor, giftMessage}) => {
-	if (isGift) {
-		return(
-			<div>
-				<div id='ExistingOrderGeneralView' className='GenericBackgroundView'>
-					<label className='BoxDescriptionTitle' style={{alignItems:"center"}}>Order Information</label>
-					<div className="OrderViewHeaderNew_Inner">
-					<label htmlFor="ref"><h4 style={{fontWeight: 'bold'}}>Reference #</h4></label>
-					{referenceNumber}
-					</div>
-		
-					<div className="OrderViewHeaderNew_Inner">
-					<label htmlFor="date"><h4 style={{fontWeight: 'bold'}}>Date Placed</h4></label>
-					{datePlaced}
-					</div>
-		
-					<div className="OrderViewHeaderNew_Inner">
-					<label htmlFor="tracking"><h4 style={{fontWeight: 'bold'}}>Tracking #</h4></label>
-					{trackingNumber}
-					</div>
-
-					<div className="OrderViewHeaderNew_Inner">
-					<label htmlFor="status"><h4 style={{fontWeight: 'bold'}}>Status</h4></label>
-					{orderStatus}
-					</div>
-				</div>
-				<div id='ExistingOrderGeneralViewGift' className='GenericBackgroundView'>
-					<label className='BoxDescriptionTitle' style={{alignItems:"center"}}>Gift Details</label>
-					<div className="OrderViewHeaderNew_Inner">
-					<label htmlFor="ref"><h4 style={{fontWeight: 'bold'}}>Gift For</h4></label>
-					{giftFor}
-					</div>
-					<div className="OrderViewHeaderNew_Inner">
-					<label htmlFor="ref"><h4 style={{fontWeight: 'bold'}}>Gift Message</h4></label>
-					{giftMessage}
-					</div>
-				</div>
-			</div>
-		)
-		
-	}
-	else {
+	
 		return(
 				<div id='ExistingOrderGeneralView' className='GenericBackgroundView'>
 					<label className='BoxDescriptionTitle' style={{alignItems:"center"}}>Order Information</label>
@@ -92,8 +53,6 @@ const GeneralInfoView = ({referenceNumber, datePlaced, trackingNumber, isGift, o
 			
 			)
 		}
-
-	}
 
 
 const CustomerInfoView = ({firstName, lastName, email, phoneNumber}) => {
@@ -147,7 +106,7 @@ const ShippingInfoView = ({ streetAddress, city, state, zip}) => {
 	)
 }
 
-const InvoiceInfoView = ({invoiceNumber, revenue, expense, orderStatus}) => {
+const InvoiceInfoView = ({invoiceNumber, customerPaid, revenue, expense, orderStatus}) => {
 	if (invoiceNumber) {
 		return (
 			<div id='' className='GenericBackgroundView'>
@@ -155,6 +114,10 @@ const InvoiceInfoView = ({invoiceNumber, revenue, expense, orderStatus}) => {
 				   <tr>
 					   <td><h4 style={{fontWeight: 'bold'}}>Invoice #</h4></td>
 					   <td><h4>{invoiceNumber}</h4></td>
+				   </tr>
+				   <tr>
+					   <td><h4 style={{fontWeight: 'bold'}}>Customer Paid</h4></td>
+					   <td><h4>{customerPaid}</h4></td>
 				   </tr>
 				   <tr>
 					   <td><h4 style={{fontWeight: 'bold'}}>Revenue</h4></td>
@@ -431,7 +394,7 @@ class ExistingOrder extends Component {
 						<div id='LeftSideNew'>
 							<GeneralInfoView referenceNumber={referenceNumber} datePlaced= {datePlaced} trackingNumber={trackingNumber} orderStatus={orderStatus} isGift={isGift} giftFor={giftFor} giftMessage={giftMessage}/>
 							{/* <ProductInfoView numberOfFlavors={numberOfFlavors} numberOfLogs={numberOfLogs} productsOrdered={productsOrdered} products={products}/> */}
-							<InvoiceInfoView invoiceNumber={invoiceNumber} revenue={revenue} expense={expense} orderStatus={orderStatus}/>
+							<InvoiceInfoView invoiceNumber={invoiceNumber} customerPaid={customerPaid} revenue={revenue} expense={expense} orderStatus={orderStatus}/>
 							
 							
 							
@@ -461,61 +424,131 @@ class ExistingOrder extends Component {
 			</div>
 			);
 		} else {
-			return (
-				<div id='OrderView'>
-					<div id='OrderViewHeaderNew' >
-						<div className='OrderViewHeaderNew_Inner'>
-							<label htmlFor="status" className='StatusBackgroundAdd'><i>Status: </i> {orderStatus}</label>
-						</div>
-						
-						<div className='OrderViewHeaderNew_Inner'>
-							{/* on click DELETE, we dispatch delete call with ID*/}
-							<button className='CancelButton' onClick={(this.updateViewOnly)}>
-								<img src={delete_icon} alt='add order' style={{paddingRight: '10px'}}/>
-								<h4>Cancel</h4>
-							</button>
-							{/* on click SAVE, we save to db */}
-							<button className='SaveNewOrderActionButton' onClick={this.saveEdits}>
-								<img src={edit_icon} alt='add order' style={{paddingRight: '10px'}}/>
-								<h4>Save Order</h4>
-							</button>
-							
-						</div>
-					</div>
-					<div className='MainContainer'>
-						<div id='LeftSideNew'>
-							<GeneralInfoEdit handleChange={this.handleInputActiveOrder} referenceNumber={referenceNumber} datePlaced= {datePlaced} trackingNumber={trackingNumber} orderStatus={orderStatus}/>
-							<ProductInfoEdit handleChange={this.handleInputChange} numberOfFlavors={numberOfFlavors} numberOfLogs={numberOfLogs} productsOrdered={productsOrdered} products={products}/>
-							<InvoiceInfoView handleChange={this.handleInputChange} invoiceNumber={invoiceNumber} revenue={revenue} expense={expense} orderStatus={orderStatus}/>
-							
-							<div className='ToggleWrapper'>
-								<div className='OrderViewHeaderNew_Inner'>
-									<label className='BoxDescriptionTitle'>Self Order</label>
-									<div className="switch">
-										<input type="checkbox" id="toggle" checked={isSelfOrderToggle} onChange={this.handleSelfOrderChange} />
-										<label></label>
-									</div>
-								</div>
-								<div className='OrderViewHeaderNew_Inner'>
-									<label className='BoxDescriptionTitle'>Is Gift?</label>
-									<div className="switch">
-										<input type="checkbox" id="toggle" checked={isGiftToggle} onChange={this.handleIsGiftChange} />
-										<label></label>
-									</div>
-								</div>
+			if (isGift) {
+				return (
+					<div id='OrderView'>
+						<div id='OrderViewHeaderNew' >
+							<div className='OrderViewHeaderNew_Inner'>
+								<label htmlFor="status" className='StatusBackgroundAdd'><i>Status: </i> {orderStatus}</label>
 							</div>
 							
-							
+							<div className='OrderViewHeaderNew_Inner'>
+								{/* on click DELETE, we dispatch delete call with ID*/}
+								<button className='CancelButton' onClick={(this.updateViewOnly)}>
+									<img src={delete_icon} alt='add order' style={{paddingRight: '10px'}}/>
+									<h4>Cancel</h4>
+								</button>
+								{/* on click SAVE, we save to db */}
+								<button className='SaveNewOrderActionButton' onClick={this.saveEdits}>
+									<img src={edit_icon} alt='add order' style={{paddingRight: '10px'}}/>
+									<h4>Save Order</h4>
+								</button>
+								
+							</div>
 						</div>
-						<div id="RightSideNew">
-							<CustomerInfoEdit handleChange={this.handleInputChange} firstName={firstName} lastName={lastName} email={email} phoneNumber={phoneNumber}/>
-							
-							<ShippingInfoEdit handleChange={this.handleInputChange} streetAddressOne={streetAddressOne} streetAddressTwo={streetAddressTwo} city={city} state={state} zip={zip}/>
-
+						<div className='MainContainer'>
+							<div id='LeftSideNew'>
+								<GeneralInfoEdit handleChange={this.handleInputActiveOrder} referenceNumber={referenceNumber} datePlaced= {datePlaced} trackingNumber={trackingNumber} orderStatus={orderStatus}/>
+								<ProductInfoEdit handleChange={this.handleInputChange} numberOfFlavors={numberOfFlavors} numberOfLogs={numberOfLogs} productsOrdered={productsOrdered} products={products}/>
+								<InvoiceInfoView  handleChange={this.handleInputChange} invoiceNumber={invoiceNumber} customerPaid={customerPaid} revenue={revenue} expense={expense} invoiceStatus={invoiceStatus}/>
+								
+								<div className='ToggleWrapper'>
+									<div className='OrderViewHeaderNew_Inner'>
+										<label className='BoxDescriptionTitle'>Self Order</label>
+										<div className="switch">
+											<input type="checkbox" id="toggle" checked={isSelfOrderToggle} onChange={this.handleSelfOrderChange} />
+											<label></label>
+										</div>
+									</div>
+									<div className='OrderViewHeaderNew_Inner'>
+										<label className='BoxDescriptionTitle'>Is Gift?</label>
+										<div className="switch">
+											<input type="checkbox" id="toggle" checked={isGiftToggle} onChange={this.handleIsGiftChange} />
+											<label></label>
+										</div>
+									</div>
+								</div>
+								
+								
+							</div>
+							<div id="RightSideNew">
+								<CustomerInfoEdit handleChange={this.handleInputChange} firstName={firstName} lastName={lastName} email={email} phoneNumber={phoneNumber}/>
+								
+								<ShippingInfoEdit handleChange={this.handleInputChange} streetAddressOne={streetAddressOne} streetAddressTwo={streetAddressTwo} city={city} state={state} zip={zip}/>
+	
+								<div id='ExistingOrderGeneralViewGift' className='GenericBackgroundView'>
+									<label className='BoxDescriptionTitle' style={{alignItems:"center"}}>Gift Details</label>
+									<div className="OrderViewHeaderNew_Inner">
+									<label htmlFor="ref"><h4 style={{fontWeight: 'bold'}}>Gift For</h4></label>
+									{giftFor}
+									</div>
+									<div className="OrderViewHeaderNew_Inner">
+									<label htmlFor="ref"><h4 style={{fontWeight: 'bold'}}>Gift Message</h4></label>
+									{giftMessage}
+									</div>
+								</div>
+		
+							</div>
 						</div>
-					</div>
-			</div>
-			);
+				</div>
+				);
+			}
+			else {
+				return (
+					<div id='OrderViewNew'>
+						<div id='OrderViewHeaderNew' >
+							<div className='OrderViewHeaderNew_Inner'>
+								<label htmlFor="status" className='StatusBackgroundAdd'><i>Status: </i> {orderStatus}</label>
+							</div>
+							
+							<div className='OrderViewHeaderNew_Inner'>
+								{/* on click DELETE, we dispatch delete call with ID*/}
+								<button className='CancelButton' onClick={(this.updateViewOnly)}>
+									<img src={delete_icon} alt='add order' style={{paddingRight: '10px'}}/>
+									<h4>Cancel</h4>
+								</button>
+								{/* on click SAVE, we save to db */}
+								<button className='SaveNewOrderActionButton' onClick={this.saveEdits}>
+									<img src={edit_icon} alt='add order' style={{paddingRight: '10px'}}/>
+									<h4>Save Order</h4>
+								</button>
+								
+							</div>
+						</div>
+						<div className='MainContainer'>
+							<div id='LeftSideNew'>
+								<GeneralInfoEdit handleChange={this.handleInputActiveOrder} referenceNumber={referenceNumber} datePlaced= {datePlaced} trackingNumber={trackingNumber} orderStatus={orderStatus}/>
+								<ProductInfoEdit handleChange={this.handleInputChange} numberOfFlavors={numberOfFlavors} numberOfLogs={numberOfLogs} productsOrdered={productsOrdered} products={products}/>
+								<InvoiceInfoView handleChange={this.handleInputChange} invoiceNumber={invoiceNumber} revenue={revenue} expense={expense} orderStatus={orderStatus}/>
+								
+								<div className='ToggleWrapper'>
+									<div className='OrderViewHeaderNew_Inner'>
+										<label className='BoxDescriptionTitle'>Self Order</label>
+										<div className="switch">
+											<input type="checkbox" id="toggle" checked={isSelfOrderToggle} onChange={this.handleSelfOrderChange} />
+											<label></label>
+										</div>
+									</div>
+									<div className='OrderViewHeaderNew_Inner'>
+										<label className='BoxDescriptionTitle'>Is Gift?</label>
+										<div className="switch">
+											<input type="checkbox" id="toggle" checked={isGiftToggle} onChange={this.handleIsGiftChange} />
+											<label></label>
+										</div>
+									</div>
+								</div>
+								
+								
+							</div>
+							<div id="RightSideNew">
+								<CustomerInfoEdit handleChange={this.handleInputChange} firstName={firstName} lastName={lastName} email={email} phoneNumber={phoneNumber}/>		
+								<ShippingInfoEdit handleChange={this.handleInputChange} streetAddressOne={streetAddressOne} streetAddressTwo={streetAddressTwo} city={city} state={state} zip={zip}/>
+							</div>
+						</div>
+				</div>
+				);
+			}
+			
 		}
 	}
   }
