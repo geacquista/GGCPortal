@@ -90,7 +90,7 @@ const OrderLine = function(order_line) {
    * @param {*} result 
    */
   OrderLine.remove = (id, result) => {
-    sql.query("DELETE FROM OrderLine WHERE orderLineID = ? AND productLineID", 
+    sql.query("DELETE FROM `OrderLine` WHERE (`lineOrderID` = ?) and (`lineProductID` = ?);", 
     [id.orderLineID, id.lineProductID], 
     (err, res) => {
       if (err) {

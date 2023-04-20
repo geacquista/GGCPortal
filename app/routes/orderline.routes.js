@@ -15,7 +15,7 @@ module.exports = app => {
     router.put("/:id", orderline.update);
 
     // Delete a orderline with id
-    router.delete("/:id", orderline.delete);
+    router.delete("/:lineOrderID/:lineProductID", orderline.delete);
 
     // Delete all orderlines
     router.delete("/", orderline.deleteAll);

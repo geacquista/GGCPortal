@@ -62,7 +62,7 @@ export const GiftInfoEdit = ({handleChange, giftFor, giftMessage}) => {
 		<div id='NewOrderCustomer' className='GenericBackgroundAdd'>
 			<label className='BoxDescriptionTitle'>Gift Information</label>		
 			<div className="OrderViewHeaderNew_Inner">
-					<label htmlFor="giftFor"><h4 style={{fontWeight: 'bold', paddingRight:'1vw'}}>First <span className="required">	*</span>	</h4></label>
+					<label htmlFor="giftFor"><h4 style={{fontWeight: 'bold', paddingRight:'1vw'}}>Gift For <span className="required">	*</span>	</h4></label>
 					<input
 						type="text"
 						className="inputField"
@@ -75,7 +75,7 @@ export const GiftInfoEdit = ({handleChange, giftFor, giftMessage}) => {
 					/>
 				</div>
 				<div className="OrderViewHeaderNew_Inner">
-                  <label htmlFor="giftMessage"><h4 style={{fontWeight: 'bold'}}>Last <span className="required">	*</span></h4></label>
+                  <label htmlFor="giftMessage"><h4 style={{fontWeight: 'bold'}}>Gift Message <span className="required">	*</span></h4></label>
                   <input
                     type="textarea" rows="4" cols="50"
                     className="inputField"
@@ -226,9 +226,10 @@ export const CustomerInfoEdit = ({firstName, lastName, email, phoneNumber, handl
 }
 
 
-
 export const ProductInfoEdit = ({ handleAddNewFlavor, handleRemoveFlavor, handleFlavorChange, products, productsOrdered}) => {
-	console.log(products)
+		const orderedProducts = this.state.changingFlavors.map((product) => product.flavor);
+  		const availableProducts = products.filter((product) => !orderedProducts.includes(product.sku));
+  
 	// const [flavors, setFlavors] = useState([{ quantity: 0, flavor: 'Plain' }]);
 
 	// const handleFlavorChange = (index, quantity, flavor) => {

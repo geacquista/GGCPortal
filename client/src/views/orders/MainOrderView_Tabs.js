@@ -5,6 +5,10 @@ import React, { Component } from 'react'
 import { connect } from "react-redux";
 
 import { retrieveOrders } from '../../store/order_slice'
+import { retrieveOrderLines } from '../../store/orderline_slice';
+import { retrieveInvoices } from '../../store/invoice_slice';
+import { retrieveCustomers } from '../../store/customer_slice';
+import { retrieveShippingAddresses } from '../../store/address_slice';
 
 import ActiveOrdersTab from './Tab_ActiveOrders'
 import CompletedOrdersTab from './Tab_CompletedOrders';
@@ -28,8 +32,8 @@ const ViewType = {
 export const OrderDisplayColumn = ({title, orders, orderCardOnClick, products, customers, invoices, orderline, shippingAddresses}) => {
 
 	return(
-		<ul className='OrderDisplayColumn'>
-			<li key={title} style={{position: 'sticky', top: '0px'}}><div className='OrderDisplayColumnTitle'><h3 style={{padding: '0px', margin: '0px'}}>{title}</h3></div></li>
+		<div className='OrderDisplayColumn'>
+			<div key={title} style={{position: 'sticky', top: '0px'}}><div className='OrderDisplayColumnTitle'><h3 style={{padding: '0px', margin: '0px'}}>{title}</h3></div></div>
 			{orders.map((order) => {
 
 				const filteredCustomer = customers.filter(customer => customer.customerID === order.customerId)[0]
@@ -41,7 +45,7 @@ export const OrderDisplayColumn = ({title, orders, orderCardOnClick, products, c
 					
 					<li><OrderCard key={order.orderID} order={order} customer={filteredCustomer} address={filteredAddress} invoice={filteredInvoice} orderline={filteredLine} color='#90E0C9' orderCardOnClick={orderCardOnClick}  /></li>
 				)})}
-		</ul>
+		</div>
 	)
 }
 
@@ -104,8 +108,19 @@ class MainOrderPane extends Component {
 
 	// when the component loads
 	componentDidMount() {
+		// this.props.retrieveInvoices();
 		// this.props.retrieveOrders();
-		// this.props.retrieveProducts();
+		// this.props.retrieveCustomers();
+		// this.props.retrieveOrderLines();
+		// this.props.retrieveShippingAddresses();
+	}
+
+	componentDidUpdate() {
+		// this.props.retrieveInvoices();
+		// this.props.retrieveOrders();
+		// this.props.retrieveCustomers();
+		// this.props.retrieveOrderLines();
+		// this.props.retrieveShippingAddresses();
 	}
 
 	 addAndOpenOrderView(data){
@@ -156,8 +171,10 @@ class MainOrderPane extends Component {
 			const newActiveTab = this.state.tabs[1]
 			newActiveTab.tabType = TabTypeOrder.ACTIVE
 			const newTabsList = this.state.tabs.slice().filter(tab => tab.id !== id)
+			console.log(newActiveTab)
 			this.setTabs(newTabsList)
 			this.setActiveTabId(newActiveTab.id)
+			console.log(newActiveTab)
 
 		} else{
 			this.setTabs(this.state.tabs.filter(tab => tab.id !== id))
@@ -209,7 +226,7 @@ class MainOrderPane extends Component {
 				tabDisplayContent = <CompletedOrdersTab orders={currentCompletedOrders} orderCardOnClick={this.addAndOpenOrderView} products={products} customers={customers} shippingAddresses={shippingAddresses} invoices={invoices} orderline={orderline}/>
 				break
 			case ViewType.EXISTING_ORDER:
-				tabDisplayContent = <ExistingOrder order={activeContent.order} orderCardOnClick={this.addAndOpenOrderView} orderCardOnDelete={this.removeOrderView} activeTabId={this.state.activeTabId} products={products}/>
+				tabDisplayContent = <ExistingOrder order={activeContent.order} orderCardOnClick={this.addAndOpenOrderView} orderCardOnDelete={this.removeOrderView} activeTabId={this.state.nextId} products={products}/>
 				break
 			case ViewType.NEW_ORDER:
 				tabDisplayContent = <NewOrder orderCardOnClick={this.addAndOpenOrderView} products={products}/>
@@ -251,4 +268,10 @@ const mapStateToProps = (state) => {
 	};
   };
   
-export default connect(mapStateToProps, {retrieveOrders})(MainOrderPane);
+export default connect(mapStateToProps, {
+	retrieveOrders, 
+	retrieveInvoices, 
+	retrieveCustomers, 
+	retrieveOrderLines, 
+	retrieveShippingAddresses
+})(MainOrderPane);

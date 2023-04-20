@@ -65,5 +65,5 @@ export const stateOptions = [
 		{value: "jPI5", label: "Pink Peppercorn"},
 		{value: "jPL5", label: "Plain"},
 		{value: "jSM4", label: "Hickory Smoked"},
-		];
+	];
 	

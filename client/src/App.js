@@ -140,7 +140,7 @@ const App = ({
           </div>
 
 
-          <div style={{ display: 'flex', flexDirection: 'column'} }>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'} }>
           
             {activeUser.userID && activeUser.permissionType ===PermissionTypes.FARM && (
               <div className="NavBarButton">

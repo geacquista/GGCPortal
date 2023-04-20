@@ -85,7 +85,7 @@ ShippingAddress.findById = (id, result) => {
  * @param {*} result 
  */
 ShippingAddress.updateById = (id, shippingAddress, result) => {
-  sql.query("UPDATE ShippingAddress SET streetAddressOne = ?, streetAddressTwo = ?, state = ?, city = ?, zip = ? WHERE shippingID = ?",
+  sql.query("UPDATE ShippingAddress SET streetAddressOne = ?, streetAddressTwo = ?, state = ?, city = ?, zip = ? WHERE shippingID = ?;",
     [shippingAddress.streetAddressOne,shippingAddress.streetAddressTwo, shippingAddress.state, shippingAddress.city, this.zip, id],
     (err, res) => {
       if (err) {

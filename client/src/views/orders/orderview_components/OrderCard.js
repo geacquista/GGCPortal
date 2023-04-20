@@ -63,29 +63,35 @@ class OrderCard extends Component {
 		
 		let i = 0;
 		let logs = 0;
-		let flavors = orderline.length;
-
+		let flavors = 0;
 		const productList = [];
-		while (i < flavors) {
-			const {name} = products.filter(product => product.sku === orderline[i].lineProductID)[0]
-			const newProduct = {
-				lineOrderID: orderline[i].lineOrderID,
-				lineProductID: orderline[i].lineProductID,
-				qtyOrdered: orderline[i].qtyOrdered,
-				name: name
-			}
-			productList.push(newProduct)
-			
-			logs+= orderline[i].qtyOrdered;
-			i++;
 
+		try {
+			flavors = orderline.length;
+
+			while (i < flavors) {
+				const {name} = products.filter(product => product.sku === orderline[i].lineProductID)[0]
+				const newProduct = {
+					lineOrderID: orderline[i].lineOrderID,
+					lineProductID: orderline[i].lineProductID,
+					qtyOrdered: orderline[i].qtyOrdered,
+					name: name
+				}
+				productList.push(newProduct)
+				
+				logs+= orderline[i].qtyOrdered;
+				i++;
+
+			}
+		} catch (e) {
+			console.log("No orderline", e);
 		}
 
 		this.setState({
 			orderID: parseInt(orderID),
 			activeOrder: {
 				referenceNumber: referenceNumber,
-				datePlaced: datePlaced,
+				datePlaced: moment(datePlaced).format('yyyy-MM-DD'),
 				orderStatus: orderStatus,
 				trackingNumber: trackingNumber,
 				giftFor: giftFor,
@@ -121,7 +127,6 @@ class OrderCard extends Component {
 			
 		})
 	}
-
 
 
 	render() {

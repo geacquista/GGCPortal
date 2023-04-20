@@ -55,7 +55,7 @@
 	flex-direction: row;
 	justify-content: space-between;
     align-items: center;
-	padding: 8px;
+	padding: 12px;
 }
 
 .OrderViewHeaderCol_Inner{
@@ -151,6 +151,13 @@
     justify-content: space-evenly;
 }
 
+.ColViewMain {
+	display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+/* 
 #MainContainerNewOrder {
   
 }
@@ -161,7 +168,7 @@
 
 #MainContainerExistingOrderEdit {
    
-}
+} */
 
 #LeftSideNew {
     width: 45%;
@@ -175,6 +182,11 @@
     display: flex;
     flex-direction: column;
     padding: 8px;
+}
+
+#BottomView {
+	width: 100%;
+
 }
 
 .MissingBackground {
@@ -271,3 +283,31 @@
     box-shadow: 0 8px 16px 0 rgba(255, 255, 255, 0.508);
   }
 
+
+  .popup-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5); /* semi-transparent black background */
+	z-index: 999; /* make sure the overlay is on top of other elements */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  .popup-content {
+	background: white;
+	padding: 1rem;
+	border-radius: 0.25rem;
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); /* add a subtle drop shadow */
+	max-width: 30rem; /* set a max width for the popup box */
+	text-align: center;
+  }
+  
+
+  .FlavorInfo {
+	display: flex;
+	flex-direction: column;
+  }
