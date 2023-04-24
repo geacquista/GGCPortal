@@ -30,19 +30,21 @@
     width: 275px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     place-self: flex-start;
-    align-content: flex-start;
+    align-content: left;
     background-color: white;
     position: absolute;
     }
     
     #NavBarTop {
-    margin-top: 40px;
+    top: 10px;
+    display: flex;
+    align-items: left;
     }
     
     #NavBarBottom {
-      margin-top: auto;
+      margin-bottom: 0;
     }
 
 #branding {

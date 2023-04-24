@@ -20,38 +20,7 @@
     width: 230px;
     border: none;
   }
-  
-  .inputfield:-webkit-autofill,
-  .inputfield:-webkit-autofill:hover,
-  .inputfield:-webkit-autofill:focus {
-    -webkit-text-fill-color: green;
-    transition: background-color 5000s ease-in-out 0s;
-  }
-  
-  .customInput {
-    background: #dedede;
-    width: 280px;
-    margin: 0 auto;
-  }
-  
-  .inputicon {
-    color: gray;
-  }
-  
-  .linkfield {
-    text-decoration: underline;
-    font-size: 90%;
-    cursor: pointer;
-  }
-  
-  .submit {
-    font-size: 100%;
-    width: 150px;
-    background: rgb(10, 255, 100);
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 20px;
-  }
+
   
   .submit:focus {
     outline: none;
@@ -95,5 +64,44 @@
   
   .standardText {
     font-size: 90%;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  .login-form input {
+    font-size: 24px;
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .login-form label {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .login-form button {
+    font-size: 24px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .login-form button:hover {
+    background-color: #0062cc;
+  }
+  
+  .login-form p {
+    color: #dc3545;
+    font-size: 18px;
   }
   
