@@ -33,24 +33,24 @@ ORDERLINE_FIELDS = ["lineOrderID", "lineProductID", "qtyOrdered"]
 
 # products dictionary {Name: ID}
 PRODUCTS = {
-    "Plain": "1",
-    "Herb Garlic": "2",
-    "Hickory Smoked": "3",
-    "Blueberry Lemon": "4",
-    "Cranberry Orange": "5",
-    "Pink Peppercorn": "6",
-    "Fiery Fig": "7",
-    "Chive": "8",
-    "Calabrini": "9",
-    "Chocolate": "10",
-    "3LB Calabrini": "11",
-    "3LB Herb Garlic": "12",
-    "3LB Plain": "13",
-    "Chive Capri": "14",
-    "Herb Capri": "15",
-    "Pepper Capri": "16",
-    "Wasabi": "17",
-    "Herb Garlic (8oz)": "18"
+    "Plain": "jPL5",
+    "Herb Garlic": "jHG5",
+    "Hickory Smoked": "jSM4",
+    "Blueberry Lemon": "jBL6",
+    "Cranberry Orange": "jCRA",
+    "Pink Peppercorn": "jPI5",
+    "Fiery Fig": "jFF6",
+    "Chive": "jCHI",
+    "Calabrini": "jCA6",
+    "Chocolate": "jCHO",
+    "3LB Calabrini": "jCA3",
+    "3LB Herb Garlic": "jHGB",
+    "3LB Plain": "jPLB3",
+    "Chive Capri": "jCHI",
+    "Herb Capri": "jHE5",
+    "Pepper Capri": "jPE5",
+    "Wasabi": "jWA6",
+    "Herb Garlic (8oz)": "jHG8"
 }
 
 # Input filename
