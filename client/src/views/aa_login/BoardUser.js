@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import UserService from "../../services/UserDataService";
-import EventBus from "../../common/EventBus";
+import EventBus from "../../assets/util/EventBus";
 
 class BoardGGCUser extends Component {
   constructor(props) {

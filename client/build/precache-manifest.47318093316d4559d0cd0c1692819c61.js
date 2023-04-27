@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "8bd5f631baa8c1f005a9",
+    "revision": "4da7bc40ea5cd8508e9d",
     "url": "/static/css/main.7d47a09b.chunk.css"
   },
   {
-    "revision": "8bd5f631baa8c1f005a9",
-    "url": "/static/js/main.8bd5f631.chunk.js"
+    "revision": "4da7bc40ea5cd8508e9d",
+    "url": "/static/js/main.4da7bc40.chunk.js"
   },
   {
     "revision": "c765bae6be2a5b9a7cdf",
@@ -120,7 +120,7 @@ self.__precacheManifest = [
     "url": "/static/media/CarroisGothicSC-Regular.abf54f9a.ttf"
   },
   {
-    "revision": "f6ec304069c4285df58a34432410c4eb",
+    "revision": "ae3d28bca56ea357732ee2dc43dfdbe4",
     "url": "/index.html"
   }
 ];

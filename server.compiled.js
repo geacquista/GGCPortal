@@ -37,7 +37,6 @@ require("./app/routes/login.routes.js")(app);
 
 // set port, listen for requests
 // 3001 local
-// rds 3306
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);

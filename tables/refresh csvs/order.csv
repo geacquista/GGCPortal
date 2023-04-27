@@ -574,7 +574,3 @@ orderID,referenceNumber,datePlaced,isGift,giftFor,giftMessage,trackingNumber,ord
 575,So16,"2020-10-28 00:00:00",0,,,,Archive,1,398,1
 576,So17,"2020-12-01 00:00:00",0,,,,Archive,1,399,1
 577,So18,"2020-12-02 00:00:00",0,,,,Archive,1,390,1
-591,newOrderEdit,"2023-04-12 00:00:00",0,,,,Placed,41,407,0
-595,testingApp1,"2023-04-20 00:00:00",0,,,,Placed,44,415,0
-596,referenceNumber,"2023-04-20 00:00:00",0,,,,Placed,45,416,0
-597,newOrderTest,"2023-04-20 00:00:00",1,Mom,"Love you!",,Placed,46,417,0

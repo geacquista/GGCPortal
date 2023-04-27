@@ -1,7 +1,7 @@
 import React from "react";
 
 import UserService from "../../services/UserDataService";
-import EventBus from "../../common/EventBus";
+import EventBus from "../../assets/util/EventBus";
 
 class BoardFarmUser extends React.Component {
   constructor(props) {
