@@ -16,17 +16,15 @@ const update = (id, data) => {
   return http.put(`/orderline/${id}`, data);
 };
 
-const remove = id => {
-  return http.delete(`/orderline/${id}`);
+const remove = (id) => {
+  console.log('reemove id: ', id)
+  return http.delete(`/orderline/${id.lineOrderID}/${id.lineProductID}`);
 };
 
 const removeAll = () => {
   return http.delete(`/orderline`);
 };
 
-const findByOrder = lineOrderID => {
-  return http.get(`/orderline?lineOrderID=${lineOrderID}`)
-};
 
 
 const OrderLineDataService = {
@@ -35,8 +33,7 @@ const OrderLineDataService = {
   create,
   update,
   remove,
-  removeAll,
-  findByOrder
+  removeAll
 };
 
 export default OrderLineDataService;

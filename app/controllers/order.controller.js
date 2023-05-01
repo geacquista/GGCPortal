@@ -55,7 +55,7 @@
  
  // Find a single Order by Id
  exports.findOne = (req, res) => {
-   Order.findById(req.params.id, (err, data) => {
+   Order.findById(parseInt(req.params.id), (err, data) => {
      if (err) {
        if (err.kind === "not_found") {
          res.status(404).send({
@@ -81,7 +81,7 @@
    console.log(req.body);
  
    Order.updateById(
-     req.params.id,
+     parseInt(req.params.id),
      new Order(req.body),
      (err, data) => {
        if (err) {

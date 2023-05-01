@@ -41,4 +41,5 @@ const mapStateToProps = (state) => {
 	};
   };
   
-export default connect(mapStateToProps, { retrieveInvoices, retrieveOrders, retrieveCustomers, retrieveOrderLines, retrieveShippingAddresses, retrieveProducts})(Dashboard);
+export default connect(mapStateToProps, { 
+	retrieveInvoices, retrieveOrders, retrieveCustomers, retrieveOrderLines, retrieveShippingAddresses, retrieveProducts})(Dashboard);

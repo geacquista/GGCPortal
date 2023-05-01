@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import OrderCard from '../orders/orderview_components/OrderCard';
 import { connect } from 'react-redux';
 
+import "../../assets/style/search.css"
+
+
 class List extends Component {
   constructor(props) {
     super(props);
@@ -10,6 +13,7 @@ class List extends Component {
 
   render() {
     const {customers, shippingAddresses, invoices, orderline} = this.props;
+
     const filteredData = this.props.orders.filter(el => {
       if (this.props.input === '') {
         return el;
@@ -19,7 +23,7 @@ class List extends Component {
     });
 
     return (
-      <div>
+      <div className="grid-container">
         {filteredData.map(order => {
             const filteredCustomer = customers.filter(customer => customer.customerID === order.customerId)[0]
             const filteredAddress = shippingAddresses.filter(address => address.shippingID === order.shippingId)[0]
@@ -28,16 +32,19 @@ class List extends Component {
 
             return(
             
-            <OrderCard
-              key={order.orderID}
-              order={order}
+              <div className='grid-item'>
+                <OrderCard
+                  key={order.orderID}
+                  order={order}
 
-              color='#90E0C9'
-              customer={filteredCustomer} 
-              address={filteredAddress} 
-              invoice={filteredInvoice} 
-              orderline={filteredLine} 
-            />
+                  color='#90E0C9'
+                  customer={filteredCustomer} 
+                  address={filteredAddress} 
+                  invoice={filteredInvoice} 
+                  orderline={filteredLine} 
+                />
+              </div>
+            
         ) 
         }) 
         }

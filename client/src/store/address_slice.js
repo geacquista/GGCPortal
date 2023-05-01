@@ -34,9 +34,9 @@ export const retrieveShippingAddresses = createAsyncThunk(
 );
 
 export const retrieveShippingAddress = createAsyncThunk(
-  "shippingAddresses/readShippingAddress",
+  "shippingAddresses/read",
   async ({ id }) => {
-    const res = await ShippingAddressDataService.get(id);
+    const res = await ShippingAddressDataService.get({id: id});
     return res.data;
   }
 )

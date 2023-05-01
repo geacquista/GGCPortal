@@ -1,6 +1,7 @@
 import List from "./List";
 import React, { Component } from 'react'
 import { connect } from "react-redux";
+import "../../assets/style/search.css"
 
 
 class Search extends Component {
@@ -12,10 +13,12 @@ class Search extends Component {
 		this.state = {
 			orders: props.orders,
 			customers: props.customers,
+			shippingAddresses: props.shippingAddresses,
+			invoices: props.invoices,
+			orderline: props.orderline,
 			textInput: ""
 		}
 	}
-
 
 	setTextInput(text) {
 		this.setState({
@@ -32,17 +35,24 @@ class Search extends Component {
 	render() {
 		return (
 			<div id='Search'>
+				<div id='OrdersDisplay' style={{display: 'flex', displayDirection: 'column'}}>
 				<h1>Search Orders</h1>
-				<div className="search">
-					<input
-					id="outlined-basic"
-					onChange={this.inputHandler}
-					variant="outlined"
-					fullWidth
-					label="Search"
-					/>
+
+				<div>
+					<label><i>Searching Reference Number</i></label>
+						<input  className="SearchBar"
+							id="outlined-basic"
+							onChange={this.inputHandler}
+							variant="outlined"
+							fullWidth
+							label="Search"
+						/>
 				</div>
-				<List input={this.state.textInput} orders={this.state.orders} customers={this.state.customers}/>
+
+				<div id='SearchView'>
+					<List input={this.state.textInput} orders={this.state.orders} customers={this.state.customers} shippingAddresses={this.state.shippingAddresses} invoices={this.state.invoices} orderline={this.state.orderline}/>
+				</div>
+			</div>
 			</div>
 		)
 	}
@@ -51,7 +61,10 @@ class Search extends Component {
 const mapStateToProps = (state) => {
 	return {
         orders: state.orders,
-		customers: state.customers
+		invoices: state.invoices,
+		shippingAddresses: state.shippingAddresses,
+		customers: state.customers,
+		orderline: state.orderline,
 	};
   };
   

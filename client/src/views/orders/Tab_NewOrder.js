@@ -7,11 +7,11 @@ import React, { useState, Component } from 'react'
 import { connect, useDispatch, useSelector } from "react-redux";
 import moment from 'moment';
 
-import { createOrder } from '../../store/order_slice'
-import {createShippingAddress} from '../../store/address_slice'
-import { createCustomer, createCustomerWithAddress, updateCustomer } from '../../store/customer_slice';
-import { createOrderLine } from "../../store/orderline_slice";
-import { updateInvoice } from '../../store/invoice_slice' ;
+import { createOrder, retrieveOrders } from '../../store/order_slice'
+import {createShippingAddress, retrieveShippingAddresses} from '../../store/address_slice'
+import { createCustomer, createCustomerWithAddress, updateCustomer, retrieveCustomers } from '../../store/customer_slice';
+import { createOrderLine , retrieveOrderLines} from "../../store/orderline_slice";
+import { updateInvoice, retrieveInvoices } from '../../store/invoice_slice' ;
 import {stateOptions} from '../../assets/util/dropdown.constants'
 import FlavorSelector from './orderview_components/FlavorSelector'
 import { filteredList } from '../../assets/util/functions'
@@ -29,7 +29,7 @@ const default_state = {
 			giftMessage: "",
 			isGift: 0,
 			customerId: 0,
-			shippingId: 0,
+			shippingId: 1,
 			isSelfOrder:0,
 
 		},
@@ -54,11 +54,10 @@ const default_state = {
 			invoiceStatus: "Missing",
 		},
 		productsOrdered: [
-			{ quantity: 1, flavor: 'Plain' },
+			{ quantity: 1, flavor: 'jPL5', name: "Plain" },
 		],
 		numberOfLogs: 0,
 		numberOfFlavors: 0,
-		viewOnly: false,
 		isSelfOrderToggle:false,
 		isGiftToggle:false
 }
@@ -79,21 +78,29 @@ class NewOrder extends Component {
 		this.handleRemoveFlavor = this.handleRemoveFlavor.bind(this);
 
 		this.handleCustomerPaid = this.handleCustomerPaid.bind(this);
-		
+		this.updateState = this.updateState.bind(this);		
 
 		// Toggle handlers
 		this.handleSelfOrderChange = this.handleSelfOrderChange.bind(this)
 		this.handleIsGiftChange = this.handleIsGiftChange.bind(this)
 
-
 		// Operations
-		this.deleteCurrOrder = this.deleteCurrOrder.bind(this)
-		this.submitOrder = this.submitOrder.bind(this)
-
+		this.submitOrder = this.submitOrder.bind(this);
+	
 		this.refreshState = this.refreshState.bind(this)
 
 		// Set default state
 	  	this.state = default_state
+	}
+
+	updateState(orderID) {
+		this.props.retrieveInvoices();
+		this.props.retrieveOrders();
+		this.props.retrieveCustomers();
+		this.props.retrieveOrderLines();
+		this.props.retrieveShippingAddresses();
+
+		this.refreshState()
 	}
 
 	// NOT WORKING
@@ -105,13 +112,18 @@ class NewOrder extends Component {
 
 	// RENDERING COMPONENTS
 	renderFlavorSelectors = () => {
-		return this.state.productsOrdered.map((flavor, index) => (
+				console.log(this.state.productsOrdered)
+		return this.state.productsOrdered.map((product, index) => (
 		  <FlavorSelector
 			key={index}
-			quantity={flavor.quantity}
-			flavor={flavor.flavor}
-			onChange={(quantity, flavor) => this.handleFlavorChange(index, quantity, flavor)}
+			quantity={product.quantity}
+			flavor={product.flavor}
+			onChange={(quantity, flavor, name) => this.handleFlavorChange(index, quantity, flavor, name)}
+
 			onRemove={() => this.handleRemoveFlavor(index)}
+
+			onAddQty={() => this.handleAddQty(index)}
+  			onSubQty={() => this.handleSubQty(index)}
 			products={this.props.products}
 		  />
 		));
@@ -131,8 +143,7 @@ class NewOrder extends Component {
                     type="decimal"
                     className="inputField"
                     id="customerPaid"
-                    required
-                    value={this.state.customerPaid}
+                    value={this.state.activeInvoice.customerPaid}
                     onChange={this.handleCustomerPaid}
                     name="customerPaid"
                   />
@@ -147,7 +158,7 @@ class NewOrder extends Component {
 				<label className='BoxDescriptionTitle' style={{alignItems:"center"}}>Order Information</label>
                 <div className="OrderViewHeaderNew_Inner">
 					
-                  <label htmlFor="referenceNumber"><h4 style={{fontWeight: 'bold'}}>Reference #<span className="required">	*</span></h4></label>
+                  <label htmlFor="referenceNumber"><h4 style={{fontWeight: 'bold'}}>Reference #<span className="required">*</span></h4></label>
                   <input
                     type="text"
                     className="inputField"
@@ -160,10 +171,11 @@ class NewOrder extends Component {
                 </div>
 
                 <div className="OrderViewHeaderNew_Inner">
-                  <label htmlFor="datePlaced"><h4 style={{fontWeight: 'bold'}}>Date Placed<span className="required">	*</span></h4></label>
+                  <label htmlFor="datePlaced"><h4 style={{fontWeight: 'bold'}}>Date Placed<span className="required">*</span></h4></label>
                   <input
                     type="date"
                     className="inputField"
+					required
                     id="datePlaced"
                     value={this.state.activeOrder.datePlaced || ''}
                     onChange={this.handleInputActiveOrder}
@@ -205,7 +217,7 @@ class NewOrder extends Component {
 				</label>
 				<div className='CustomerNameView_Layout'>
 					<div className="OrderViewHeaderNew_Inner">
-						<label htmlFor="firstName"><h4 style={{fontWeight: 'bold', paddingRight:'1vw'}}>First <span className="required">	*</span>	</h4></label>
+						<label htmlFor="firstName"><h4 style={{fontWeight: 'bold', paddingRight:'1vw'}}>First <span className="required">*</span>	</h4></label>
 						<input
 							type="text"
 							className="inputField"
@@ -218,7 +230,7 @@ class NewOrder extends Component {
 						/>
 					</div>
 					<div className="OrderViewHeaderNew_Inner">
-					  <label htmlFor="lastName"><h4 style={{fontWeight: 'bold'}}>Last <span className="required">	*</span></h4></label>
+					  <label htmlFor="lastName"><h4 style={{fontWeight: 'bold'}}>Last <span className="required">*</span></h4></label>
 					  <input
 						type="text"
 						className="inputField"
@@ -232,7 +244,7 @@ class NewOrder extends Component {
 				</div>
 	
 				<div className='OrderViewHeaderNew_Inner'>
-					  <label htmlFor="email"><h4 style={{fontWeight: 'bold'}}>Email <span className="required">	*</span></h4></label>
+					  <label htmlFor="email"><h4 style={{fontWeight: 'bold'}}>Email <span className="required">*</span></h4></label>
 					  <input
 						type="text"
 						className="inputField"
@@ -245,7 +257,7 @@ class NewOrder extends Component {
 					  />
 				</div>
 				<div className='OrderViewHeaderNew_Inner'>
-					  <label htmlFor="phoneNumber"><h4 style={{fontWeight: 'bold'}}>Phone <span className="required">	*</span></h4></label>
+					  <label htmlFor="phoneNumber"><h4 style={{fontWeight: 'bold'}}>Phone <span className="required">*</span></h4></label>
 					  <input
 						type="text"
 						className="inputField"
@@ -269,7 +281,7 @@ class NewOrder extends Component {
 			<div id='NewOrderCustomer' className='GenericBackgroundAdd'>
 				<label className='BoxDescriptionTitle'>Gift Information</label>		
 				<div className="OrderViewHeaderNew_Inner">
-						<label htmlFor="giftFor"><h4 style={{fontWeight: 'bold'}}>Gift For <span className="required">	*</span>	</h4></label>
+						<label htmlFor="giftFor"><h4 style={{fontWeight: 'bold'}}>Gift For <span className="required">*</span>	</h4></label>
 						<input
 							type="text"
 							className="inputField"
@@ -281,7 +293,7 @@ class NewOrder extends Component {
 						/>
 					</div>
 					<div className="OrderViewHeaderNew_Inner">
-					  <label htmlFor="giftMessage"><h4 style={{fontWeight: 'bold'}}>Gift Message <span className="required">	*</span></h4></label>
+					  <label htmlFor="giftMessage"><h4 style={{fontWeight: 'bold'}}>Gift Message <span className="required">*</span></h4></label>
 					  <input
 						type="textarea" rows="4" cols="50"
 						className="inputField"
@@ -303,7 +315,7 @@ class NewOrder extends Component {
 			<div id='NewOrderShipping' className='GenericBackgroundAdd'>
 				<label className='BoxDescriptionTitle' >Shipping Information</label>
 				<div className="OrderViewHeaderNew_Inner">
-					  <label htmlFor="streetAddressOne"><h4 style={{fontWeight: 'bold'}}>Street Address One <span className="required">	*</span></h4></label>
+					  <label htmlFor="streetAddressOne"><h4 style={{fontWeight: 'bold'}}>Street Address One <span className="required">*</span></h4></label>
 					  <input
 						type="text"
 						className="inputField"
@@ -321,7 +333,6 @@ class NewOrder extends Component {
 						type="text"
 						className="inputField"
 						id="streetAddressTwo"
-						required
 						value={streetAddressTwo || ''}
 						onChange={handleChange}
 						name="streetAddressTwo"
@@ -330,7 +341,7 @@ class NewOrder extends Component {
 					</div>
 					<div className="OrderViewHeaderNew_Inner">
 						<div className="OrderViewHeaderNew_Inner">
-						<label htmlFor="city"><h4 style={{fontWeight: 'bold'}}>City <span className="required">	*</span></h4></label>
+						<label htmlFor="city"><h4 style={{fontWeight: 'bold'}}>City <span className="required">*</span></h4></label>
 						<input
 							type="text"
 							className="inputField"
@@ -343,7 +354,7 @@ class NewOrder extends Component {
 						/>
 						</div>
 						<div className="OrderViewHeaderNew_Inner">
-							<label htmlFor="state"><h4 style={{fontWeight: 'bold'}}>State <span className="required">	*</span></h4></label>
+							<label htmlFor="state"><h4 style={{fontWeight: 'bold'}}>State <span className="required">*</span></h4></label>
 								<select className="dropdown" value={state} onChange={handleChange} name="state">
 									<option value="">--Select--</option>
 									{stateOptions.map((option) => (
@@ -372,16 +383,15 @@ class NewOrder extends Component {
 	}
 	
 
-
 	//------ HANDLERS --------//
-	handleFlavorChange(index, quantity, flavor) {
+	handleFlavorChange(index, quantity, flavor, name) {
 		const newFlavors = [...this.state.productsOrdered];
-		newFlavors[index] = { quantity, flavor };
+		newFlavors[index] = { quantity, flavor, name};
 		this.setState({ productsOrdered: newFlavors });
 	}
 	
 	handleAddFlavor() {
-	const newFlavors = [...this.state.productsOrdered, { quantity: 1, flavor: 'jPL5' }];
+	const newFlavors = [...this.state.productsOrdered, { quantity: 1, flavor: 'jPL5', name: "Plain" }];
 	this.setState({ productsOrdered: newFlavors });
 	}
 
@@ -389,6 +399,22 @@ class NewOrder extends Component {
 	const newFlavors = this.state.productsOrdered.filter((flavor, i) => i !== index);
 	this.setState({ productsOrdered: newFlavors });
 	}
+
+	handleAddQty(index) {
+		const newFlavors = [...this.state.productsOrdered];
+		const newQuantity = newFlavors[index].quantity + 1;
+		newFlavors[index] = { ...newFlavors[index], quantity: newQuantity };
+		this.setState({ productsOrdered: newFlavors });
+	  }
+	  
+	  handleSubQty(index) {
+		const newFlavors = [...this.state.productsOrdered];
+		const newQuantity = newFlavors[index].quantity - 1;
+		if (newQuantity > 0) {
+		  newFlavors[index] = { ...newFlavors[index], quantity: newQuantity };
+		  this.setState({ productsOrdered: newFlavors });
+		}
+	  }
 
 
 	handleInputActiveOrder(e) {
@@ -475,134 +501,96 @@ class NewOrder extends Component {
 
 	// Good luck to the next person who has to look at this code
 	async submitOrder() {
-		const {activeAddress, activeCustomer, isGiftToggle} = this.state;
-
+		const { activeAddress, activeCustomer, isGiftToggle, isSelfOrderToggle } = this.state;
+	  
 		try {
+		  // Check whether the address exists
+		  let shippingId;
+		  if (!isSelfOrderToggle) {
 			const addressExists = filteredList({
-				list: this.props.shippingAddresses,
-				activeObject: activeAddress,
-				fieldsToCheck: ["streetAddressOne", "streetAddressTwo", "city", "state", "zip"],
+			  list: this.props.shippingAddresses,
+			  activeObject: activeAddress,
+			  fieldsToCheck: ["streetAddressOne", "streetAddressTwo", "city", "state", "zip"],
 			});
-	
+	  
 			if (addressExists) {
-				this.setState({
-					...this.state,
-					activeOrder: {
-						...this.state.activeOrder,
-						shippingId: addressExists.shippingID
-					}
-				});
+			  shippingId = addressExists.shippingID;
 			} else {
-				const {streetAddressOne, streetAddressTwo, city, state, zip} = this.state.activeAddress;
-				//create an address and get the new shippingId
-				const data = await this.props.createShippingAddress({streetAddressOne, streetAddressTwo, city, state, zip});
-				this.setState({
-					...this.state,
-					activeOrder: {
-						...this.state.activeOrder,
-						shippingId: data.payload.shippingID
-					}
-				});
-				
+			  // create an address and get the new shippingId
+			  const { streetAddressOne, streetAddressTwo, city, state, zip } = this.state.activeAddress;
+			  const data = await this.props.createShippingAddress({
+				streetAddressOne,
+				streetAddressTwo,
+				city,
+				state,
+				zip
+			  });
+			  shippingId = data.payload.shippingID;
 			}
-	
-			const customerExists = filteredList({
-				list: this.props.customers,
-				activeObject: activeCustomer,
-				fieldsToCheck: ["email"],
-			});
-	
-			if (customerExists) {
-			// take the customerId that exists and dont do anything to it
-				this.setState({
-					...this.state,
-					activeOrder: {
-						...this.state.activeOrder,
-						customerId: customerExists.customerID
-					}
-				})
-				// WEIRD CASE: if it exists, and addresses are not the same, update it in the backend
-				if (!isGiftToggle && customerExists.customerShippingId !== this.state.activeOrder.shippingId) {
-					// update the customer's most recent shipping address
-					await this.props.updateCustomer({ id: this.state.activeOrder.customerId, data: this.state.activeCustomer });
-				}
-	
-			} else {
-
-				const {firstName, lastName, email, phoneNumber} = this.state.activeCustomer;
-				const customerShippingId = this.state.activeOrder.shippingId;
-
-				if (isGiftToggle) {
-					//add the customer without an address mapped to it				
-					const data = await this.props.createCustomer({firstName, lastName, email, phoneNumber});
-					this.setState({
-						...this.state,
-						activeOrder: {
-							...this.state.activeOrder,
-							customerId: data.payload.customerID
-						}
-					});
-				} else {
-					// just adding the customer mapped to the address
-					const data = await this.props.createCustomerWithAddress({firstName, lastName, email, phoneNumber, customerShippingId});
-					this.setState({
-						...this.state,
-						activeOrder: {
-							...this.state.activeOrder,
-							customerId: data.payload.customerID
-						}
-					});
-				}
-				
-			} 
-	
-			console.log(this.state.activeOrder)
-			const { referenceNumber, datePlaced, isGift, giftFor, giftMessage, trackingNumber, orderStatus, shippingId, customerId, isSelfOrder } = this.state.activeOrder;
-	
-			// add the order and get orderID
-			const orderData = await this.props.createOrder({ referenceNumber, datePlaced, isGift, giftFor, giftMessage, trackingNumber, orderStatus, shippingId, customerId, isSelfOrder });
-			
-			this.setState({
-				...this.state,
-				orderID: orderData.payload.orderID
-			});
-
-			const {orderID, activeInvoice, productsOrdered} = this.state;
-
-			if(activeInvoice.customerPaid > 0) {
-				const data = await this.props.updateInvoice({ id: orderID, data: activeInvoice });
+		  } else {
+			shippingId = 1;
+		  }
+	  
+		  // Check whether the customer exists
+		  let customerId;
+		  const customerExists = filteredList({
+			list: this.props.customers,
+			activeObject: activeCustomer,
+			fieldsToCheck: ["email"],
+		  });
+	  
+		  if (customerExists) {
+			customerId = customerExists.customerID;
+			if (!isGiftToggle && !isSelfOrderToggle && customerExists.customerShippingId !== shippingId) {
+			  // update the customer's most recent shipping address
+			  await this.props.updateCustomer({ id: customerId, data: this.state.activeCustomer });
 			}
+		  } else {
+			// create a new customer
+			const { firstName, lastName, email, phoneNumber } = this.state.activeCustomer;
+			const customerShippingId = isGiftToggle ? null : shippingId;
+			const data = await this.props.createCustomerWithAddress({ firstName, lastName, email, phoneNumber, customerShippingId });
+			customerId = data.payload.customerID;
+		  }
+	  
+		  // Add the order and get orderID
+		  const { referenceNumber, datePlaced, isGift, giftFor, giftMessage, trackingNumber, orderStatus, isSelfOrder } = this.state.activeOrder;
+		  const orderData = await this.props.createOrder({
+			referenceNumber,
+			datePlaced,
+			isGift,
+			giftFor,
+			giftMessage,
+			trackingNumber,
+			orderStatus,
+			shippingId,
+			customerId,
+			isSelfOrder
+		  });
+	  
+		  const orderID = orderData.payload.orderID;
+	  
+		  // Update the invoice
+		  const { activeInvoice } = this.state;
+		  if (activeInvoice.customerPaid > 0) {
+			await this.props.updateInvoice({ id: orderID, data: activeInvoice });
+		  }
+	  
+		  // Add the order lines
+		  const { productsOrdered } = this.state;
+		  for (const product of productsOrdered) {
+			const lineProductID = product.flavor;
+			const qtyOrdered = product.quantity;
+			await this.props.createOrderLine({ lineOrderID: orderID, lineProductID, qtyOrdered });
+		  }
+		  this.updateState(orderID);
 
-			//iterate through my list of productsOrdered, for each add orderline (newOrderID, sku, quantity)
-
-			productsOrdered.forEach(async (product) => {
-				const lineOrderID = this.state.orderID;
-				const lineProductID = product.flavor;
-				const qtyOrdered = product.quantity;
-			  
-				await this.props.createOrderLine({ lineOrderID, lineProductID, qtyOrdered });
-			  });			  
-
-			
 		} catch (error) {
-
-			//TODO render an im sorry message
-			console.log(error)
+		  // TODO render an "I'm sorry" message
+		  console.log(error);
 		}
-
-		this.refreshState()
-	}
-
-	deleteCurrOrder(id, event) {
-		this.props
-			.deleteOrder({id: (this.state.orderID)}) 
-			.then(() => {
-				this.props.orderCardOnDelete(id, event)
-			})
-			.catch((e) => {
-				console.log(e);
-			});
-	}
+	  }
+		  
   
 	render() {
 		const {order, activeTabId} = this.props;
@@ -654,7 +642,7 @@ class NewOrder extends Component {
 							<div id="NewOrderProducts" className="GenericBackgroundAdd">
 								<label className="BoxDescriptionTitle">Order Details</label>
 								{this.renderFlavorSelectors()}
-								<button className='CenterEvenAlignFlexRow addFlavorButton' onClick={this.handleAddFlavor}>
+								<button className='CenterEvenAlignFlexRow addFlavorButton' onClick={() => this.handleAddFlavor()}>
 									<img src={add_icon} alt='add order' style={{paddingRight: '10px'}}/>
 									Add Flavor
 								</button>
@@ -683,5 +671,12 @@ class NewOrder extends Component {
 	};
   };
   
-export default connect(mapStateToProps, { createOrder, createCustomer, createCustomerWithAddress, updateCustomer, updateInvoice, createShippingAddress, createOrderLine })(NewOrder);
+export default connect(mapStateToProps, { 
+	createOrder, 
+	createCustomer, createCustomerWithAddress, updateCustomer, 
+	updateInvoice, 
+	createShippingAddress, 
+	createOrderLine,
+	retrieveInvoices, retrieveOrders, retrieveCustomers, retrieveOrderLines, retrieveShippingAddresses
+	})(NewOrder);
 

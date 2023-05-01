@@ -48,6 +48,7 @@ export const updateOrderLine = createAsyncThunk(
 export const deleteOrderLine = createAsyncThunk(
   "orderline/delete",
   async ({ id }) => {
+    console.log(id)
     await OrderLineDataService.remove(id);
     return { id };
   }
@@ -64,13 +65,12 @@ export const deleteAllOrderLines = createAsyncThunk(
 export const findOrderLineByOrderID = createAsyncThunk(
     "orderline/findByOrderID",
     async ({ id }) => {
+      console.log(id)
       const res = await OrderLineDataService.findByOrder(id);
       return res.data;
     }
   );
   
-
-
 export const orderlineSlice = createSlice({
   name: 'orderline',
   initialState: [],
