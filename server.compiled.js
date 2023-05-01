@@ -1,10 +1,10 @@
 "use strict";
 
 var _path = _interopRequireDefault(require("path"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-var express = require("express");
-var cors = require("cors");
-var app = express();
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+const express = require("express");
+const cors = require("cors");
+const app = express();
 
 // var corsOptions = {
 //   origin: 'http://goats-portal.us-east-1.elasticbeanstalk.com' || 'http://localhost:3001'
@@ -16,9 +16,9 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
-app.use(express["static"](_path["default"].join(__dirname, 'client', 'build')));
+app.use(express.static(_path.default.join(__dirname, 'client', 'build')));
 // simple route
-app.get("/", function (req, res) {
+app.get("/", (req, res) => {
   res.json({
     message: "Welcome to GGC Portal Server."
   });
@@ -37,8 +37,7 @@ require("./app/routes/login.routes.js")(app);
 
 // set port, listen for requests
 // 3001 local
-// rds 3306
-var PORT = process.env.PORT || 3001;
-app.listen(PORT, function () {
-  console.log("Server is running on port ".concat(PORT, "."));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
 });

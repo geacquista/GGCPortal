@@ -100,7 +100,29 @@ const App = ({
       clearMessage(); // clear message when changing location
     }
   }, [location.pathname, clearMessage]);
+  useEffect(() => {
+    if (["/"].includes(location.pathname)) {
+      clearMessage(); // clear message when changing location
+    }
+  }, [location.pathname, clearMessage]);
 
+  useEffect(() => {
+    if (auth.isLoggedIn && auth.user !== activeUser) {
+      setActiveUser({
+        userID: auth.user.userID,
+        email: auth.user.email,
+        nickname: auth.user.nickname,
+        permissionType: auth.user.permissionType
+      });
+    } else if (!auth.isLoggedIn && activeUser !== null) {
+      setActiveUser({
+        userID: null,
+        email: "",
+        nickname: "",
+        permissionType: PermissionTypes.LOGGEDOUT
+      });
+    }
+  }, [auth.isLoggedIn, auth.user, activeUser]);
   useEffect(() => {
     if (auth.isLoggedIn && auth.user !== activeUser) {
       setActiveUser({
@@ -138,7 +160,6 @@ const App = ({
             <img alt='logo' src={logo} height='150' width='150' />
             <h2 style={{paddingTop:"12px"}}>G.O.A.T.S.</h2>
           </div>
-
 
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'} }>
           
@@ -202,6 +223,8 @@ const App = ({
                             <h4>Search</h4>
                         </button>
                     </Link>
+                <div id="NavBarBottom" className="OrderViewHeaderCol_Inner">
+
                   <Link to={"/help"} className="nav-link">
                     <button className='NavBarButton' >
                       <img src={help_icon} alt='nav' style={{paddingRight: '10px'}}/>
@@ -214,10 +237,12 @@ const App = ({
                       <h4> Log Out {activeUser.nickname}</h4>
                     </button>
                 </a>
+                </div>
 
             </div>
           ) : (
               <div className="navbar-nav" id={"nav-main-content"} style={{display:'flex', flexDirection:'column'}}>
+                {/* <div id="NavBarTop">
                 {/* <div id="NavBarTop">
                   <Link to={"/dashboard"} className="nav-link">
                     <button className='NavBarButton' >
@@ -245,7 +270,6 @@ const App = ({
                       <img src={help_icon} alt='nav' style={{paddingRight: '10px'}}/>
                       <h4>Help</h4>
                     </button>
-                      
                     </Link>
                     <Link to={"/"} className="nav-link">
                     <button className='NavBarButton' >
@@ -260,6 +284,7 @@ const App = ({
         
         <div className="container mt-3" id="mainViewContainer">
           <Routes>
+            <Route path="/" element={<Login />} />
             <Route path="/" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard/>} />
             <Route path="/orders" element={<MainOrderPane/>}/>

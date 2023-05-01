@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import '../../assets/style/login.css'
 import { Navigate } from "react-router-dom";
 import {login} from "../../store/auth"
 import authService from "../../services/auth.service";
