@@ -95,29 +95,29 @@ const App = ({
 
   const location = useLocation();
 
-  // useEffect(() => {
-  //   if (["/"].includes(location.pathname)) {
-  //     clearMessage(); // clear message when changing location
-  //   }
-  // }, [location.pathname, clearMessage]);
+  useEffect(() => {
+    if (["/"].includes(location.pathname)) {
+      clearMessage(); // clear message when changing location
+    }
+  }, [location.pathname, clearMessage]);
 
-  // useEffect(() => {
-  //   if (auth.isLoggedIn && auth.user !== activeUser) {
-  //     setActiveUser({
-  //       userID: auth.user.userID,
-  //       email: auth.user.email,
-  //       nickname: auth.user.nickname,
-  //       permissionType: auth.user.permissionType
-  //     });
-  //   } else if (!auth.isLoggedIn && activeUser !== null) {
-  //     setActiveUser({
-  //       userID: null,
-  //       email: "",
-  //       nickname: "",
-  //       permissionType: PermissionTypes.LOGGEDOUT
-  //     });
-  //   }
-  // }, [auth.isLoggedIn, auth.user, activeUser]);
+  useEffect(() => {
+    if (auth.isLoggedIn && auth.user !== activeUser) {
+      setActiveUser({
+        userID: auth.user.userID,
+        email: auth.user.email,
+        nickname: auth.user.nickname,
+        permissionType: auth.user.permissionType
+      });
+    } else if (!auth.isLoggedIn && activeUser !== null) {
+      setActiveUser({
+        userID: null,
+        email: "",
+        nickname: "",
+        permissionType: PermissionTypes.LOGGEDOUT
+      });
+    }
+  }, [auth.isLoggedIn, auth.user, activeUser]);
 
   const logOut = () => {
     logout();
@@ -143,8 +143,8 @@ const App = ({
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'} }>
           
             {activeUser.userID && activeUser.permissionType ===PermissionTypes.FARM && (
-              <div className="NavBarButton">
-                  <Link to={"/dashboard-farm"} className="nav-link">
+                <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'column'}}>
+                <Link to={"/dashboard-farm"} className="nav-link">
                     <button className='NavBarButton' >
                             <img src={home_icon} alt='nav' style={{paddingRight: '10px'}}/>
                             <h4>Dashboard</h4>
@@ -162,14 +162,12 @@ const App = ({
             )}
             {activeUser.userID && activeUser.permissionType !==PermissionTypes.FARM && (
                 <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'column'}}>
-                    <li className="NavBarButton">
                         <Link to={"/dashboard"} className="nav-link">
                         <button className='NavBarButton' >
                             <img src={home_icon} alt='nav' style={{paddingRight: '10px'}}/>
                             <h4>Dashboard</h4>
                           </button>
                         </Link>
-                        </li><li>
                           <Link to={"/orders"} className="nav-link">
                           <button className='NavBarButton' >
                             <img src={order_icon} alt='nav' style={{paddingRight: '10px'}}/>
@@ -178,7 +176,6 @@ const App = ({
                           
                         </Link>
 
-                    </li>
                 </div>
               
             )}
@@ -198,7 +195,7 @@ const App = ({
           </div>
 
           {activeUser.userID ? (
-            <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'row'}}>
+            <div className="navbar-nav ml-auto" style={{display:'flex', flexDirection:'column'}}>
                     <Link to={"/search"} className="nav-link">
                       <button className='NavBarButton' >
                             <img src={search_icon} alt='nav' style={{paddingRight: '10px'}}/>
@@ -221,7 +218,7 @@ const App = ({
             </div>
           ) : (
               <div className="navbar-nav" id={"nav-main-content"} style={{display:'flex', flexDirection:'column'}}>
-                <div id="NavBarTop">
+                {/* <div id="NavBarTop">
                   <Link to={"/dashboard"} className="nav-link">
                     <button className='NavBarButton' >
                       <img src={home_icon} alt='nav' style={{paddingRight: '10px'}}/>
@@ -241,7 +238,7 @@ const App = ({
                       <h4>Search</h4>
                     </button>
                     </Link>
-                </div>
+                </div> */}
                 <div id="NavBarBottom" className="OrderViewHeaderCol_Inner">
                     <Link to={"/help"} className="nav-link">
                     <button className='NavBarButton' >
@@ -263,7 +260,7 @@ const App = ({
         
         <div className="container mt-3" id="mainViewContainer">
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard/>} />
             <Route path="/orders" element={<MainOrderPane/>}/>
 
